@@ -1,0 +1,34 @@
+// Footer
+
+footer.site-footer {
+  color: $gray;
+  background: $black;
+  @include angledEdge(before);
+
+  .section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .logos {
+    a {
+      display: inline-block;
+      svg {
+        vertical-align: top;
+      }
+      &:first-of-type {
+        margin-right: 35px;
+      }
+    }
+  }
+
+  .il-humanities-logo {
+    width: 123px;
+    height: 50px;
+  }
+  .envisioning-justice-logo {
+    height: 40px;
+    width: 145px;
+    fill: #bcb5b5;
+  }
+}

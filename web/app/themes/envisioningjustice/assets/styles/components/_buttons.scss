@@ -1,0 +1,39 @@
+// Buttons
+
+.button {
+  color: $black;
+  padding: 20px;
+  outline: none;
+  cursor: pointer;
+  @include type-h3;
+  background: none;
+  border-radius: 0;
+  border-width: 5px;
+  border-style: solid;
+  border-color: $black;
+  display: inline-block;
+  &:hover {
+    color: $gray;
+    background-color: $black;
+  }
+  &[disabled] {
+    color: $gray-dark;
+    border-color: $gray-dark;
+    &:hover {
+      cursor: no-drop;
+      color: $gray-dark;
+      background-color: transparent;
+    }
+  }
+}
+
+@each $name, $color in $colors {
+  .button.-#{$name} {
+    color: $color;
+    border-color: $color;
+    &:hover {
+      color: $black;
+      background-color: $color;
+    }
+  }
+}

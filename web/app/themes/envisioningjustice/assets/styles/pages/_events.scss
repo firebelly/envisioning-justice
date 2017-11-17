@@ -1,0 +1,137 @@
+// Events
+
+// Event landing page
+.post-type-archive-event {
+  #map {
+    top: 700px;
+    left: auto;
+    right: -500px;
+    margin-right: 15%;
+    margin-left: 0;
+    &.sticky {
+      top: 0;
+      right: -500px;
+      margin-right: 18.15%; // don't ask
+      position: fixed;
+    }
+  }
+}
+
+// Single event page
+.single-event {
+  .share {
+    display: block;
+  }
+  #map {
+    width: 100%;
+    height: 150px;
+  }
+  .event-details {
+    @include clearfix;
+    background: $white;
+    padding: 25px 25px 5px;
+    margin-bottom: 60px;
+
+    h3 {
+      margin-bottom: 4px;
+    }
+    p { 
+      margin-bottom:20px;
+    }
+    .sponsors {
+      margin-bottom: 20px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+    .actions {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+// Tab navigation w/ current item matching .flag styling -- currently only used in Events for past/upcoming toggle
+.flag-tabs {
+  margin: -30px 0 0 0;
+  padding: 0;
+  list-style: none;
+  li {
+    display: inline;
+  }
+  a {
+    @include font-style1;
+    line-height: 20px;
+    display: inline-block;
+    position: relative;
+    background: $dk-blue;
+    margin: 0 -5px 0 0;
+    padding: 5px 15px;
+    color: $white;
+    text-decoration: underline;
+    &.active {
+      text-decoration: none;
+      background: $color-accent;
+      &::after {
+        top: 100%;
+        right: 0;
+        position: absolute;
+        width: 0;
+        height: 0;
+        content: '';
+        border-right: 25px solid transparent;
+        border-top: 20px solid $color-accent;
+      }
+    }
+  }
+}
+
+.filters {
+  background: $white;
+  min-height: 70px;
+  padding: 20px #{$column-width/2 * 22/15};
+  margin-bottom: 30px;
+  @include clearfix;
+
+  .event-proximity,
+  .program-topic,
+  .focus-area-topic {
+    @include font-style1;
+    margin: 10px 0;
+    @include tablet {
+      float: left;
+      margin-right: 30px;
+    }
+  }
+  .event-proximity {
+    clear: left;
+    .input-wrapper {
+      display: inline-block;
+      input[type=text] {
+        @include font-style1;
+        border: none;
+        outline: none;
+        color: $dk-blue;
+        padding: 6px 10px;
+        line-height: 14px;
+        padding: 0;
+        text-transform: uppercase;
+        margin: 0 30px 10px 0;
+        width: 70px;
+        border-radius: 0;
+        border-bottom: 1px solid $dk-blue;
+      }
+    }
+  }
+  .actions {
+    @include tablet {
+      clear: left;
+      padding-top: 20px;
+    }
+    @media screen and (min-width: 1248px) {
+      clear: none;
+      float: right;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+}

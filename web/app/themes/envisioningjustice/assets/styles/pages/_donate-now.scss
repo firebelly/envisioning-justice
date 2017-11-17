@@ -1,0 +1,8 @@
+// Donate Now page
+
+.donate-now.page {
+  // avoid a ton of white space on donation form
+  main .one-column {
+    max-width: 580px;
+  }
+}

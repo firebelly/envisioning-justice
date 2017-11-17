@@ -1,0 +1,61 @@
+// Maps
+
+#map {
+  display: none;
+  background: #eee;
+  @include tablet {
+    display: block;
+    &.large {
+      background: none;
+      position: absolute;
+      top: 700px;
+      left: -500px;
+      margin-left: 10%;
+      width: 1200px;
+      height: 1000px;
+      cursor: default;
+      // Give leaflet panes layout to match #map
+      .leaflet-map-pane,
+      .leaflet-tile-pane {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      // Gradient just above the leaflet-tile-pane (not above markers)
+      .leaflet-tile-pane::after {
+       content: '';
+       position: absolute;
+       box-shadow: inset 0 0 300px 300px $color-bg;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+      }
+
+    }
+  }
+}
+
+// Mapbox fix URLs
+.leaflet-control-attribution:after,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-popup-close-button,
+.leaflet-control-layers-toggle,
+.leaflet-container.dark .map-tooltip .close,
+.map-tooltip .close,
+.mapbox-icon {
+  background-image: url(../images/mapbox/icons-000000@2x.png);
+}
+.leaflet-container.dark .leaflet-control-attribution:after,
+.mapbox-button-icon:before,
+.leaflet-container.dark .leaflet-control-zoom-in,
+.leaflet-container.dark .leaflet-control-zoom-out,
+.leaflet-container.dark .leaflet-control-layers-toggle,
+.leaflet-container.dark .mapbox-icon {
+  background-image: url(../images/mapbox/icons-ffffff@2x.png);
+}
+.mapbox-logo-true {
+  display: none;
+}

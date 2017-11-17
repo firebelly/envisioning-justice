@@ -1,0 +1,96 @@
+// Animations
+
+.animated {
+  animation-duration: .6s;
+  animation-fill-mode: both;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  animation-name: fadeIn;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+.fadeInRight {
+  animation-name: fadeInRight;
+}
+
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+.fadeOutRight {
+  animation-name: fadeOutRight;
+}
+
+
+@keyframes bounceInLeft {
+  from, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    width: 0;
+  }
+
+  90% {
+    width: 110%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes collapse {
+  from, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 1;
+    width: 100%;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  to {
+    width: 0;
+  }
+}

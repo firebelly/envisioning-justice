@@ -1,0 +1,190 @@
+// Forms
+
+// General form styles
+form {
+  .actions {
+    margin-top: 20px;
+  }
+}
+
+// Custom select styles
+.select-wrapper {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  select {
+    color: $dk-blue;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+    padding-right: 28px;
+    background: none;
+    -webkit-appearance: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    content: '';
+    pointer-events: none;
+    border-left: 1px solid $white;
+    background: url("../images/icon-arrow-down.svg") no-repeat center center;
+    background-size: 13px 8px;
+  }
+}
+
+// Events/News filters have slightly different style
+.filters {
+  .program-topic,
+  .focus-area-topic {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+.filters .select-wrapper {
+  display: inline-block;
+  border-bottom: 1px solid $dk-blue;
+  select {
+    @include font-style1;
+    max-width: 200px;
+    text-transform: uppercase;
+  }
+  &::after {
+    height: 16px;
+    width: 24px;
+    border: none;
+    background-color: $white;
+  }
+}
+// go firefox!
+@-moz-document url-prefix() {
+  .filters .select-wrapper select {
+    -moz-appearance: none;
+  }
+}
+
+// Overrides for Blackbaud embedded forms
+#mongo-form,
+#mongo-form-38ced2e2-cad0-4cec-baa5-4e97cce64789 {
+  @include font-style1;
+
+  .BBFormContainer {
+    padding: 0;
+    border: none;
+    .BBFormFieldContainer {
+      margin-left: 0;
+      margin-right: 0;
+      color: $dk-blue;
+    }
+  }
+
+  .BBFormSectionHeading {
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: relative;
+    label {
+      @extend .flag;
+      line-height: 20px;
+      @include font-style1;
+      position: relative !important;
+      margin-bottom: 40px !important;
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  .BBFormSubSectionHeading {
+    width: 100%;
+    margin-bottom: 20px;
+    @include font-style1;
+    padding-bottom: .5em;
+    display: inline-block;
+    border-bottom: 1px solid #EBEBEB;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .BBFormSection {
+    margin: 0;
+    padding-bottom: 40px;
+  }
+
+  .BBFormTextbox,
+  .BBFormTextArea {
+    font-size: 14px;
+    border-radius: 0;
+  }
+
+  .BBFormSubmitbutton,
+  .BBFormRadioLabel {
+    @extend .button;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  // Table style
+  .BBFormTable {
+    background: none;
+    border-radius: 0;
+  }
+
+  // Radio buttons
+  .BBFormRadioButton:checked + label {
+    color: $white;
+    background: $dk-blue;
+  }
+  .BBFormGiftOtherAmount {
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-height: 1px;
+    line-height: 20px;
+    background: none;
+    @include font-style1;
+    color: $white !important;
+  }
+
+  // Donation form-specific
+  #bboxdonation_BBEmbeddedForm {
+    margin-left: -3.55%;
+    padding-left: 3.55%;
+
+    .BBFormSection {
+      max-width: none;
+      &.BBDFormSectionGiftInfo {
+        margin-top: -50px;
+      }
+    }
+
+    .BBFormSectionHeading {
+      margin-left: -3.55%;
+    }
+
+    .BBDFormSectionTributeInfo {
+      padding-bottom: 0;
+    }
+
+    #divClientError {
+      margin-bottom: 90px;
+    }
+  }
+
+  // Email signup sepcific
+  #bboxsignup-d0c2fec0-dae5-4399-b40c-71a58c118a84_lblHeadingSignup {
+    padding: 0;
+    color: $dk-blue;
+    background: none;
+    margin-bottom: 20px !important;
+    &:after {
+      display: none;
+    }
+  }
+}

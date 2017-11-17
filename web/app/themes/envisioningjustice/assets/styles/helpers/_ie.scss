@@ -1,0 +1,15 @@
+// IE fixes
+
+.lt-ie10 {
+  .search-container {
+    display: none;
+  }
+  .grid {
+    display: block;
+    @include clearfix();
+  }
+  .flex-item {
+    float: left;
+    width: 100%;
+  }
+}

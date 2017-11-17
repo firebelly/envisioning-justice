@@ -1,0 +1,55 @@
+.import-notes {
+  margin-top: 40px;
+  padding: 10px 20px;
+  background: #fff;
+  width: 460px;
+  border: #e1e1e1;
+}
+#csv-upload-form {
+  max-width: 500px;
+
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+    display: none;
+    border: 1px solid #999;
+    border-radius: 3px;
+    &.active {
+      display: block;
+    }
+  }
+
+  .progress-done {
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    transition: width .4s ease-in-out;
+    background: #ccc;
+    height: 100%;
+    width: 1%;
+    background-size: 30px 30px;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+                        transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+                        transparent 75%, transparent);
+    animation: animate-stripes 3s linear infinite;
+  }
+  @keyframes animate-stripes {
+      0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+  }
+
+  #filedrag {
+    display: none;
+    font: 16px/200px 'Open Sans', sans-serif;
+    text-align: center;
+    margin: 1em 0;
+    width: 98%;
+    height: 200px;
+    border: 6px dashed #ccc;
+    cursor: default;
+  }
+
+  #filedrag.hover {
+    border-color: #666;
+    background: #ddd;
+  }
+
+}

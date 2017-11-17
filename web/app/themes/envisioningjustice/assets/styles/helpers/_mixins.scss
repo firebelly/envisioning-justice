@@ -1,0 +1,111 @@
+// Mixins
+
+// Angled Edge Mixin
+@mixin angledEdge($sides, $backgroundImage: false, $beforeOrientation: ltr, $afterOrientation: ltr, $color: inherit, $angle: 1.68deg, $size: 4vw) {
+  @if $sides == 'before' or $sides == 'after' or $sides == 'both' {
+    position: relative;
+    
+    @if $backgroundImage == true {
+      z-index: -1;
+      background-size: cover;
+      @if $sides == 'before' or $sides == 'both' {
+        padding-top: $size;
+        margin-top: -$size;
+      }
+      @if $sides == 'after' or $sides == 'both' {
+        padding-bottom: $size;
+        margin-bottom: -$size;
+      }
+    } @else {
+
+      // Got the idea for the following line from Jeremy Frank's mixin: https://codepen.io/jeremyfrank/pen/avyezR
+      $selector: if($sides == 'both', '&::before,&::after', '&::#{$sides}');
+
+      #{$selector} {
+        left: 0;
+        right: 0;
+        content: '';
+        height: $size;
+        position: absolute;
+        background-color: $color;
+        -webkit-backface-visibility: hidden;
+      }
+
+      @if $sides == 'before' or $sides == 'both' {
+        margin-top: $size;
+        &::before {
+          top: 0;
+          @if $beforeOrientation == 'ltr' or $beforeOrientation == 'null' {
+            transform: skewY($angle) translateY(-50%);
+          } @elseif $beforeOrientation == 'rtl' {
+            transform: skewY(-$angle) translateY(-50%);
+          }
+        }
+      } 
+      @if $sides == 'after' or $sides == 'both' {
+        margin-bottom: $size;
+        &::after {
+          bottom: 0;
+          @if $afterOrientation == 'ltr' or $afterOrientation == 'null' {
+            transform: skewY($angle) translateY(50%);
+          } @elseif $afterOrientation == 'rtl' {
+            transform: skewY(-$angle) translateY(50%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Clearfix
+@mixin clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
+@mixin media-xs() { // Mobile
+  @media screen and (max-width: $breakpoint-small - 1) {
+    @content;
+  }
+}
+@mixin media-sm() { // Larger Phone
+  @media screen and (min-width: $breakpoint-small) {
+    @content;
+  }
+}
+@mixin media-md() { // Tablet
+  @media screen and (min-width: $breakpoint-medium) {
+    @content;
+  }
+}
+@mixin media-lg() { // Desktop
+  @media screen and (min-width: $breakpoint-large) {
+    @content;
+  }
+}
+
+// On-the fly media-queries
+@mixin screen($res-min, $res-max) {
+  @media screen and (min-width: $res-min) and (max-width: $res-max) {
+    @content;
+  }
+}
+@mixin max-screen($res) {
+  @media screen and (max-width: $res) {
+    @content;
+  }
+}
+@mixin min-screen($res) {
+  @media screen and (min-width: $res) {
+    @content;
+  }
+}

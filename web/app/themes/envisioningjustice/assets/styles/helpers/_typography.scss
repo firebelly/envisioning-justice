@@ -1,0 +1,66 @@
+// Typography
+
+// Fonts
+$sans: "acumin-pro-wide";
+$serif: "ff-meta-serif-web-pro";
+
+// Mixins
+
+@mixin type-h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  font-family: $sans;
+  letter-spacing: -0.5px;
+  @include media-md {
+    line-height: 1;
+    font-size: 60px;
+  }
+}
+
+@mixin type-h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  font-family: $sans;
+  letter-spacing: 0.24px;
+}
+
+@mixin type-h3 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  font-family: $sans;
+  letter-spacing: 0.7px;
+}
+
+@mixin type-small {
+  font-size: 12px;
+  line-height: 15px;
+  font-family: $serif;
+  letter-spacing: 0.6px;
+}
+
+// Classes
+
+.type-h1 {
+  @include type-h1;
+}
+.type-h2 {
+  @include type-h2;
+}
+.type-h3 {
+  @include type-h3;
+}
+.type-small {
+  @include type-small;
+}
+
+// Typekit classes
+.wf-loading {
+  opacity: 0;
+}
+.wf-active {
+  opacity: 1;
+  transition: opacity .1s ease-out;
+}

@@ -1,0 +1,82 @@
+{
+  "name": "roots/bedrock",
+  "type": "project",
+  "license": "MIT",
+  "description": "A modern WordPress stack",
+  "homepage": "http://roots.io/wordpress-stack/",
+  "authors": [
+    {
+      "name": "Scott Walkinshaw",
+      "email": "scott.walkinshaw@gmail.com",
+      "homepage": "https://github.com/swalkinshaw"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "homepage": "https://github.com/retlehs"
+    }
+  ],
+  "keywords": [
+    "wordpress", "stack", "capistrano", "composer", "vagrant", "wp"
+  ],
+  "support": {
+    "issues": "https://github.com/roots/bedrock/issues",
+    "forum": "http://discourse.roots.io/category/bedrock"
+  },
+  "config": {
+    "preferred-install": "dist",
+    "generate-salts": true
+  },
+  "autoload": {
+    "psr-0": {"Roots\\Bedrock\\Installer": "scripts"}
+  },
+  "scripts": {
+    "post-root-package-install": ["Roots\\Bedrock\\Installer::addSalts"]
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "mustardBees/cmb-field-select2",
+        "version": "2.0.4",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/mustardBees/cmb-field-select2/archive/master.zip"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "composer/installers": "v1.0.12",
+    "vlucas/phpdotenv": ">=1.0.9",
+    "wpackagist-plugin/limit-login-attempts" : "*",
+    "wpackagist-plugin/intuitive-custom-post-order": "*",
+    "wpackagist-plugin/cmb2": ">=2.0.5",
+    "wpackagist-plugin/accordion-shortcodes": ">=2.2.0",
+    "wpackagist-plugin/multiple-content-blocks": ">=3.2",
+    "wpackagist-plugin/user-roles-and-capabilities": ">=1.1",
+    "mustardBees/cmb-field-select2": ">=2.0.4",
+    "wpackagist-plugin/akismet": ">=3.1.1",
+    "wpackagist-plugin/redirection": ">=2.3.16",
+    "roots/soil": ">=3.0.0",
+    "wpackagist-plugin/simple-history": ">=2.5.3",
+    "wpackagist-plugin/wp-super-cache": ">=1.4.7",
+    "wpackagist-plugin/update-from-bottom": ">=1.0.3",
+    "wpackagist-plugin/tablepress": ">=1.8",
+    "johnpbloch/wordpress": ">=4.8.1"
+  },
+  "extra": {
+    "installer-paths": {
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "mustardBees/cmb-field-select2", "wpackagist-plugin/akismet"],
+      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+    },
+    "wordpress-install-dir": "web/wp"
+  }
+}

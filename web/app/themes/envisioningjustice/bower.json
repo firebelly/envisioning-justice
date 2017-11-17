@@ -1,0 +1,29 @@
+{
+  "name": "sage",
+  "homepage": "https://roots.io/sage/",
+  "authors": [
+    "Ben Word <ben@benword.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "modernizr": "2.8.2",
+    "jquery": "1.11.2",
+    "fitvids": "~1.1.0",
+    "imagesloaded": "~3.1.8",
+    "boomsvgloader": "~0.0.2",
+    "respond": "~1.4.2",
+    "velocity": "~1.2.2",
+    "masonry": "~3.2.2",
+    "mapbox.js": "~2.1.6",
+    "fastclick": "~1.0.6"
+  },
+  "overrides": {
+    "modernizr": {
+      "main": "./modernizr.js"
+    },
+    "boomsvgloader": {
+      "main": "./dist/js/boomsvgloader.js"
+    }
+  }
+}

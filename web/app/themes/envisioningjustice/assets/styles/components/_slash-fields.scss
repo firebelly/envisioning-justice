@@ -1,0 +1,26 @@
+// Slash Fields
+
+.slashfield {
+  display: none;
+  overflow: hidden;
+  margin-top: -10px;
+  margin-left: -42px;
+  position: absolute;
+  width: calc(100% + 84px);
+  
+  .slash {
+    width: 4px;
+    height: 20px;
+    fill: $gray-dark;
+    padding: 8px 16px;
+    vertical-align: top;
+    will-change: transform;
+    box-sizing: content-box;
+    transform: rotate(45deg) translateZ(0);
+    transform-origin: center;
+  }
+
+  @include media-md {
+    display: block;
+  }
+}

@@ -1,0 +1,66 @@
+// Nav
+
+nav.site-nav {
+  float: right;
+
+  ul {
+    li {
+      @include type-h3;
+    }
+  }
+
+  // Search
+  .search-form {
+    button {
+      border: none;
+      outline: none;
+      background: none;
+      .icon {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    ul {
+      display: inline-block;
+    }
+
+    .search-form {
+      display: inline-block;
+    }
+
+    ul {
+      li {
+        margin-right: 30px;
+        position: relative;
+        display: inline-block;
+        a {
+          position: relative;        
+          &::after {
+            left: 0;
+            width: 0;
+            opacity: 0;
+            content: '';
+            height: 3px;
+            bottom: -19px;
+            position: absolute;
+            background: $yellow;
+            animation: collapse .2s forwards;
+          }
+          &:hover {
+            &::after {
+              opacity: 1;          
+              animation: bounceInLeft .2s .2s both;
+            }
+          }
+        }
+      }
+    }
+  }
+}

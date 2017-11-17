@@ -1,0 +1,42 @@
+// Grid
+
+.grid {
+  width: 100%;
+  display: block;
+  @include media-md {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &.-persist {
+    display: flex;
+  }
+}
+
+.flex-item {
+}
+
+@include media-md {
+  .full {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .flex-item {
+    flex-basis: auto;
+  }
+  .one-fourth {
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .one-third {
+    flex-basis: 33.3333333%;
+    max-width: 33.3333333%;
+  }
+  .one-half {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+  .two-thirds {
+    flex-basis: 66.6666667%;
+    max-width: 66.6666667%;
+  }
+}

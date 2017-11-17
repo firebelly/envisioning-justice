@@ -1,0 +1,42 @@
+// Support Us page
+
+.support-us.page {
+  .button {
+    white-space: normal;
+  }
+  .grid {
+    position: relative;
+    margin: -2px -2px 60px;
+    .flex-item {
+      min-height: 280px;
+      margin: 2px 2px 4px;
+      padding: 30px #{$column-width/2 * 22/15};
+      background: $white;
+      @include tablet {
+        transition: all $transition-speed;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+          a,
+          h2,
+          p {
+            color: #fff;
+            border-bottom-color: $white;
+          }
+          .button {
+            border-color: $white;
+          }
+        }
+      }
+
+      h2 {
+        @include font-style1;
+        font-size: $lg;
+        border-bottom: 3px $dk-blue solid;
+        letter-spacing: 2px;
+        line-height: 35px;
+        display: inline;
+      }
+    }
+  }
+}

@@ -1,0 +1,149 @@
+// Header
+
+// Top Bar
+.il-humanities-bar {
+  z-index: 3;
+  height: 32px;
+  position: relative;
+  margin-bottom: -9px;
+  &::before {
+    top: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    height: 23px;
+    position: absolute;
+    background: $gray-lightest;
+  }
+
+  a {
+    position: relative;
+    display: inline-block;
+  }
+
+  .il-humanities-logo {
+    width: 78px;
+    height: 32px;
+  }
+
+  @include media-md {
+    height: 49px;
+    margin-bottom: -13px;
+    &::before {
+      height: 36px;
+    }
+
+    .il-humanities-logo {
+      height: 49px;
+      width: 123px;
+    }
+  }
+}
+
+.site-header {
+  .container {
+    z-index: 2;
+    padding-top: 22px;
+    background: $gray;
+    position: relative;
+    &::before {
+      left: 0;
+      top: 68px;
+      z-index: 0;
+      content: '';
+      height: 3px;
+      width: 185px;
+      position: absolute;
+      background: $yellow;
+      transform: skewY(2deg);
+      transform-origin: left;
+      will-change: transform, top;
+      transition: transform .2s ease-out, top .2s ease-out;
+    }
+    &::after {
+      z-index: -1;
+    }
+    &.-hover {
+      &::before {
+        top: 69px;
+        transform: none;
+      }
+    }
+
+    .-inner {
+      @include clearfix;
+    }
+  }
+
+  .site-logo {
+    top: 40px;
+    margin: 0;
+    z-index: 1;
+    float: left;
+    position: relative;
+    a {
+      display: inline-block;
+    }
+    .icon {
+      height: 33px;
+      width: 120px;
+    }
+  }
+
+  @include media-md {
+    .container {
+      &::before {
+        top: 67px;
+        width: 100%;
+      }
+      &.-hover {
+        &::before {
+          top: 71px;
+        }
+      }
+    }
+
+    .site-logo {
+      .icon {
+        height: 45px;
+        width: 163px;
+      }
+    }
+  }
+}
+
+.page-header {
+  position: relative;
+  background-size: cover;
+  background-position: 50%;
+  @include angledEdge(before, $beforeOrientation: rtl, $color: $gray)
+
+  .-inner {
+    position: relative;
+  }
+
+  .header-text {
+    margin: 0;
+    z-index: 1;
+    @include type-h1;
+    position: relative;
+  }
+
+  .header-text-secondary {
+    color: $gray;
+    background: $black;
+    padding: 4vw $padding;
+    margin-left: -$padding;
+    width: calc(100% + #{$padding * 2});
+    @include angledEdge(before, $beforeOrientation: rtl);
+
+    @include media-md {
+      align-self: flex-end;
+      padding-left: $padding-medium;
+      padding-right: $padding-medium;
+      margin-right: -$padding-medium;
+      width: calc(50% + #{$padding-medium});
+    }
+  }
+}
+

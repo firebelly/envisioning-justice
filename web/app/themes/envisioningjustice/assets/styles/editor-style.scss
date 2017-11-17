@@ -1,0 +1,50 @@
+body {
+  margin: 12px !important;
+}
+
+.two-column {
+  -webkit-column-count: 2;
+  -webkit-column-gap: 20px;
+  column-count: 2;
+  column-gap: 20px;
+}
+.three-column {
+  -webkit-column-count: 3;
+  -webkit-column-gap: 20px;
+  column-count: 3;
+  column-gap: 20px;
+}
+.three-column p {
+  -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+                 break-inside: avoid;
+}
+
+.button {
+  border: 2px solid #44607f;
+  padding: 4px 10px;
+  text-decoration: none;
+  a {
+    text-decoration: none;    
+  }
+}
+.arrow-link {
+  &::before {
+    content: "\bb  ";
+  }
+}
+
+// Media alignment
+.alignnone {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+}
+.alignleft {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+.alignright {
+  float: right;
+  margin: 0 0 1em 1em;
+}

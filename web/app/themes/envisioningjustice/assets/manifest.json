@@ -1,0 +1,56 @@
+{
+  "dependencies": {
+    "main.js": {
+      "files": [
+        "scripts/main.js"
+      ],
+      "vendor": [
+        "bower_components/history.js/scripts/bundled-uncompressed/html5/jquery.history.js",
+        "bower_components/masonry/dist/masonry.pkgd.js"
+      ],
+      "main": true
+    },
+    "main.css": {
+      "files": [
+        "styles/main.scss"
+      ],
+      "vendor": [
+        "bower_components/mapbox.js/mapbox.uncompressed.css"
+      ],
+      "main": true
+    },
+    "editor-style.css": {
+      "files": [
+        "styles/editor-style.scss"
+      ]
+    },
+    "admin.js": {
+      "files": [
+        "scripts/admin.js"
+      ]
+    },
+    "admin.css": {
+      "files": [
+        "styles/admin.scss"
+      ]
+    },
+    "jquery.js": {
+      "bower": ["jquery"]
+    },
+    "mapbox.js": {
+      "bower": ["mapbox.js"]
+    },
+    "modernizr.js": {
+      "bower": ["modernizr"]
+    },
+    "respond.js": {
+      "bower": ["respond"]
+    },
+    "svg4everybody.js": {
+      "bower": ["svg4everybody"]
+    }
+  },
+  "config": {
+    "devUrl": "http://envisioning-justice.dev"
+  }
+}

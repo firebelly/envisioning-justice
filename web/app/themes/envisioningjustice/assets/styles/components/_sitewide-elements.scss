@@ -1,0 +1,124 @@
+// Sitewide elements
+
+// Base flag style for triangle overhangs
+.flag {
+  display: inline-block;
+  position: absolute;
+  bottom: 100%;
+  margin: 0;
+  padding: 6px 20px 4px;
+  color: $white;
+  letter-spacing: .1em;
+  line-height: 20px;
+  z-index: 1;
+  @extend .smooth;
+  text-align: center;
+  a {
+    color: $white;
+  }
+
+  &::after {
+    top: 100%;
+    right: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    content: '';
+    border-right: 25px solid transparent;
+    border-top: 20px solid $color-accent;
+  }
+}
+
+// Share blocks
+.share {
+  display: none;
+  @include font-style1;
+  color:$black;
+  a {
+    text-decoration: none;
+    padding-left: 10px;
+    color:$black;
+  }
+}
+
+// Load more buttons
+.load-more {
+  a:before {
+    content: '+ ';
+  }
+  @include tablet {
+    margin: 35px 0 100px;
+    text-align: center;
+  }
+}
+
+// General button style
+.button {
+  @include font-style1;
+  transition: all $transition-speed;
+  border: 3px solid $black;
+  color: $black;
+  padding: 6px 20px 5px;
+  text-align: center;
+  background: none;
+  display: block;
+  white-space: nowrap;
+  text-decoration: none !important;
+  a {
+    text-decoration: none !important;
+    border: none !important;
+  }
+
+  @include tablet {
+    display: inline-block;
+    &:hover {
+      color: $color-bg;
+      background: $black;
+      border: 3px solid $black !important;
+      a {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.alert {
+  padding: 50px;
+  background: $white;
+}
+
+// X close buttons
+.close-button {
+  display: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  left: -34px;
+  @include tablet {
+    cursor: pointer;
+    top: 4px;
+  }
+
+  &:before,
+  &:after {
+    content:'';
+    position:absolute;
+    top: 15px;
+    left: 4px;
+    width: 20px;
+    height: 2px;
+    background: $black;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
+
+// Simple fix for tablepress table layouts having consistent widths
+.tablepress {
+  table-layout: fixed;
+}

@@ -1,0 +1,20 @@
+// Home page
+
+.home.page {
+  @include colorScheme($yellow);
+
+  .site-header .container {
+    @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
+  }
+
+  .page-header {
+    @include media-md {
+      > .-inner {
+        display: flex;
+        min-height: 760px;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}
