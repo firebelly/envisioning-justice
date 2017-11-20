@@ -58,7 +58,8 @@ var EJ = (function($) {
     $('.sidebar-content a,.user-content a,.event-details a').has('img').addClass('img-link');
 
     // Init behavior for various sections
-    _injectSvgSprite();
+    _injectSvgs();
+    _initPageActions();
     _initThoughtSubmit();
     _initNav();
     _initSearch();
@@ -111,7 +112,8 @@ var EJ = (function($) {
 
   } // end _init()
 
-  function _injectSvgSprite() {
+  function _injectSvgs() {
+    // Load the svgs-defs
     boomsvgloader.load('/app/themes/envisioningjustice/assets/svgs/build/svgs-defs.svg');
   }
 
@@ -157,6 +159,15 @@ var EJ = (function($) {
       delay: delay,
       offset: -wpOffset
     }, "easeOutSine");
+  }
+
+  function _initPageActions() {
+    // Frontpage
+    if ($('body.home').length) {
+      $('.page-header').append('<button class="button button-circular scroll-to-content"><svg class="icon icon-arrow" aria-hidden="true" role="image"><use xlink:href="#icon-arrow"/></svg></button>').on('click', function() {
+        _scrollBody($('#page-content'));
+      });
+    }
   }
 
   function _initSearch() {
@@ -468,7 +479,6 @@ var EJ = (function($) {
   }
 
   function _initSlashFields() {
-    $('#slashtest').html('  <svg class="icon icon-slash" aria-hidden="true" role="image"><use xlink:href="#slash"/></svg>');
     // Establish slashes, their size, and max width of field
     var $slash = $('#slash');
     var slashW = 36;

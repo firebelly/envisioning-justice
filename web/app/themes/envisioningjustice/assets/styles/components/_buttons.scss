@@ -15,6 +15,9 @@
   &:hover {
     color: $gray;
     background-color: $black;
+    .icon {
+      fill: $gray;
+    }
   }
   &[disabled] {
     color: $gray-dark;
@@ -25,15 +28,41 @@
       background-color: transparent;
     }
   }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+    fill: $black;
+  }
+
+  &.button-circular {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    border-radius: 50%;
+    border: 3px solid $black;
+    .icon {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 @each $name, $color in $colors {
   .button.-#{$name} {
     color: $color;
     border-color: $color;
+    .icon {
+      fill: $color;
+    }
     &:hover {
       color: $black;
       background-color: $color;
+      .icon {
+        fill: $black;
+      }
     }
   }
 }

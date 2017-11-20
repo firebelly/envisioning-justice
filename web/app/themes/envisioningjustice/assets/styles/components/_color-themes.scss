@@ -54,9 +54,15 @@ $colors: (
   .button {
     color: $color;
     border-color: $color;
+    .icon {
+      fill: $color;
+    }
     &:hover {
       color: $black;
       background-color: $color;
+      .icon {
+        fill: $black;
+      }
     }
   }
 }

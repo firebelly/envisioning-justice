@@ -157,5 +157,12 @@
       width: calc(50% + #{$padding-medium});
     }
   }
+
+  .scroll-to-content {
+    bottom: 0;
+    right: 25%;
+    position: absolute;
+    transform: translate(50%, 50%) rotate(90deg);
+  }
 }
 
