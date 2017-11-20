@@ -27,15 +27,15 @@ nav.site-nav {
   }
 
   @include min-screen($breakpoint-nav) {
-    ul {
-      display: inline-block;
-    }
 
     .search-form {
       display: inline-block;
     }
 
     ul {
+      line-height: 25px;
+      vertical-align: top;
+      display: inline-block;
       li {
         margin-right: 30px;
         position: relative;
