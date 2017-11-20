@@ -125,15 +125,14 @@
 }
 
 .page-header {
+  background: $gray;
   position: relative;
-  background-size: cover;
-  background-position: 50%;
-  @include angledEdge(before, $beforeOrientation: rtl, $color: $gray)
 
   .-inner {
     position: relative;
   }
 
+  .page-title,
   .header-text {
     margin: 0;
     z-index: 1;

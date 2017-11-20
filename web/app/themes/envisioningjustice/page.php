@@ -2,29 +2,31 @@
 /**
  * Single page
  */
-
-$content_banner_text = get_post_meta($post->ID, '_cmb2_content_banner_text', true);
+$header_text = get_post_meta($post->ID, '_cmb2_header_text', true);
+$header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'));
+$header_bg = \Firebelly\Media\get_header_bg($post);
 $body_content = apply_filters('the_content', $post->post_content);
-$with_image_class = (has_post_thumbnail($post->ID)) ? ' with-image' : '';
-$has_header_text_class = get_post_meta($post->ID, '_cmb2_header_text', true) ? '' : ' no-header-text';
 ?>
-<div class="content-wrap<?= $with_image_class ?><?= $has_header_text_class ?>">
 
-  <?php get_template_part('templates/page', 'image-header'); ?>
-
-  <main>
-    <?php if ($content_banner_text): ?>
-      <h2 class="banner-text"><?= $content_banner_text ?></h2>
-    <?php endif; ?>
-
-    <div class="one-column">
-      <div class="user-content">
-        <?= $body_content ?>
-      </div>
+<header class="page-header container">
+  <!-- <?php get_template_part('templates/page', 'image-header'); ?> -->
+  <div class="slashfield" data-rows="5"></div>
+  <h2 class="page-title"><?= get_the_title(); ?></h2>
+  <div class="grid">
+    <div class="one-half -left">
+      <h3 class="header-text"><?= $header_text ?></h3>
     </div>
+    <div class="header-background one-half -right" <?= $header_bg ?>></div>
+  </div>
+</header>
 
+<div id="page-content">
+  <div class="container">
+    
+    <div class="user-content">
+      <?= $body_content ?>
+    </div>
     <?= \Firebelly\Utils\get_page_blocks($post) ?>
 
-  </main>
-
+  </div>
 </div>

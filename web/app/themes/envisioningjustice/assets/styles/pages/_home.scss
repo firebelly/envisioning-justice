@@ -8,7 +8,10 @@
   }
 
   .page-header {
+    background: none;
     padding-top: 240px;
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
+
     .header-background {
       top: 0;
       left: 0;
