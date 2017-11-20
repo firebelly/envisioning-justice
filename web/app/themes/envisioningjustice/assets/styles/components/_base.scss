@@ -120,7 +120,10 @@ p {
 
 // Main Content Area
 main.site-main {
-  // background: $gray;
-
   @include angledEdge(after);
+}
+#page-content {
+  .container {
+    background: $gray;
+  }
 }

@@ -100,7 +100,7 @@
   @include media-md {
 
     .site-logo {
-      top: 40px;
+      top: 31px;
       .icon {
         height: 45px;
         width: 163px;
@@ -111,13 +111,13 @@
   @include min-screen($breakpoint-nav) {
     .container {
       &::before {
-        top: 74px;
+        top: 65px;
         height: 3px;
         width: 100%;
       }
       &.-hover {
         &::before {
-          top: 80px;
+          top: 71px;
         }
       }
     }
@@ -144,25 +144,27 @@
   .header-text-secondary {
     color: $gray;
     background: $black;
-    padding: 4vw $padding;
+    padding: 0 $padding;
     margin-left: -$padding;
     width: calc(100% + #{$padding * 2});
-    @include angledEdge(before, $beforeOrientation: rtl);
 
     @include media-md {
       align-self: flex-end;
-      padding-left: $padding-medium;
-      padding-right: $padding-medium;
       margin-right: -$padding-medium;
+      padding: 4vw $padding-medium 70px;
       width: calc(50% + #{$padding-medium});
+      @include angledEdge(before, $beforeOrientation: rtl);
     }
   }
 
   .scroll-to-content {
     bottom: 0;
-    right: 25%;
+    right: 50%;
     position: absolute;
     transform: translate(50%, 50%) rotate(90deg);
+    @include media-md {
+      right: 25%;
+    }
   }
 }
 
