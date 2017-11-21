@@ -110,6 +110,15 @@ p {
   }
 }
 
+.break-padding {
+  margin-left: -$padding;
+  width: calc(100% + #{$padding * 2});
+  @include media-md {
+    margin-left: -$padding-medium;
+    width: calc(100% + #{$padding-medium * 2});
+  }
+}
+
 // Sections
 .section {
   padding: 0 $padding;

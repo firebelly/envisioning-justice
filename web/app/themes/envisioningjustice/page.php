@@ -9,24 +9,32 @@ $body_content = apply_filters('the_content', $post->post_content);
 ?>
 
 <header class="page-header container">
-  <!-- <?php get_template_part('templates/page', 'image-header'); ?> -->
-  <div class="slashfield" data-rows="5"></div>
-  <h2 class="page-title"><?= get_the_title(); ?></h2>
-  <div class="grid">
-    <div class="one-half -left">
-      <h3 class="header-text"><?= $header_text ?></h3>
+  <div class="-inner">
+    <div class="page-header-top">    
+      <div class="slashfield" data-rows="5"></div>
+      <h2 class="page-title"><?= get_the_title(); ?></h2>
     </div>
-    <div class="header-background one-half -right" <?= $header_bg ?>></div>
+    <div class="page-header-bottom grid">
+      <div class="page-header-background one-half -right" <?= $header_bg ?>></div>
+      <div class="page-header-text one-half -left section">
+        <div class="-inner">
+          <h3><?= $header_text ?></h3>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 <div id="page-content">
   <div class="container">
     
-    <div class="user-content">
+    <div class="section user-content">
       <?= $body_content ?>
     </div>
-    <?= \Firebelly\Utils\get_page_blocks($post) ?>
+
+    <div class="section">
+      <?= \Firebelly\Utils\get_page_blocks($post) ?>
+    </div>
 
   </div>
 </div>

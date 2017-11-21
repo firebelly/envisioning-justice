@@ -49,6 +49,16 @@ $colors: (
     .header-text {
       color: $color;
     }
+
+    .page-header-background {
+      &::after {
+        background-color: $color;
+      }
+    }
+
+    .page-header-text {
+      background: $color;
+    }
   }
 
   // Buttons

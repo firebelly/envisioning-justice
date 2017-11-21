@@ -25,11 +25,14 @@
     }
     > .-inner {
       background: $black;
+      @extend .break-padding;
       padding: 0 $padding 50px;
       @include angledEdge(before, $beforeOrientation: rtl);
 
       .header-text {
         top: -3em;
+        margin: 0;
+        @include type-h1;
         position: relative;
         margin-bottom: -3em;
       }
@@ -46,7 +49,9 @@
 
       > .-inner {
         padding: 0;
+        width: 100%;
         display: flex;
+        margin-left: 0;
         background: none;
         margin-top: -4.5vw;
         min-height: 760px;

@@ -132,8 +132,47 @@
     position: relative;
   }
 
-  .page-title,
-  .header-text {
+  .page-header-top {
+    @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
+    .slashfield {
+      z-index: 1;
+    }
+  }
+
+  .page-header-bottom {
+    @extend .break-padding;
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
+
+    h3 {
+      margin: 0;
+      color: $black;
+      @include type-h3;
+    }
+
+    .page-header-text {
+      @include angledEdge(before, $beforeOrientation: rtl, $color: inherit);
+    }
+
+    .page-header-background {
+      height: 200px;
+      background-size: cover;
+      @include angledEdge(after, $afterOrientation: rtl, $color: inherit);
+    }
+
+    @include media-md {
+      .page-header-text {
+        order: 0;
+        @include killAngle(before);
+      }
+      .page-header-background {
+        order: 1;
+        height: auto;
+        @include killAngle(after);
+      }
+    }
+  }
+
+  .page-title {
     margin: 0;
     z-index: 1;
     @include type-h1;

@@ -56,6 +56,24 @@
     }
   }
 }
+// Kill It
+@mixin killAngle($sides) {
+  @if $sides == 'before' or $sides == 'both'{
+    margin-top: 0;
+    padding-top: 0;
+    &::before {
+      display: none;
+    }
+  }
+  @if $sides == 'after' or $sides == 'both' {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    &::after {
+      display: none;
+    }
+  }
+}
+
 
 // Clearfix
 @mixin clearfix {
