@@ -121,7 +121,7 @@ p {
 
 // Sections
 .section {
-  padding: 0 $padding;
+  padding: $padding;
   @include media-md {
     padding: $padding-medium;
   }

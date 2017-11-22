@@ -127,6 +127,7 @@
 .page-header {
   background: $gray;
   position: relative;
+  padding-top: $padding-medium;
 
   .-inner {
     position: relative;
@@ -163,6 +164,7 @@
       .page-header-text {
         order: 0;
         @include killAngle(before);
+        padding-top: $padding-medium;
       }
       .page-header-background {
         order: 1;
