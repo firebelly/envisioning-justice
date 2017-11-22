@@ -164,7 +164,8 @@ var EJ = (function($) {
   function _initPageActions() {
     // Frontpage
     if ($('body.home').length) {
-      $('.page-header').append('<button class="button button-circular scroll-to-content"><svg class="icon icon-arrow" aria-hidden="true" role="image"><use xlink:href="#icon-arrow"/></svg></button>').on('click', function() {
+      $('.page-header').append('<button class="button button-circular scroll-to-content"><svg class="icon icon-arrow" aria-hidden="true" role="image"><use xlink:href="#icon-arrow"/></svg></button>');
+      $('.scroll-to-content').on('click', function() {
         _scrollBody($('#page-content'));
       });
     }
@@ -343,6 +344,11 @@ var EJ = (function($) {
     }).mouseleave(function() {
       var pairName = $(this).attr('data-hover');
       $('.hover-item[data-hover="header-slash"]').removeClass('-hover');
+    });
+
+    // Show the after element on nav links after the first time the nav
+    $('nav.site-nav').one('mouseenter', function() {
+      $('nav.site-nav').addClass('-animate');
     });
   }
 
