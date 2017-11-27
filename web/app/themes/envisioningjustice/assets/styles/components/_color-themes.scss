@@ -26,20 +26,40 @@ $colors: (
   // Header
   .site-header {
     .container::before {
-      background: $color;
+      background-color: $color;
+    }
+  }
+  @at-root {
+    &.menu-open .site-header .container::before {
+      @include max-screen($breakpoint-nav - 1px) {
+        background-color: $gray-light;
+      }
     }
   }
 
   // Site Nav
   .site-nav {
-    a {
-      color: $color;
-    }
-    .icon {
-      fill: $color;
-    }
+    background: $color;
+
     ul li a::after {
       background: $color;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      background: none;
+      a {
+        color: $color;
+      }
+
+      .icon {
+        fill: $color;
+      }
+    }
+  }
+  .menu-toggle:not(.menu-open) {
+    color: $color;
+    .menu-bar {
+      background-color: $color;
     }
   }
 
@@ -76,4 +96,47 @@ $colors: (
       }
     }
   }
+
+  // Color-specific changes
+  // Purple
+  @if $color == $purple {
+    @include max-screen($breakpoint-nav - 1px) {
+      @at-root {
+        &.menu-open .site-header {
+          .container::before {
+            background: $black;
+          }
+
+          .site-logo {
+            .icon {
+              fill: $gray-light;
+            }
+          }
+
+          .menu-toggle.menu-open {
+            color: $gray-light;
+            .menu-bar {
+              &::before,
+              &::after {
+                background-color: $gray-light;
+              }
+            }
+          }
+        }
+      }
+
+      .site-nav {
+        a {
+          color: $gray-light;
+          &::before {
+            background: $gray-light;
+          }
+        }
+        .icon {
+          fill: $gray-light;
+        }
+      }
+    }
+  }
+
 }

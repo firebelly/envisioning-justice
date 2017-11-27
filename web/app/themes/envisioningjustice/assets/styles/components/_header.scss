@@ -2,10 +2,8 @@
 
 // Top Bar
 .il-humanities-bar {
-  z-index: 3;
   height: 32px;
   position: relative;
-  margin-bottom: -9px;
   &::before {
     top: 0;
     left: 0;
@@ -18,6 +16,7 @@
 
   .container {
     padding: 0;
+    background: $gray;
   }
 
   a {
@@ -32,7 +31,6 @@
 
   @include media-md {
     height: 49px;
-    margin-bottom: -13px;
     &::before {
       height: 36px;
     }
@@ -94,6 +92,7 @@
     .icon {
       height: 33px;
       width: 120px;
+      fill: $black;
     }
   }
 

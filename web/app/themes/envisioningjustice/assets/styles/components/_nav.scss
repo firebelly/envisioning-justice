@@ -1,11 +1,58 @@
 // Nav
 
 nav.site-nav {
-  float: right;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  will-change: transform;
+  transform: translateY(-100%);
+  padding: 120px $padding $padding;
+  transition: transform .2s ease-out;
+  &.-active {
+    transform: translateY(0);
+    transition: transform .3s ease-out;
+    .-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .-inner {
+    opacity: 0;
+    transform: translateY(-50%);
+    will-change: opcaity, transform;
+    transition: opacity .4s ease-out .2s, transform .4s ease-out;
+  }
 
   ul {
     li {
       @include type-h3;
+      &.-primary {
+        @include type-h2;
+      }
+    }
+  }
+
+  a,
+  .search-form {
+    margin: 2px 0;
+    color: $black;
+    display: block;
+    padding: 20px 0;
+    position: relative;
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      content: '';
+      position: absolute;
+      background-color: $black;
+      transform: skewY($angle);
+      transform-origin: left;
     }
   }
 
@@ -18,18 +65,48 @@ nav.site-nav {
       .icon {
         width: 25px;
         height: 25px;
+        display: none;
       }
     }
 
     input {
       display: none;
     }
+
+    label {
+      @include type-h3;
+    }
   }
 
   @include min-screen($breakpoint-nav) {
+    top: auto;
+    left: auto;
+    padding: 0;
+    z-index: 0;
+    width: auto;
+    float: right;
+    transform: none;
+    background: none;
+    position: relative;
+
+    .-inner {
+      opacity: 1;
+      transform: none;
+    }
 
     .search-form {
+      margin: 0;
+      padding: 0;
       display: inline-block;
+      &::before {
+        display: none;
+      }
+      button .icon {
+        display: inline-block;
+      }
+      .text {
+        display: none;
+      }
     }
 
     ul {
@@ -40,8 +117,16 @@ nav.site-nav {
         margin-right: 30px;
         position: relative;
         display: inline-block;
+        &.-primary {
+          @include type-h3;
+        }
         a {
-          position: relative;        
+          margin: 0;
+          padding: 0;
+          display: inline-block;
+          &::before {
+            display: none;
+          }
           &::after {
             left: 0;
             width: 0;
@@ -67,6 +152,94 @@ nav.site-nav {
       // Hide the after element on load so you don't see a flash of the animation, and then show it after page load
       ul li a::after {
         opacity: 1;
+      }
+    }
+  }
+}
+
+// Menu Toggle
+.menu-toggle {
+  z-index: 5;
+  padding: 0;
+  float: right;
+  border: none;
+  height: 17px;
+  outline: none;
+  @include type-h3;
+  border-radius: 0;
+  background: none;
+  line-height: 17px;
+  position: relative;
+
+  .text {
+    top: -2px;
+    width: 50px;
+    line-height: 14px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .menu-bar {
+    top: -4px;
+    width: 20px;
+    height: 3px;
+    position: relative;
+    display: inline-block;
+    &::before,
+    &::after {
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 3px;
+      position: absolute;
+      will-change: transform;
+      transform-origin: right;
+      background-color: inherit;
+      transition: transform .2s ease-out;
+    }
+    &::before {
+      top: -7px;
+    }
+    &::after {
+      bottom: -7px;
+    }
+  }
+
+  &.menu-open {
+    color: $black;
+    .menu-bar {
+      background-color: transparent;
+      &::before,
+      &::after {
+        background-color: $black;
+      }
+      &::before {
+        transform: rotate(-45deg);
+      }
+      &::after {
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    display: none;
+  }
+}
+
+// Other changes when the nav is open
+body.menu-open {
+  @include max-screen($breakpoint-nav - 1px) {  
+    overflow: hidden;
+
+    .site-logo {
+      z-index: 5;
+    }
+    .site-header .container {
+      z-index: 5;
+      &::before {
+        z-index: 5;
+        background-color: $gray;
       }
     }
   }

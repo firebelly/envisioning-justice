@@ -332,11 +332,15 @@ var EJ = (function($) {
   // Handles main nav
   function _initNav() {
     // SEO-useless nav toggler
-    $('<div class="menu-toggle"><div class="menu-bar"><span class="sr-only">Menu</span></div></div>')
-      .prependTo('header.banner')
-      .on('click', function(e) {
-        _showMobileNav();
-      });
+    $('<button class="menu-toggle"><span class="text">Menu</span> <span class="menu-bar"></span></button>')
+      .prependTo('.site-header .container > .-inner');
+
+    $document.on('click', '.menu-toggle:not(.menu-open)', function(e) {
+      _showMobileNav();
+    });
+    $document.on('click', '.menu-toggle.menu-open', function(e) {
+      _hideMobileNav();
+    });
 
     // Trigger slanted line hover
     $('.site-nav a').mouseenter(function() {
@@ -353,13 +357,16 @@ var EJ = (function($) {
   }
 
   function _showMobileNav() {
-    $('.menu-toggle').addClass('menu-open');
-    $('.site-nav').addClass('active');
+    $document.scrollTop(0);
+    $('body, .menu-toggle').addClass('menu-open');
+    $('.menu-toggle .text').html('Close');
+    $('.site-nav').addClass('-active');
   }
 
   function _hideMobileNav() {
-    $('.menu-toggle').removeClass('menu-open');
-    $('.site-nav').removeClass('active');
+    $('body, .menu-toggle').removeClass('menu-open');
+    $('.menu-toggle .text').html('Menu');
+    $('.site-nav').removeClass('-active');
   }
 
   function _initMasonry(){

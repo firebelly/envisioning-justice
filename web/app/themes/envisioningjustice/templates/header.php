@@ -11,12 +11,14 @@
     <div class="-inner">
       <h1 class="site-logo"><a href="/" class="hover-trigger" data-hover="header-slash"><span class="sr-only"><?php bloginfo('name'); ?></span><svg class="icon envisioning-justice-logo" aria-hidden="true" role="image"><use xlink:href="#envisioning-justice-logo"/></svg></a></h1>
       <nav class="site-nav" role="navigation">
-        <?php
-        if (has_nav_menu('primary_navigation')) :
-          wp_nav_menu(['theme_location' => 'primary_navigation', 'walker' => new NavWalker()]);
-        endif;
-        ?>
-        <?php get_search_form(); ?>
+        <div class="-inner">
+          <?php
+          if (has_nav_menu('primary_navigation')) :
+            wp_nav_menu(['theme_location' => 'primary_navigation', 'walker' => new NavWalker()]);
+          endif;
+          ?>
+          <?php get_search_form(); ?>
+        </div>
       </nav>
     </div>
   </div>
