@@ -63,6 +63,7 @@ var EJ = (function($) {
     _initThoughtSubmit();
     _initNav();
     _initSearch();
+    _initFormActions();
     _initMap();
     _initMasonry();
     _initLoadMore();
@@ -74,9 +75,12 @@ var EJ = (function($) {
     // Esc handlers
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
-        _hideSearch();
-        _cancelThoughtSubmit();
-        _hideMobileNav();
+        // Check if search is open
+        if ($('.site-header .search-form').is('.-active')) {
+          _hideSearch();
+        } else if ($('.site-nav').is('.-active')) {
+          _hideMobileNav();
+        }
       }
     });
 
@@ -172,23 +176,34 @@ var EJ = (function($) {
   }
 
   function _initSearch() {
-    $('.search-form .search-submit').on('click', function (e) {
-      if ($('.search-form').hasClass('active')) {
-
-      } else {
-        e.preventDefault();
-        $('.search-form').addClass('active');
-        $('.search-field:first').focus();
-      }
-    });
-    $('.search-form .close-button').on('click', function() {
+    $('.close-search').on('click', function() {
       _hideSearch();
-      _hideMobileNav();
+    });
+
+    $('.search-toggle').on('click', function(e) {
+      $('.search-form').addClass('-active');
+      $('.search-form input').focus();
     });
   }
 
   function _hideSearch() {
-    $('.search-form').removeClass('active');
+    $('.search-form').removeClass('-active');
+  }
+
+  function _initFormActions() {
+    function checkInputVal($input) {
+      if($input.val()) {
+        $input.parents('.input-wrap').addClass('filled');
+      } else {
+        $input.parents('.input-wrap').removeClass('filled');
+      }
+    }
+
+    $('form input, form textarea').on('blur', function() {
+      checkInputVal($(this));
+    }).on('keypress', function(e) {
+      $(this).parents('.input-wrap').addClass('filled');
+    });
   }
 
   function _initMap() {

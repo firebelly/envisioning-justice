@@ -48,6 +48,17 @@
       transform: translate(-50%, -50%);
     }
   }
+
+  &.button-close {
+    .icon-plus {
+      transform: rotate(45deg);
+    }
+    &.button-circular {
+      .icon-plus {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+  }
 }
 
 @each $name, $color in $colors {

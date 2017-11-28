@@ -96,6 +96,85 @@
     }
   }
 
+  // Search
+  .search-form {
+    @include angledEdge(before, $color: $black);
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 10;
+    height: 100%;
+    position: fixed;
+    will-change: top;
+    margin-top: 3.6vw;
+    color: $white-dark;
+    background: $black;
+    transition: top .2s ease-out;
+    -webkit-font-smoothing: antialiased;
+    &.-active {
+      top: 0;
+      .-inner {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .-inner {
+      opacity: 0;
+      transform: translateY(50%);
+      padding: 33px $padding $padding;
+      will-change: opcaity, transform;
+      transition: opacity .4s ease-out .2s, transform .4s ease-out;
+    }
+
+    .close-search {
+      padding: 0;
+      border: none;
+      outline: none;
+      top: $padding;
+      right: $padding;
+      background: none;
+      @include type-h3;
+      color: $white-dark;
+      position: absolute;
+      .text {
+        width: 60px;
+        text-align: right;
+        display: inline-block;
+        word-wrap: break-word;
+      }
+      .icon {
+        width: 25px;
+        height: 25px;
+        fill: $white-dark;
+        transform: rotate(45deg);
+      }
+    }
+
+    h3 {
+      margin: 0 0 35px;
+      @include type-h2;
+    }
+
+    label {
+      @include type-h3;
+    }
+
+    .search-submit {
+      width: 100%;
+      margin-top: 20px;
+      @extend .-white-dark;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      .close-search {      
+        .text {
+          display: none;
+        }
+      }
+    }
+  }
+
   @include media-md {
 
     .site-logo {

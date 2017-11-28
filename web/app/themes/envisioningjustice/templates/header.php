@@ -17,9 +17,10 @@
             wp_nav_menu(['theme_location' => 'primary_navigation', 'walker' => new NavWalker()]);
           endif;
           ?>
-          <?php get_search_form(); ?>
+          <button class="search-toggle"><span class="text">Search</span><svg class="icon icon-search" aria-hidden="true" role="image"><use xlink:href="#icon-search"/></svg></button>
         </div>
       </nav>
+      <?php get_search_form(); ?>
     </div>
   </div>
 </header>

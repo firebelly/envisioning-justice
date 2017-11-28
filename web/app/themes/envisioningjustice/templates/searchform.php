@@ -1,6 +1,11 @@
 <form role="search" method="get" class="search-form form-inline" action="<?= esc_url(home_url('/')); ?>">
-  <div class="close-button"></div>
-  <label class="text"><?php _e('Search', 'sage'); ?></label>
-  <input type="search" value="" autocomplete="off" name="s" class="search-field form-control" placeholder="Search" required>
-  <button type="submit" class="search-submit"><span class="sr-only"><?php _e('Search', 'sage'); ?></span>    <svg class="icon icon-search" aria-hidden="true" role="image"><use xlink:href="#icon-search"/></svg></button>
+  <div class="-inner">  
+    <h3>Search</h3>
+    <button class="close-search"><span class="text">Close Search</span> <svg class="icon icon-plus" aria-hidden="true" role="image"><use xlink:href="#icon-plus"/></svg></button>
+    <div class="input-wrap">    
+      <input id="search" type="search" value="" autocomplete="off" name="search" class="search-field form-control" placeholder="" required>
+      <label for="search">Keyword(s)</label>
+    </div>
+    <button type="submit" class="search-submit button">Go</button>
+  </div>
 </form>

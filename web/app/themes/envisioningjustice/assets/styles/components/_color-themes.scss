@@ -10,7 +10,8 @@ $colors: (
   gray: $gray,
   gray-light: $gray-light,
   gray-dark: $gray-dark,
-  white: $white
+  white: $white,
+  white-dark: $white-dark
 );
 @each $name, $color in $colors {
   .color-bg-#{$name} {
