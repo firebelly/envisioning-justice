@@ -1,7 +1,7 @@
 // Footer
 
 footer.site-footer {
-  color: $gray;
+  color: $white-dark;
   background: $black;
   @include angledEdge(before);
 
@@ -33,10 +33,23 @@ footer.site-footer {
   }
 
   .newsletter-form {
+    margin-bottom: 60px;
+    .-bottom {
+      display: flex;
+    }
+    .form-group {
+      flex-grow: 1;
+      padding-right: 40px;
+    }
     .input-wrap {
       &::after {
         background-color: $gray;
       }
+    }
+    .submit {
+      max-width: 50px;
+      flex-basis: 50px;
+      align-self: flex-end;
     }
   }
 }

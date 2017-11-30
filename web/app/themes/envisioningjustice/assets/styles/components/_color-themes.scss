@@ -114,7 +114,7 @@ $colors: (
   }
 
   // Buttons
-  .button {
+  .button:not(.theme-exception) {
     color: $color;
     .icon {
       fill: $color;
