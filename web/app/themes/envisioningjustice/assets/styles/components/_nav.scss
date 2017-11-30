@@ -126,8 +126,25 @@ nav.site-nav {
     }
 
     .search-toggle {
+      margin: 0;
+      padding: 0;
+      width: auto;
+      display: inline-block;
+      &::before {
+        display: none;
+      }
+      .text {
+        display: none;
+      }
       .icon {
         display: inline-block;
+      }
+    }
+
+    &.search-open {
+      .-inner {
+        opacity: 0;
+        transform: translateY(-100%);
       }
     }
 
@@ -191,12 +208,16 @@ nav.site-nav {
   &.menu-open {
     color: $black;
     .menu-bar {
+      top: -2px;
+      width: 25px;
       background-color: transparent;
       &::before,
       &::after {
+        height: 5px;
         background-color: $black;
       }
       &::before {
+        top: -13px;
         transform: rotate(-45deg);
       }
       &::after {

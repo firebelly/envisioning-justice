@@ -1,19 +1,22 @@
 // Buttons
 
 .button {
+  @include type-h3;
   color: $black;
   padding: 20px;
   outline: none;
   cursor: pointer;
-  @include type-h3;
   background: none;
   border-radius: 0;
+  line-height: 11px;
   border-width: 5px;
   border-style: solid;
-  border-color: $black;
+  border-color: inherit;
   display: inline-block;
-  &:hover {
+  &:hover,
+  &:focus {
     color: $gray;
+    border-color: $black;
     background-color: $black;
     .icon {
       fill: $gray;
@@ -38,9 +41,11 @@
   &.button-circular {
     width: 50px;
     height: 50px;
+    border-width: 3px;
     position: relative;
     border-radius: 50%;
-    border: 3px solid $black;
+    border-style: solid;
+    border-color: inherit;
     .icon {
       top: 50%;
       left: 50%;
@@ -68,8 +73,10 @@
     .icon {
       fill: $color;
     }
-    &:hover {
+    &:hover,
+    &:focus {
       color: $black;
+      border-color: $color;
       background-color: $color;
       .icon {
         fill: $black;

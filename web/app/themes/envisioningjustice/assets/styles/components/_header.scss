@@ -106,7 +106,7 @@
     height: 100%;
     position: fixed;
     will-change: top;
-    margin-top: 3.6vw;
+    margin-top: 15px;
     color: $white-dark;
     background: $black;
     transition: top .2s ease-out;
@@ -122,18 +122,15 @@
     .-inner {
       opacity: 0;
       transform: translateY(50%);
-      padding: 33px $padding $padding;
+      padding: 41px $padding $padding;
       will-change: opcaity, transform;
       transition: opacity .4s ease-out .2s, transform .4s ease-out;
     }
 
-    .close-search {
-      padding: 0;
-      border: none;
-      outline: none;
-      top: $padding;
-      right: $padding;
-      background: none;
+    .search-close {
+      top: 31px;
+      right: 16px;
+      cursor: pointer;
       @include type-h3;
       color: $white-dark;
       position: absolute;
@@ -156,21 +153,80 @@
       @include type-h2;
     }
 
-    label {
-      @include type-h3;
-    }
-
     .search-submit {
       width: 100%;
       margin-top: 20px;
       @extend .-white-dark;
     }
 
+    .input-wrap {
+      &::after {
+        background-color: $white-dark;
+      }
+    }
+
+    label {
+      font-size: 14px;
+    }
+
     @include min-screen($breakpoint-nav) {
-      .close-search {      
+      top: 18px;
+      margin: 0;
+      left: auto;
+      padding: 0;
+      opacity: 0;
+      width: 600px;
+      color: $black;
+      background: none;
+      position: absolute;
+      pointer-events: none;
+      right: $padding-medium;
+      transition: opacity .2s ease-out;
+      &::before {
+        display: none;
+      }
+      &.-active {
+        top: 18px;
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity .2s ease-out .3s;
+      }
+      
+      .-inner {
+        padding: 0;
+        opacity: 1;
+        transform: none;
+        @include clearfix;
+      }
+
+      .search-close {
+        right: 0;
+        top: 12px;
         .text {
           display: none;
         }
+      }
+
+      h3 {
+        display: none;
+      }
+
+      .input-wrap {
+        float: left;
+        width: 400px;
+        &::after {
+          background-color: $black;
+        }
+      }
+
+      .search-submit {
+        top: 7px;
+        width: 100px;
+        padding: 10px;
+        margin-top: 0;
+        margin-left: 20px;
+        position: relative;
+        display: inline-block;
       }
     }
   }

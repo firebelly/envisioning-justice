@@ -24,10 +24,41 @@ $colors: (
 
 // Page Color Schemes
 @mixin colorScheme($color) {
+  // Global elements
+  
+  // forms
+  form {
+    .input-wrap {
+      &.-focus::after {
+        background-color: $color;
+      }
+    }
+  }
+
   // Header
   .site-header {
     .container::before {
       background-color: $color;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      .search-form {
+        .search-submit {
+          color: $color;
+          border-color: inherit;
+          &:hover,
+          &:focus {
+            color: $black;
+            background: $color;
+            border-color: $color;
+          }
+        }
+        .search-close {
+          .icon {
+            fill: $color;
+          }
+        }
+      }
     }
   }
   @at-root {
@@ -85,12 +116,13 @@ $colors: (
   // Buttons
   .button {
     color: $color;
-    border-color: $color;
     .icon {
       fill: $color;
     }
-    &:hover {
+    &:hover,
+    &:focus {
       color: $black;
+      border-color: $color;
       background-color: $color;
       .icon {
         fill: $black;
@@ -127,14 +159,12 @@ $colors: (
       }
 
       .site-nav {
-        a {
+        a,
+        .search-toggle {
           color: $gray-light;
           &::before {
             background: $gray-light;
           }
-        }
-        .icon {
-          fill: $gray-light;
         }
       }
     }

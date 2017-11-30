@@ -31,4 +31,12 @@ footer.site-footer {
     width: 145px;
     fill: #bcb5b5;
   }
+
+  .newsletter-form {
+    .input-wrap {
+      &::after {
+        background-color: $gray;
+      }
+    }
+  }
 }

@@ -176,17 +176,20 @@ var EJ = (function($) {
   }
 
   function _initSearch() {
-    $('.close-search').on('click', function() {
+    $('.search-close').on('click', function(e) {
+      e.preventDefault();
       _hideSearch();
     });
 
     $('.search-toggle').on('click', function(e) {
+      $('.site-nav').addClass('search-open');
       $('.search-form').addClass('-active');
       $('.search-form input').focus();
     });
   }
 
   function _hideSearch() {
+      $('.site-nav').removeClass('search-open');
     $('.search-form').removeClass('-active');
   }
 
@@ -199,8 +202,11 @@ var EJ = (function($) {
       }
     }
 
-    $('form input, form textarea').on('blur', function() {
+    $('form input, form textarea').on('focus', function() {
+      $(this).parents('.input-wrap').addClass('-focus');
+    }).on('blur', function() {
       checkInputVal($(this));
+      $(this).parents('.input-wrap').removeClass('-focus');
     }).on('keypress', function(e) {
       $(this).parents('.input-wrap').addClass('filled');
     });
