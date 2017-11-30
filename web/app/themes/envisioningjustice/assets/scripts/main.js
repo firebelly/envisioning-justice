@@ -182,14 +182,26 @@ var EJ = (function($) {
     });
 
     $('.search-toggle').on('click', function(e) {
+      $(this).removeClass('hover-trigger');
       $('.site-nav').addClass('search-open');
       $('.search-form').addClass('-active');
       $('.search-form input').focus();
+      $('.site-header .container').addClass('-hover');
+    }).mouseenter(function() {
+      if (!$('.site-nav').is('.search-open')) {
+        $('[data-hover="header-slash"]').addClass('-hover');
+      }
+    }).mouseleave(function() {
+      if (!$('.site-nav').is('.search-open')) {
+        $('[data-hover="header-slash"]').removeClass('-hover');
+      }
     });
   }
 
   function _hideSearch() {
-      $('.site-nav').removeClass('search-open');
+    $('.site-header .container').removeClass('-hover');
+    $('.search-toggle').addClass('hover-trigger');
+    $('.site-nav').removeClass('search-open');
     $('.search-form').removeClass('-active');
   }
 

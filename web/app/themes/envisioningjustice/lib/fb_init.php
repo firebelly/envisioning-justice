@@ -66,23 +66,23 @@ if (!is_admin()) { add_filter('nav_menu_css_class', __NAMESPACE__ . '\custom_nav
 /**
  * Custom theme classes added to body
  */
-function body_class($classes ) {
-  // Array of background hex values
-  $background_array = ['C2D6D9', 'B8DEBA', 'EDBABA', 'E5D4BE', 'C7C9CC', 'EBC7B0'];
+// function body_class($classes ) {
+//   // Array of background hex values
+//   $background_array = ['C2D6D9', 'B8DEBA', 'EDBABA', 'E5D4BE', 'C7C9CC', 'EBC7B0'];
 
-  // Select random bg & accents for page
-  $background = rand(1,6);
-  $accent = rand(1,5);
+//   // Select random bg & accents for page
+//   $background = rand(1,6);
+//   $accent = rand(1,5);
   
-  // Set global var to use when creating treated backgrounds
-  define('IHC_BACKGROUND', $background_array[$background-1]);
+//   // Set global var to use when creating treated backgrounds
+//   define('IHC_BACKGROUND', $background_array[$background-1]);
   
-  // Add to body_class()
-  $classes[] = 'background-' . $background;
-  $classes[] = 'accent-' . $accent;
-  return $classes;
-}
-add_filter('body_class', __NAMESPACE__ . '\body_class');
+//   // Add to body_class()
+//   $classes[] = 'background-' . $background;
+//   $classes[] = 'accent-' . $accent;
+//   return $classes;
+// }
+// add_filter('body_class', __NAMESPACE__ . '\body_class');
 
 
 function mce_buttons_2($buttons) {

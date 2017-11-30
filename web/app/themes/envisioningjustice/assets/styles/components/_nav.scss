@@ -144,6 +144,7 @@ nav.site-nav {
     &.search-open {
       .-inner {
         opacity: 0;
+        pointer-events: none;
         transform: translateY(-100%);
       }
     }
