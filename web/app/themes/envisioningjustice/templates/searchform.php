@@ -6,6 +6,6 @@
       <input id="search" type="search" value="" autocomplete="off" name="search" class="search-field form-control" placeholder="" required>
     </div>
     <button type="submit" class="search-submit button">Go</button>
-    <div class="search-close"><span class="text">Close Search</span> <svg class="icon icon-plus" aria-hidden="true" role="image"><use xlink:href="#icon-plus"/></svg></div>
+    <div class="search-close"><span class="text">Close Search</span> <svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></div>
   </div>
 </form>

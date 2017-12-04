@@ -168,7 +168,7 @@ var EJ = (function($) {
   function _initPageActions() {
     // Frontpage
     if ($('body.home').length) {
-      $('.page-header').append('<button class="button button-circular scroll-to-content"><svg class="icon icon-arrow" aria-hidden="true" role="image"><use xlink:href="#icon-arrow"/></svg></button>');
+      $('.page-header').append('<button class="button button-circular scroll-to-content"><svg class="icon icon-arrow" aria-hidden="true" role="presentation"><use xlink:href="#icon-arrow"/></svg></button>');
       $('.scroll-to-content').on('click', function() {
         _scrollBody($('#page-content'));
       });
@@ -540,7 +540,7 @@ var EJ = (function($) {
       $(this).height(slashH*rows);
       
       for(var i = 0;i < slashAmount; i++) {
-        $(this).append('<svg class="slash" aria-hidden="true" role="image"><use xlink:href="#slash"/></svg>');
+        $(this).append('<svg class="slash" aria-hidden="true" role="presentation"><use xlink:href="#slash"/></svg>');
       }
     });
     // Get the drawn slashes and their size
