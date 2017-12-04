@@ -65,4 +65,28 @@
       }
     }
   }
+
+  .sponsor-recognition {
+    background-color: $gray;
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
+    .grid {
+      margin-left: -10px;
+      width: calc(100% + 20px);
+    }
+    .sponsor {
+      display: flex;
+      padding: 0 10px;
+      margin-bottom: 20px;
+    }
+    .icon {
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      fill: $gray-light;
+      margin-right: 20px;
+    }
+    h3 {
+      margin: 8px 0 0;
+    }
+  }
 }
