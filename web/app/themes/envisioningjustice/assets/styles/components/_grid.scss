@@ -3,7 +3,7 @@
 .grid {
   width: 100%;
   display: block;
-  @include media-md {
+  @include media-sm {
     display: flex;
     flex-wrap: wrap;
   }
@@ -15,27 +15,46 @@
 .flex-item {
 }
 
-@include media-md {
-  .full {
-    max-width: 100%;
-    flex-basis: 100%;
-  }
-  .flex-item {
-    flex-basis: auto;
-  }
-  .one-fourth {
+@include media-sm {
+  .sm-one-fourth {
     max-width: 25%;
     flex-basis: 25%;
   }
-  .one-third {
+  .sm-one-third {
     flex-basis: 33.3333333%;
     max-width: 33.3333333%;
   }
-  .one-half {
+  .sm-one-half {
     flex-basis: 50%;
     max-width: 50%;
   }
-  .two-thirds {
+  .sm-two-thirds {
+    flex-basis: 66.6666667%;
+    max-width: 66.6666667%;
+  }
+}
+
+@include media-md {
+  .flex-item {
+    flex-basis: auto;
+  }
+  .md-full {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .md-one-fourth {
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .md-one-third {
+    flex-basis: 33.3333333%;
+    max-width: 33.3333333%;
+  }
+  .md-one-half {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+  .md-two-thirds {
     flex-basis: 66.6666667%;
     max-width: 66.6666667%;
   }

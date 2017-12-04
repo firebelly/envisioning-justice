@@ -1,7 +1,7 @@
 <footer class="site-footer" role="contentinfo">
   <div class="container">
-    <div class="section grid">
-      <div class="one-half">
+    <div class="grid">
+      <div class="md-one-half">
 
         <form id="newsletter" class="newsletter-form">
           <h3 class="type-h3">Subscribe to our Newsletter</h3>
@@ -26,7 +26,7 @@
         </div>
         <p class="disclaimer">Envisioning Justice is a program of the Illinoise Humanities Council any additional copy vivamus non tortor laoreet, fermentum mi vitae, placerat tortor. Maecenas.</p>
       </div>
-      <div class="one-half">
+      <div class="md-one-half">
         <h3 class="type-h3">Contact</h3>
       </div>
     </div>

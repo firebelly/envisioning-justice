@@ -15,8 +15,8 @@ $body_content = apply_filters('the_content', $post->post_content);
       <h2 class="page-title"><?= get_the_title(); ?></h2>
     </div>
     <div class="page-header-bottom grid">
-      <div class="page-header-background one-half -right" <?= $header_bg ?>></div>
-      <div class="page-header-text one-half -left section">
+      <div class="page-header-background md-one-half -right" <?= $header_bg ?>></div>
+      <div class="page-header-text md-one-half -left section">
         <div class="-inner">
           <h3><?= $header_text ?></h3>
         </div>
