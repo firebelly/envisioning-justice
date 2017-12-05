@@ -70,6 +70,10 @@ nav.site-nav {
     }
   }
 
+  @include media-md {
+    padding: 180px $padding-medium 0;
+  }
+
   @include min-screen($breakpoint-nav) {
     top: auto;
     left: auto;
