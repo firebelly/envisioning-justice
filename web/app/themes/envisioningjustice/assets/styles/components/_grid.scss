@@ -3,16 +3,54 @@
 .grid {
   width: 100%;
   display: block;
+
+  .grid-item {
+    width: 100%;
+  }
+
   @include media-sm {
     display: flex;
     flex-wrap: wrap;
+    &.sm-spaced {
+      margin-left: -#{$padding / 2};
+      width: calc(100% + #{$padding});
+      > .grid-item {
+        padding-left: #{$padding / 2};
+        padding-right: #{$padding / 2};
+      }
+    }
+    &.sm-col-spaced {
+      margin-left: -#{$col / 2};
+      width: calc(100% + #{$col});
+      > .grid-item {
+        padding-left: #{$col / 2};
+        padding-right: #{$col / 2};
+      }
+    }
   }
+
+  @include media-md {
+    &.md-spaced {
+      margin-left: -#{$padding / 2};
+      width: calc(100% + #{$padding});
+      > .grid-item {
+        padding-left: #{$padding / 2};
+        padding-right: #{$padding / 2};
+      }
+    }
+    &.md-col-spaced {
+      margin-left: -#{$col / 2};
+      width: calc(100% + #{$col});
+      > .grid-item {
+        padding-left: #{$col / 2};
+        padding-right: #{$col / 2};
+      }
+    }
+  }
+
   &.-persist {
     display: flex;
   }
-}
-
-.flex-item {
 }
 
 @include media-sm {
