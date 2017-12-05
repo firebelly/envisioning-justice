@@ -36,8 +36,8 @@ $firebelly_includes = [
   'lib/short-codes.php',           // Custom short codes
   'lib/focus-area-taxonomy.php',   // Focus Areas
   'lib/event-post-type.php',       // Events
-  'lib/program-post-type.php',     // Programs
-  'lib/thought-post-type.php',     // Thoughts
+  'lib/sponsor-post-type.php',     // Sponsor Post Type
+  'lib/site-options.php',          // Site Options
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);
