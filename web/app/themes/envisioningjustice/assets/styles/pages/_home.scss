@@ -69,13 +69,11 @@
   .sponsor-recognition {
     background-color: $gray;
     @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
-    .grid {
-      margin-left: -10px;
-      width: calc(100% + 20px);
+    h2 {
+      margin: 0 0 30px;
     }
     .sponsor {
       display: flex;
-      padding: 0 10px;
       margin-bottom: 20px;
     }
     .icon {
