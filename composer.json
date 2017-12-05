@@ -69,7 +69,8 @@
     "wpackagist-plugin/wp-super-cache": ">=1.4.7",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
     "wpackagist-plugin/tablepress": ">=1.8",
-    "johnpbloch/wordpress": ">=4.8.1"
+    "johnpbloch/wordpress": ">=4.8.1",
+    "jjgrainger/posttypes": "^2.0"
   },
   "extra": {
     "installer-paths": {
