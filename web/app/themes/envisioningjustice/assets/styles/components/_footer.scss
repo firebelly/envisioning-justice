@@ -3,14 +3,61 @@
 footer.site-footer {
   color: $white-dark;
   background: $black;
-  @include angledEdge(before);
+  padding-bottom: 100px;
+  -webkit-font-smoothing: antialiased;
+  @include angledEdge(before, $color: $black);
 
-  .section {
-    padding-top: 100px;
-    padding-bottom: 100px;
+  .slashfield-container {
+    .-inner {
+      position: relative;
+    }
+    .slashfield {
+      margin-top: -6vw;
+    }
+  }
+
+  > .container {
+    z-index: 1;
+    position: relative;
+  }
+
+
+  .content-container {
+    padding-top: 60px;
+    > .grid > .grid-item.-first {
+      margin-bottom: 50px;
+      @include media-md {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .newsletter-form {
+    margin-bottom: 60px;
+    h3 {
+      margin: 0 0 4px;
+    }
+    .-bottom {
+      display: flex;
+    }
+    .form-group {
+      flex-grow: 1;
+      padding-right: 40px;
+    }
+    .input-wrap {
+      &::after {
+        background-color: $gray;
+      }
+    }
+    .submit {
+      max-width: 50px;
+      flex-basis: 50px;
+      align-self: flex-end;
+    }
   }
 
   .logos {
+    margin-bottom: 15px;
     a {
       display: inline-block;
       svg {
@@ -32,24 +79,45 @@ footer.site-footer {
     fill: #bcb5b5;
   }
 
-  .newsletter-form {
-    margin-bottom: 60px;
-    .-bottom {
-      display: flex;
+  .site-disclaimer {
+    margin: 0;
+    max-width: 360px;
+    @include type-small;
+    @include media-md {
+      max-width: none;
+      padding-right: 100px;
     }
-    .form-group {
-      flex-grow: 1;
-      padding-right: 40px;
+  }
+
+  .site-contact {
+    width: 100%;
+
+    h3 {
+      margin: 0 0 $padding;
     }
-    .input-wrap {
-      &::after {
-        background-color: $gray;
+
+    h3,
+    a {
+      color: $white-dark;
+    }
+
+    p,
+    address {
+      margin: 0 0 5px;
+      @include type-small;
+      span {
+        display: block;
+        margin-bottom: 5px;
       }
     }
-    .submit {
-      max-width: 50px;
-      flex-basis: 50px;
-      align-self: flex-end;
+
+    .-item {
+      display: inline-block;
+    }
+
+    .site-communication {
+      margin-right: 50px;
+      margin-bottom: 15px;
     }
   }
 }

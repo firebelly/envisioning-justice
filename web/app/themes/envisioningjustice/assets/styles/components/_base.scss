@@ -128,12 +128,10 @@ p {
 }
 
 // Main Content Area
-main.site-main {
-  @include angledEdge(after);
-}
 #page-content {
   .container {
     padding: 0;
     background: $gray;
+    @include angledEdge(after, $color: $gray);
   }
 }
