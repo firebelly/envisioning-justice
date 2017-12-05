@@ -67,25 +67,25 @@ $secondary_header_text = strip_tags($secondary_header_text, '<u><strong><em><a><
 
     <section class="sponsor-recognition section">
       <h2 class="type-h2">Sponsor Recognition</h2>
-      <div class="grid">
-        <div class="sponsor sm-one-half md-one-fourth">
+      <div class="grid sm-spaced">
+        <div class="sponsor grid-item sm-one-half md-one-fourth">
           <svg class="icon icon-image" aria-hidden="true" role="presentation"><use xlink:href="#icon-image"/></svg>
           <h3 class="type-h3">Sponsor Name Lorem Ipsum</h3>
         </div>
-        <div class="sponsor sm-one-half md-one-fourth">
+        <div class="sponsor grid-item sm-one-half md-one-fourth">
           <svg class="icon icon-image" aria-hidden="true" role="presentation"><use xlink:href="#icon-image"/></svg>
           <h3 class="type-h3">Sponsor Name Lorem Ipsum</h3>
         </div>
-        <div class="sponsor sm-one-half md-one-fourth">
+        <div class="sponsor grid-item sm-one-half md-one-fourth">
           <svg class="icon icon-image" aria-hidden="true" role="presentation"><use xlink:href="#icon-image"/></svg>
           <h3 class="type-h3">Sponsor Name Lorem Ipsum</h3>
         </div>
-        <div class="sponsor sm-one-half md-one-fourth">
+        <div class="sponsor grid-item sm-one-half md-one-fourth">
           <svg class="icon icon-image" aria-hidden="true" role="presentation"><use xlink:href="#icon-image"/></svg>
           <h3 class="type-h3">Sponsor Name Lorem Ipsum</h3>
         </div>
       </div>
     </section>
 
-  </div><<!-- .container -->
-</div><<!-- #page-content -->
+  </div><!-- .container -->
+</div><!-- #page-content -->
