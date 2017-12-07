@@ -136,10 +136,10 @@ var EJ = (function($) {
   }
 
   function _initBigClicky() {
-    $(document).on('click', '.article-list article, .focus-list-large article, .bigclicky .flex-item', function(e) {
+    $(document).on('click', '.big-clicky', function(e) {
       if (!$(e.target).is('a')) {
         e.preventDefault();
-        var link = $(this).find('h1:first a,h2:first a');
+        var link = $(this).find('a');
         var href = link.attr('href');
         if (href) {
           if (e.metaKey || link.attr('target')) {

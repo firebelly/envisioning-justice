@@ -37,6 +37,11 @@ $firebelly_includes = [
   'lib/focus-area-taxonomy.php',   // Focus Areas
   'lib/event-post-type.php',       // Events
   'lib/sponsor-post-type.php',     // Sponsor Post Type
+  'lib/hub-post-type.php',         // Hub Post Type
+  'lib/program-post-type.php',     // Program Post Type
+  'lib/commission-post-type.php',  // Commission Post Type
+  'lib/story-post-type.php',       // Story Post Type
+  'lib/resource-post-type.php',    // Resource Post Type
   'lib/site-options.php',          // Site Options
 ];
 

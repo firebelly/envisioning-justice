@@ -283,6 +283,8 @@
   }
 
   .page-header-top {
+    z-index: 1;
+    position: relative;
     @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
     .slashfield {
       z-index: 1;

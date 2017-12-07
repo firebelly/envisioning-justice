@@ -66,9 +66,21 @@
     }
   }
 
+  .page-content {
+    .container > .grid {
+      &.-second {
+        .slash-field-container .-inner {
+          position: relative;
+        }
+      }
+    }
+  }
+
   .sponsor-recognition {
-    background-color: $gray;
     @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
+    margin-top: 0;
+    background-color: $gray;
+
     h2 {
       margin: 0 0 30px;
     }

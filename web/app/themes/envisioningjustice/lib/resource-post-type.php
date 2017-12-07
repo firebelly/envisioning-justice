@@ -1,27 +1,33 @@
 <?php
 /**
- * Program post type
+ * Resource post type
  */
 
-namespace Firebelly\PostTypes\Program;
+namespace Firebelly\PostTypes\Resource;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
 $options = [
   'supports'   => ['editor', 'title'],
   'rewrite'    => ['with_front' => false],
-  'menu_icon'  => 'dashicons-nametag',
+  'menu_icon'  => 'dashicons-sos',
 ];
-$programs = new PostType('program', $options);
-$programs->register();
+$resources = new PostType('resource', $options);
+$resources->taxonomy('resource type');
+$resources->register();
+
+// Taxonomies
+$resource_types = new Taxonomy('resource type');
+$resource_types->register();
 
 // Custom CMB2 fields for post type
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  $meta_boxes['program_metabox'] = array(
-    'id'            => 'program_metabox',
-    'title'         => __( 'Program Sidebar Blocks', 'cmb2' ),
-    'object_types'  => array( 'program', ),
+  $meta_boxes['resource_metabox'] = array(
+    'id'            => 'resource_metabox',
+    'title'         => __( 'Resource Sidebar Blocks', 'cmb2' ),
+    'object_types'  => array( 'resource', ),
     'context'       => 'normal',
     'priority'      => 'low',
     'show_names'    => true,
@@ -43,7 +49,7 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
         'name' => 'Additional Info',
-        'desc' => 'Partners, Program Directors, etc',
+        'desc' => 'Partners, Resource Directors, etc',
         'id'   => $prefix . 'addl_info',
         'type' => 'wysiwyg',
       ),
@@ -57,7 +63,7 @@ function metaboxes( array $meta_boxes ) {
       'id'           => $prefix . 'metabox',
       'title'        => __( 'Page Blocks', 'cmb2' ),
       'priority'      => 'low',
-      'object_types' => array( 'program', 'page', ),
+      'object_types' => array( 'resource', 'page', ),
     ) 
   );
 
@@ -97,13 +103,13 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
- * Get Programs matching focus_area
+ * Get Resources matching focus_area
  */
-function get_programs($focus_area='') {
+function get_resources($focus_area='') {
   $output = '';
   $args = array(
     'numberposts' => -1,
-    'post_type' => 'program',
+    'post_type' => 'resource',
     'orderby' => ['title' => 'ASC'],
     );
   if ($focus_area != '') {
@@ -118,30 +124,30 @@ function get_programs($focus_area='') {
   // if ($year != '') {
   //   $args['meta_query'] = array(
   //     array(
-  //       'key' => '_cmb2_program_year',
+  //       'key' => '_cmb2_resource_year',
   //       'value' => $year,
   //       'compare' => '=',
   //     )
   //   );
   // }
 
-  $program_posts = get_posts($args);
-  // if (!$program_posts) return false;
-  return $program_posts;
+  $resource_posts = get_posts($args);
+  // if (!$resource_posts) return false;
+  return $resource_posts;
 }
 
-// Shortcode [programs_filters]
-add_shortcode('programs_filters', __NAMESPACE__ . '\shortcode_filters');
+// Shortcode [resources_filters]
+add_shortcode('resources_filters', __NAMESPACE__ . '\shortcode_filters');
 function shortcode_filters($atts) {
   global $wpdb;
-  $output = '<form class="program-filters" method="get"><label>Sort By</label> ';
+  $output = '<form class="resource-filters" method="get"><label>Sort By</label> ';
   $args = array(
     'numberposts' => -1,
-    'post_type' => 'program',
+    'post_type' => 'resource',
     'orderby' => 'menu_order',
     );
 
-  $years = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_cmb2_program_year' GROUP BY meta_value ORDER BY meta_value DESC" );
+  $years = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_cmb2_resource_year' GROUP BY meta_value ORDER BY meta_value DESC" );
   $output .= '<div class="select-wrapper"><label>Year:</label><select class="year">';
   $output .= '<option value="">All</option>';
   foreach ($years as $year)
@@ -157,4 +163,20 @@ function shortcode_filters($atts) {
   $output .= '</form> ';
 
   return $output;
+}
+
+/**
+ * Redirect 404s for Resources to Archive page 
+ */
+add_filter('404_template', __NAMESPACE__ . '\redirect_archived_resources');
+function redirect_archived_resources($template) {
+  global $wp_query;
+  
+  if (!is_404() || empty($wp_query->query_vars['resource']))
+    return $template;
+
+  $permalink = get_option('home') . '/archived-resources/';
+
+  wp_redirect($permalink, 301);
+  exit;
 }
