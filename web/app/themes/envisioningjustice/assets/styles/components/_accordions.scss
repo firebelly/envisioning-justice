@@ -1,0 +1,50 @@
+// Accordions
+
+.accordion {
+  
+  .accordion-toggle {
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 20px;
+    line-height: 40px;
+    position: relative;
+    padding-right: 80px;
+    &::before {
+      left: 0;
+      content: '';
+      height: 1px;
+      width: 100%;
+      bottom: 38px;
+      position: absolute;
+      background: $gray-dark;
+      transform-origin: left;
+      transform: skewY(2.68deg);
+      will-change: transform, top;
+      transition: transform .2s ease-out, bottom .2s ease-out;
+    }
+
+    span {
+      vertical-align: bottom;
+    }
+
+    button {
+      right: 0;
+      bottom: 0;
+      position: absolute;
+    }
+  }
+
+  // Active State
+  &.-open {
+
+    .accordion-toggle {
+      &::before {
+        bottom: 25px;
+        transform: none;
+      }
+    }
+
+  }
+
+}

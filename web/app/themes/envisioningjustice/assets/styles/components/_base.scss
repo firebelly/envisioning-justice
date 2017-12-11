@@ -3,15 +3,12 @@
   box-sizing: inherit;
 }
 
-html {
-  box-sizing: border-box;
-}
-
 body {
   color: $black;
   font-size: 15px;
   font-family: $serif;
   will-change: opacity;
+  box-sizing: border-box;
   background-color: $black;
 }
 

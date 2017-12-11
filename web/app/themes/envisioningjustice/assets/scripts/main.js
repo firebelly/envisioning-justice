@@ -68,6 +68,7 @@ var EJ = (function($) {
     _initMasonry();
     _initLoadMore();
     _initBigClicky();
+    _initAccordions();
     _initFilters();
     _initSlashFields();
     _initHoverPairs();
@@ -84,9 +85,6 @@ var EJ = (function($) {
       }
     });
 
-    // Add span to accordion titles to style +/- icons
-    $('.accordion-title').prepend('<span class="open-status"></span>');
-
     // Events landing page
     if ($('.post-type-archive-event').length) {
       if (breakpoint_medium) {
@@ -96,6 +94,7 @@ var EJ = (function($) {
         $(window).on('scroll', _scroll);
       }
     }
+
 
     // Run resize again in case anything needs adjusting
     _resize();
@@ -222,6 +221,43 @@ var EJ = (function($) {
     }).on('keypress', function(e) {
       $(this).parents('.input-wrap').addClass('filled');
     });
+  }
+
+  function _initAccordions() {
+    // Attach button
+    $('.accordion').each(function() {
+      $(this).find('.accordion-content').hide();
+      $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></button>');
+    });
+
+    $('.accordion-toggle').on('click', function(e) {
+      e.preventDefault();
+
+      var $accordion = $(this).closest('.accordion');
+      if ($accordion.is('.-open')) {
+        _closeAccordion($accordion);
+      } else {
+        _openAccordion($accordion);
+      }
+    });
+  }
+
+  function _openAccordion($accordion) {
+    var $content = $accordion.find('.accordion-content');
+    $accordion.addClass('-open');
+    $accordion.find('.accordion-toggle .icon').remove();
+    $accordion.find('.accordion-toggle button').append('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
+
+    $content.slideDown(250);
+  }
+
+  function _closeAccordion($accordion) {
+    var $content = $accordion.find('.accordion-content');
+    $accordion.removeClass('-open');
+    $accordion.find('.accordion-toggle .icon').remove();
+    $accordion.find('.accordion-toggle button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+
+    $content.slideUp(250);
   }
 
   function _initMap() {
@@ -368,11 +404,12 @@ var EJ = (function($) {
     $('<button class="menu-toggle"><span class="text">Menu</span> <span class="menu-bar"></span></button>')
       .prependTo('.site-header .container > .-inner');
 
-    $document.on('click', '.menu-toggle:not(.menu-open)', function(e) {
-      _showMobileNav();
-    });
-    $document.on('click', '.menu-toggle.menu-open', function(e) {
-      _hideMobileNav();
+    $document.on('click', '.menu-toggle', function(e) {
+      if ($('.site-nav').is('.-active')) {
+        _hideMobileNav();
+      } else {
+        _showMobileNav();
+      }
     });
 
     // Trigger slanted line hover
