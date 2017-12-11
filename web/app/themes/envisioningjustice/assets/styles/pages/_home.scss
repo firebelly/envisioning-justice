@@ -84,19 +84,19 @@
     h2 {
       margin: 0 0 30px;
     }
+    
     .sponsor {
-      display: flex;
-      margin-bottom: 20px;
-    }
-    .icon {
-      width: 60px;
-      height: 60px;
-      min-width: 60px;
-      fill: $gray-light;
-      margin-right: 20px;
-    }
-    h3 {
-      margin: 8px 0 0;
+      width: 100%;
+      @include media-sm {
+        max-width: 50%;
+        flex-basis: 50%;
+        padding-left: #{$padding / 2};
+        padding-right: #{$padding / 2};
+      }
+      @include media-md {
+        max-width: 25%;
+        flex-basis: 25%;
+      }
     }
   }
 }
