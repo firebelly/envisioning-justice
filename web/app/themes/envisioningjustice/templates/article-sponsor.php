@@ -1,8 +1,9 @@
 <?php
+$sponsor_logo = get_the_post_thumbnail($sponsor_post, 'medium', array('class' => 'sponsor-logo'));
 $sponsor_url = get_post_meta($sponsor_post->ID, '_cmb2_sponsor_url', true);
 ?>
-<div class="sponsor grid-item sm-one-half md-one-fourth big-clicky">
-  <svg class="icon icon-image" aria-hidden="true" role="presentation"><use xlink:href="#icon-image"/></svg>
+<div class="sponsor <?= !empty($sponsor_url) ? 'big-clicky' : ''; ?>">
+  <?= $sponsor_logo ?>
   <h3 class="type-h3">
     <?php
       if (!empty($sponsor_url)) { echo '<a href="'.$sponsor_url.'">';} else { echo ''; }

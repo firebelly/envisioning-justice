@@ -5,6 +5,7 @@
 
 namespace Firebelly\PostTypes\Sponsor;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
 $options = [
   'supports'   => ['title', 'thumbnail'],
@@ -12,13 +13,18 @@ $options = [
   'menu_icon'  => 'dashicons-store',
 ];
 $labels = [
-  'featured_image'  => 'Hub Logo',
-  'set_featured_image'  => 'Set Hub Logo',
-  'remove_featured_image'  => 'Remove Hub Logo',
-  'use_featured_image'  => 'Use Hub Logo'
+  'featured_image'  => 'Sponsor Logo',
+  'set_featured_image'  => 'Set Sponsor Logo',
+  'remove_featured_image'  => 'Remove Sponsor Logo',
+  'use_featured_image'  => 'Use Sponsor Logo'
 ];
 $sponsors = new PostType('sponsor', $options, $labels);
+$sponsors->taxonomy('sponsor type');
 $sponsors->register();
+
+// Taxonomies
+$sponsor_types = new Taxonomy('sponsor type');
+$sponsor_types->register();
 
 /**
  * CMB2 custom fields
@@ -51,12 +57,12 @@ function get_sponsors($options=[]) {
     'numberposts' => $options['num_posts'],
     'post_type'   => 'sponsor',
   ];
-  if (!empty($options['category'])) {
+  if (!empty($options['type'])) {
     $args['tax_query'] = [
       [
-        'taxonomy' => 'sponsor_category',
+        'taxonomy' => 'sponsor type',
         'field' => 'slug',
-        'terms' => $options['category']
+        'terms' => $options['type']
       ]
     ];
   }

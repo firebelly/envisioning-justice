@@ -1,0 +1,28 @@
+// Sponsors
+
+.sponsor {
+  display: flex;
+  margin-top: 20px;
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  .sponsor-logo {
+    width: 60px;
+    margin-right: 20px;
+  }
+  .icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    fill: $gray-light;
+    margin-right: 20px;
+  }
+  h3 {
+    margin: 8px 0 0;
+  }
+
+  @include media-sm {
+    margin-top: 0;
+  }
+}

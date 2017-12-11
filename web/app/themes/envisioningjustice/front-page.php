@@ -103,7 +103,7 @@ $secondary_header_text = strip_tags($secondary_header_text, '<u><strong><em><a><
     <section class="sponsor-recognition section">
       <h2 class="type-h2">Sponsor Recognition</h2>
       <div class="grid sm-spaced">
-        <?= Firebelly\PostTypes\Sponsor\get_sponsors() ?>
+        <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'sponsors']) ?>
       </div>
     </section>
 
