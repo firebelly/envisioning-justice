@@ -9,7 +9,7 @@ set :application, 'envisioningjustice_staging'
 
 # Extended Server Syntax
 # ======================
-server 'envisioningjustice-staging.ilhumanities.org', user: fetch(:login), roles: %w{web app db}
+server 'lhumanities.webfactional.com', user: fetch(:login), roles: %w{web app db}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options

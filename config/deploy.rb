@@ -1,5 +1,5 @@
 set :application, 'envisioningjustice'
-set :login, 'firebelly'
+set :login, 'ilhumaniaties'
 set :repo_url, 'git@github.com:firebelly/envisioning-justice.git'
 
 # Branch options
