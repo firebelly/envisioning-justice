@@ -1,5 +1,29 @@
 //  Share Your Story
 
-.page.share-your-story {
+.page.share-your-story,
+body.single-story {
     @include colorScheme($green);
+}
+
+.new-story-form {
+  margin-top: 50px;
+  textarea {
+    min-height: 280px;
+  }
+  .submit {
+    width: 100%;
+    display: block;
+  }
+}
+
+// Stories List
+.story-list {
+  .story {
+
+  }
+}
+
+// Single Story
+body.single-story {
+  
 }

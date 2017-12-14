@@ -1,6 +1,6 @@
-<?php 
+<?php
 /**
- * Template Name: Hubs
+ * Single Commission
  */
 
 $body_content = apply_filters('the_content', $post->post_content);
@@ -15,17 +15,12 @@ $body_content = apply_filters('the_content', $post->post_content);
 
         <div class="user-content">
           <?= $body_content ?>
-          <div class="hub-list article-list grid">
-            <?= Firebelly\PostTypes\Hub\get_hubs() ?>
-          </div>
         </div>
 
       </div>
 
-      <div class="md-one-half color-bg-gray">
-        <div class="map-container">
-          <div id="map"></div>
-        </div>
+      <div class="section md-one-half color-bg-gray">
+        
       </div>
 
   </div>

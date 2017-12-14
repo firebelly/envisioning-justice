@@ -10,6 +10,7 @@
   border-radius: 0;
   line-height: 11px;
   border-width: 5px;
+  text-align: center;
   border-style: solid;
   border-color: inherit;
   display: inline-block;
@@ -75,7 +76,9 @@
     }
     &:hover,
     &:focus {
-      color: $black;
+      @if $color != $black {
+        color: $black;
+      }
       border-color: $color;
       background-color: $color;
       .icon {

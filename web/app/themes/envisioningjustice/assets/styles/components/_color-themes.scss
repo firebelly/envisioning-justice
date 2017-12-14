@@ -130,6 +130,14 @@ $colors: (
     }
   }
 
+  // Article lists
+  .article-list {
+    .article-title a,
+    .actions a {
+      color: $color;
+    }
+  }
+
   // Color-specific changes
   // Purple
   @if $color == $purple {

@@ -1,5 +1,6 @@
 // Blog 
 
-body.blog {
+body.blog,
+body.single-post {
   @include colorScheme($purple);
 }

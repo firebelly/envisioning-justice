@@ -54,6 +54,10 @@
 }
 
 @include media-sm {
+  .sm-full {
+    max-width: none;
+    flex-basis: 100%;
+  }
   .sm-one-fourth {
     max-width: 25%;
     flex-basis: 25%;

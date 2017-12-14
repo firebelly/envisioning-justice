@@ -11,6 +11,22 @@
 
       <div class="grid-item md-one-half -first">
 
+        <ul class="social-media-links">
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('facebook_url'))) { ?>
+            <li><a href="<?= \Firebelly\SiteOptions\get_option('facebook_url'); ?>" class="button button-circular theme-exception -gray-light"><span class="sr-only">Facebook</span><svg class="icon icon-facebook" aria-hidden="true" role="presentation"><use xlink:href="#icon-facebook"/></svg></a></li>
+          <?php } ?>
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('twitter_url'))) { ?>
+            <li><a href="<?= \Firebelly\SiteOptions\get_option('twitter_url'); ?>" class="button button-circular theme-exception -gray-light"><span class="sr-only">Twitter</span><svg class="icon icon-twitter" aria-hidden="true" role="presentation"><use xlink:href="#icon-twitter"/></svg></a></li>
+          <?php } ?>
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('youtube_url'))) { ?>
+            <li><a href="<?= \Firebelly\SiteOptions\get_option('youtube_url'); ?>" class="button button-circular theme-exception -gray-light"><span class="sr-only">YouTube</span><svg class="icon icon-youtube" aria-hidden="true" role="presentation"><use xlink:href="#icon-youtube"/></svg></a></li>
+          <?php } ?>
+        </ul>
+        
+      </div>
+
+      <div class="site-contact grid-item md-one-half -second">
+
         <form id="newsletter" class="newsletter-form">
           <h3 class="type-h3">Subscribe to our Newsletter</h3>
           <div class="-bottom">
@@ -34,9 +50,6 @@
         </div>
         <p class="site-disclaimer"><?= \Firebelly\SiteOptions\get_option('disclaimer'); ?></p>
 
-      </div>
-
-      <div class="site-contact grid-item md-one-half -second">
 
         <h3 class="type-h3">Contact</h3>
 

@@ -29,22 +29,23 @@ function metaboxes(array $meta_boxes) {
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-          'name'    => 'Author',
+          'name'    => 'Author or Story Title',
           // 'desc'    => 'field description (optional)',
-          'id'      => $prefix . 'author',
+          'id'      => $prefix . 'story_name',
           'type'    => 'text',
       ),
       array(
-          'name'    => 'Shown Count',
-          'desc'    => 'This is here just for testing, will remove when TOD is rotating.',
-          'id'      => $prefix . 'shown_count',
-          'type'    => 'text',
+          'name'    => 'Author email',
+          // 'desc'    => 'field description (optional)',
+          'id'      => $prefix . 'story_email',
+          'type'    => 'text_email',
       ),
       array(
-          'name'    => 'Story of the Day',
-          'desc'    => 'When checked will clear out previous Story of the Day',
-          'id'      => $prefix . 'story_of_the_day',
-          'type'    => 'checkbox',
+          'name'    => 'Uploaded Images',
+          // 'desc'    => 'field description (optional)',
+          'id'      => $prefix . 'story_images',
+          'type'    => 'file_list',
+
       ),
     ),
   );
@@ -54,64 +55,32 @@ function metaboxes(array $meta_boxes) {
 add_filter('cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes');
 
 /**
- * Get Story of the Day and output HTML
- */
-function get_story() {
-  $story_post = get_story_post();
-  if (!$story_post) return false;
-  $body = apply_filters('the_content', $story_post->post_content);
-  $author = get_post_meta( $story_post->ID, '_cmb2_author', true );
-
-  // hiding Focus Area, see http://issues.firebelly.co/issues/2067 6/11/15
-  // if ($focus = \Firebelly\Utils\get_first_term($post, 'focus_area'))
-  //   $author .= '<br><a href="'.get_term_link($focus).'">'.$focus->name.'</a>';
-  // else
-  //   $author .= '<br>Humanities';
-
-  $output = <<<HTML
-   <article>
-     <blockquote>{$body}</blockquote>
-     <cite>{$author}</cite>
-   </article>
-HTML;
-  return $output;
-}
-
-/**
- * Get Story post
- */
-function get_story_post() {
-  $args = array(
-    'numberposts' => 1,
-    'post_type' => 'story',
-    'meta_query' => [
-      [
-        'key' => '_cmb2_story_of_the_day',
-        'value' => 'on',
-        'compare' => '='
-      ]
-    ],
-  );
-
-  $story_posts = get_posts($args);
-  if (!$story_posts) return false;
-  else return $story_posts[0];
-}
-
-/**
  * Outputs a "Submit A Story" submit form
  */
 function submit_form() {
 ?>
-  <form class="new-story-form" method="post" action="">
-    <textarea name="story" required placeholder="Type your story..."></textarea>
-    <input type="text" name="author" required placeholder="Your Name">
-    <div class="select-wrapper"><?php wp_dropdown_categories('show_option_none=Humanities&taxonomy=focus_area'); ?></div>
-    <?php wp_nonce_field('new_story'); ?>
+  <form action="<?= admin_url('admin-ajax.php') ?>" class="new-story-form" method="post" enctype="multipart/form-data" novalidate>
+    <div class="input-wrap">
+      <label for="story_name">Name or Story Title</label>
+      <input type="text" name="story_name" id="story_name" required>
+    </div>
+    <div class="input-wrap">
+      <label for="story_email">Email</label>
+      <input type="email" name="story_email" id="story_email" required>
+    </div>
+    <div class="input-wrap">
+      <label for="story_images">Story Images (optional)</label>
+      <input type="file" id="story_images" name="story_images[]" multiple>
+    </div>
+    <div class="input-wrap textarea-wrap">
+      <label for="story_content">Your Story</label>
+      <textarea name="story_content" required></textarea>
+    </div>
+    <?php wp_nonce_field( 'story_form', 'story_form_nonce' ); ?>
     <!-- die bots --><div style="position: absolute; left: -5000px;"><input type="text" name="die_bots_5000" tabindex="-1" value=""></div>
     <input type="hidden" name="action" value="story_submission">
     <div class="actions">
-      <button type="submit" class="button">Submit Story</button>
+      <button type="submit" class="button submit">Submit</button>
     </div>
   </form>
 <?php
@@ -120,90 +89,144 @@ function submit_form() {
 /**
  * Handle a Story submission
  */
-function story_submission() {
-  $story = filter_var($_REQUEST['story'], FILTER_SANITIZE_STRING);
-  $author = filter_var($_REQUEST['author'], FILTER_SANITIZE_STRING);
-  $cat = filter_var($_REQUEST['cat'], FILTER_SANITIZE_NUMBER_INT);
+function new_story() {
+  $errors = [];
+  $attachments = $attachments_size = [];
+  $notification_email = true;
+  $name = $_POST['story_name'];
+  $story = $_POST['story_content'];
 
-  if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'new_story')) {
-    wp_send_json_error(['message' => 'Failed security check']);
-  } elseif (!empty($_REQUEST['die_bots_5000'])) {
-    wp_send_json_error(['message' => 'Failed bot check']);
-  } else {
+  $story_post = array(
+    'post_title'    => $name,
+    'post_type'     => 'story',
+    'post_content'  => $story,
+    'post_author'   => 1,
+    'post_status'   => 'draft',
+  );
+  $post_id = wp_insert_post($story_post);
+  if ($post_id) {
 
-    $is_spam = 'false';
+    update_post_meta($post_id, '_cmb2_story_name', $_POST['story_name']);
+    update_post_meta($post_id, '_cmb2_story_email', $_POST['story_email']);
+    update_post_meta($post_id, '_cmb2_story_content', $_POST['story_content']);
 
-    // Check with Akismet if possible
-    if(function_exists('akismet_http_post')) {
-      if (akismet_get_key()) {
-        global $akismet_api_host, $akismet_api_port;
+    if (!empty($_FILES['story_images'])) {
+      require_once(ABSPATH . 'wp-admin/includes/image.php');
+      require_once(ABSPATH . 'wp-admin/includes/file.php');
+      require_once(ABSPATH . 'wp-admin/includes/media.php');
 
-        $data = array(
-          'comment_author'        => $author,
-          'comment_content'       => $story,
-          'user_ip'               => $_SERVER['REMOTE_ADDR'],
-          'blog'                  => site_url(),
-        );
-        $query_string = http_build_query($data);
-        $response = akismet_http_post($query_string, $akismet_api_host, '/1.1/comment-check', $akismet_api_port);
-        $is_spam = (is_array( $response) && isset( $response[1])) ? $response[1] : 'false';
-      }
-    }
+      $files = $_FILES['story_images'];
+      foreach ($files['name'] as $key => $value) {
+        if ($files['name'][$key]) {
+          $file = array(
+            'name' => $files['name'][$key],
+            'type' => $files['type'][$key],
+            'tmp_name' => $files['tmp_name'][$key],
+            'error' => $files['error'][$key],
+            'size' => $files['size'][$key]
+          );
+          $_FILES = array('story_images' => $file);
+          $attachment_id = media_handle_upload('story_images', $post_id);
 
-    if ($is_spam !== 'false') {
-      wp_send_json_error(['message' => 'Akismet has marked this as spam']);
-    } else {
-      $my_post = [
-        'post_title'    => sprintf('Submission from %s', $author),
-        'post_content'  => $story,
-        'post_type'     => 'story',
-        'post_author'   => 1,
-        'tax_input'     => ['focus_area' => $cat]
-      ];
-      $post_id = wp_insert_post($my_post);
-      update_post_meta($post_id, '_cmb2_author', $author);
-
-      // Notify admin of submission?
-      $story_of_day_email = get_option('story_of_day_email');
-      if ($story_of_day_email && is_email($story_of_day_email)) {
-        if ($cat>0) {
-          $focus_area = get_term($cat, 'focus_area');
-          $focus_area_name = $focus_area->name;
-        } else {
-          $focus_area_name = 'Humanities';
+          if (is_wp_error($attachment_id)) {
+            $errors[] = 'There was an error uploading '.$file['name'];
+          } else {
+            $attachment_url = wp_get_attachment_url($attachment_id);
+            $attachments[$attachment_id] = $attachment_url;
+            $attachments_size[$attachment_id] = $files['size'][$key];
+            // if Enhanced Media Library is installed, set category
+            if (function_exists('wpuxss_eml_enqueue_media')) {
+              wp_set_object_terms($attachment_id, 'stories', 'media_category');
+            }
+          }
         }
-        $email_txt = "You have a new Storysubmission!";
-        $email_txt .= "\n\nStory: " . $story;
-        $email_txt .= "\n\nAuthor: " . $author;
-        $email_txt .= "\n\nFocus Area: " . $focus_area_name;
-        $email_txt .= "\n\nEdit/Publish: ".admin_url('post.php?post=' . $post_id . '&action=edit');
-
-        // Email user set in Site Settings
-        wp_mail($story_of_day_email, sprintf('New Story of the Day submission from %s', $author), $email_txt);
       }
-
-      // Pull response copy from Site Settings and return via json
-      $story_of_day_response = get_option('story_of_day_response', 'Your submission is in review.');
-      wp_send_json_success(['message' => sprintf($story_of_day_response, $author)]);
+      if (!empty($attachments)) {
+        update_post_meta($post_id, '_cmb2_story_images', $attachments);
+      }
     }
 
+    // Pull notification email from site_options
+    $notification_email = \Firebelly\SiteOptions\get_option('story_submission_email');
+    $subject = 'New story submission from ' . $_POST['story_name'];
+    $message = "A new story submission was received:\n\n";
+
+    // Send email if notification_email was set for position or in site_options for internships/portfolio
+    if ($notification_email) {
+      $headers = ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+      $message .= $_POST['story_name'] . "\n";
+      $message .= 'Email: ' . $_POST['story_email'] . "\n";
+      $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
+      if (!empty($attachments)) {
+        $message .= "\nFiles uploaded:\n";
+        foreach ($attachments as $attachment_id => $attachment_url) {
+          // Add home_url (if not there) to make these links
+          if (strpos($attachment_url, get_home_url())===false) {
+            $attachment_url = get_home_url().$attachment_url;
+          }
+          $message .= $attachment_url . "\n";
+        }
+      }
+      wp_mail($notification_email, $subject, $message, $headers);
+    }
+
+    // Send quick receipt email to applicant
+    $story_message = "Thank you for sharing your story with us.\n\n";
+    $story_message .= "Best Regards,\nIllinois Humanities";
+    wp_mail($_POST['story_email'], 'Thank you for sharing your story', $story_message, ['From: Illinois Humanities <envisioningjustic@ilhumanities.org>']);
+
+  } else {
+    $errors[] = 'Error inserting post';
   }
+
+  if (empty($errors)) {
+    return true;
+  } else {
+    return $errors;
+  }
+}
+
+
+/**
+ * AJAX Story submissions
+ */
+function story_submission() {
+  if($_SERVER['REQUEST_METHOD']==='POST' && !empty($_POST['story_form_nonce'])) {
+    if (wp_verify_nonce($_POST['story_form_nonce'], 'story_form')) {
+
+      // Server side validation of required fields
+      $required_fields = ['story_name',
+                          'story_email'];
+      foreach($required_fields as $required) {
+        if (empty($_POST[$required])) {
+          $required_txt = ucwords(str_replace('_', ' ', str_replace('story_','',$required)));
+          wp_send_json_error(['message' => 'Please enter a value for '.$required_txt]);
+        }
+      }
+
+      // Check for valid Email
+      if (!is_email($_POST['story_email'])) {
+        wp_send_json_error(['message' => 'Invalid email']);
+      } else {
+
+        // Try to save new Story post
+        $return = new_story();
+        if (is_array($return)) {
+          wp_send_json_error(['message' => 'There was an error: '.implode("\n", $return)]);
+        } else {
+          wp_send_json_success(['message' => 'Story was saved OK']);
+        }
+
+      }
+    } else {
+      // Bad nonce, man!
+      wp_send_json_error(['message' => 'Invalid form submission (bad nonce)']);
+    }
+  }
+  wp_send_json_error(['message' => 'Invalid post']);
 }
 add_action('wp_ajax_story_submission', __NAMESPACE__ . '\\story_submission');
 add_action('wp_ajax_nopriv_story_submission', __NAMESPACE__ . '\\story_submission');
-
-/**
- * Set initial shown_count of new Story to lowest count of all Story posts
- */
-function init_shown_count($post_id, $post, $update) {
-  global $wpdb;
-  if (wp_is_post_revision($post_id) || $update || $post->post_type != 'story')
-    return;
-  // Find lowest shown_count
-  $lowest_count = $wpdb->get_var("SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_cmb2_shown_count' ORDER BY meta_value ASC LIMIT 1");
-  update_post_meta($post_id, '_cmb2_shown_count', $lowest_count);
-}
-add_action('wp_insert_post', __NAMESPACE__ . '\init_shown_count', 10, 3);
 
 /**
  * Handle AJAX response from CSV import form
@@ -255,4 +278,35 @@ dolor sit amet,jane doe,Business</pre>
 
   </div>
 <?php
+}
+
+/**
+ * Get Stories
+ */
+function get_stories($options=[]) {
+  if (empty($options['num_posts'])) $options['num_posts'] = -1;
+  $args = [
+    'numberposts' => $options['num_posts'],
+    'post_type'   => 'story',
+  ];
+  if (!empty($options['area'])) {
+    $args['tax_query'] = [
+      [
+        'taxonomy' => 'story area',
+        'field' => 'slug',
+        'terms' => $options['area']
+      ]
+    ];
+  }
+
+  // Display all matching posts using article-{$post_type}.php
+  $stories_posts = get_posts($args);
+  if (!$stories_posts) return false;
+  $output = '';
+  foreach ($stories_posts as $story_post):
+    ob_start();
+    include(locate_template('templates/article-story.php'));
+    $output .= ob_get_clean();
+  endforeach;
+  return $output;
 }

@@ -121,28 +121,11 @@ function simplify_tinymce($settings) {
   $settings['paste_as_text'] = 'true';
 
   $style_formats = array( 
-    // array( 
-    //   'title' => 'Two Column',
-    //   'block' => 'div',
-    //   'classes' => 'two-column',
-    //   'wrapper' => true,
-    // ),  
-    array( 
-      'title' => 'Three Column',
-      'block' => 'div',
-      'classes' => 'three-column',
-      'wrapper' => true,
-    ),
     array( 
       'title' => 'Button',
       'block' => 'span',
       'classes' => 'button',
-    ),
-    array( 
-      'title' => '» Arrow Link',
-      'block' => 'span',
-      'classes' => 'arrow-link',
-    ),
+    )
  );  
   $settings['style_formats'] = json_encode($style_formats);
 

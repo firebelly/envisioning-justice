@@ -6,7 +6,6 @@
   $header_bg = \Firebelly\Media\get_header_bg($post);
 ?>
 
-
 <header class="page-header container">
   <div class="-inner">
     <div class="page-header-top">    
@@ -14,12 +13,20 @@
       <h2 class="page-title"><?= get_the_title(); ?></h2>
     </div>
     <div class="page-header-bottom grid">
+    <?php if (!empty($no_image_in_header)) { ?>
+      <div class="page-header-text no-image sm-full section">
+        <div class="-inner">
+          <h3 class="type-h2"><?= $header_text ?></h3>
+        </div>
+      </div>
+    <?php } else { ?>
       <div class="page-header-background md-one-half -right" <?= $header_bg ?>></div>
       <div class="page-header-text md-one-half -left section">
         <div class="-inner">
-          <h3><?= $header_text ?></h3>
+          <h3 class="type-h2"><?= $header_text ?></h3>
         </div>
       </div>
+    <?php } ?>
     </div>
   </div>
 </header>

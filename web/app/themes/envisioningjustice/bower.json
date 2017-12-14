@@ -12,6 +12,7 @@
     "fitvids": "~1.1.0",
     "imagesloaded": "~3.1.8",
     "boomsvgloader": "~0.0.2",
+    "jquery-validation": "^1.15.0",
     "respond": "~1.4.2",
     "velocity": "~1.2.2",
     "masonry": "~3.2.2",

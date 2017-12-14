@@ -150,6 +150,35 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Story Submission Email', 'firebelly' ),
+      'id'   => 'story_submission_email',
+      'desc' => __( 'Email that new story submissions are sent to.'),
+      'type' => 'text_email',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Facebook', 'firebelly' ),
+      'desc' => __( 'Facebook Account Url', 'firebelly' ),
+      'id'   => 'facebook_url',
+      'type' => 'text_url',
+      'before_row' => '<h3>Social Media Links</h3>',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Twitter', 'firebelly' ),
+      'desc' => __( 'Twitter Account Url', 'firebelly' ),
+      'id'   => 'twitter_url',
+      'type' => 'text_url',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'YouTube', 'firebelly' ),
+      'desc' => __( 'YouTube Account Url', 'firebelly' ),
+      'id'   => 'youtube_url',
+      'type' => 'text_url',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Facebook App ID', 'firebelly' ),
       'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
       'id'   => 'facebook_app_id',

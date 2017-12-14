@@ -9,17 +9,18 @@ $event_url = get_permalink($event_post);
     <?php if (!empty($show_images) && $thumb = \Firebelly\Media\get_post_thumbnail($event_post->ID)): ?>
       <a href="<?= get_the_permalink($event_post) ?>" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></a>
     <?php endif; ?>
-    <time class="article-date flagged" datetime="<?= date('c', $event->event_start); ?>">
-    <?php if (date('d', $event->event_start) != date('d', $event->event_end)) { ?>
-      <span class="month event-start"><?= date('M d', $event->event_start) ?></span>
-      <span class="month event-end"><?= date('M d', $event->event_end) ?></span>
-    <?php } else { ?>
-      <span class="month"><?= date('M', $event->event_start) ?></span> <span class="day"><?= date('d', $event->event_start) ?></span><?= ($event->year < date('Y') ? ' <span class="year">'.$event->year.'</span>' : '') ?>
-    <?php } ?>
-    </time>
+
     <div class="article-content-wrap"> 
       <h1 class="article-title"><a href="<?= $event_url ?>"><?= $event->title ?></a></h1>
-      <div class="event-details">
+      <div class="event-details article-details">
+        <time class="article-date flagged" datetime="<?= date('c', $event->event_start); ?>">
+        <?php if (date('d', $event->event_start) != date('d', $event->event_end)) { ?>
+          <span class="month event-start"><?= date('M d', $event->event_start) ?></span>
+          <span class="month event-end"><?= date('M d', $event->event_end) ?></span>
+        <?php } else { ?>
+          <span class="month"><?= date('M', $event->event_start) ?></span> <span class="day"><?= date('d', $event->event_start) ?></span><?= ($event->year < date('Y') ? ' <span class="year">'.$event->year.'</span>' : '') ?>
+        <?php } ?>
+        </time>
         <p class="time"><?= $event->time_txt ?></p>
         <?php if (!empty($event->address['city'])): ?>
           <p class="address"><?= $event->address['city'] ?>, <?= $event->address['state'] ?> <?= $event->address['zip'] ?></p>

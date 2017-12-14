@@ -101,6 +101,12 @@ nav.site-nav {
         &.-primary {
           @include type-h3;
         }
+        &.active {
+          a::after {
+            opacity: 1;
+            animation: bounceInLeft .2s .2s both;
+          }
+        }
         a {
           margin: 0;
           padding: 0;

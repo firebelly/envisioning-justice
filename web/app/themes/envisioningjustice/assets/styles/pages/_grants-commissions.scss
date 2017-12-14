@@ -1,5 +1,38 @@
 //  Grants & Commissions
 
 .page.grants-commissions {
-    @include colorScheme($yellow);
+  @include colorScheme($yellow);
+}
+
+.commissions-list {
+  margin-top: 50px;
+  margin-left: -20px;
+  width: calc(100% + 40px);
+  .commission {
+    padding-left: 20px;
+    padding-right: 20px;
+    .commission-image-wrap {
+      @include angledEdge(both, $beforeOrientation: rtl, $afterOrientation: rtl, $color: $gray);
+      margin: 0;
+      &::before,
+      &::after {
+        height: 3vw;
+      }
+    }
+    .commission-image {
+      height: 0;
+      width: 100%;  
+      padding-bottom: 100%;
+      background-size: cover;
+      background-position: top center;
+    }
+    a {
+      color: $yellow;
+    }
+  }
+}
+
+// Single Commissions
+body.single-commission {
+  @include colorScheme($yellow);
 }

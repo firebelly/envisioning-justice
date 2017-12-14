@@ -97,8 +97,8 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
  * Remove unused WP Tags UI in admin, also hide default Category meta_box to use CMB2 select
  */
 function remove_sub_menus() {
-  remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
-  remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+  // remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
+  // remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
   remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=focus_area');
   remove_submenu_page('edit.php?post_type=event', 'edit-tags.php?taxonomy=focus_area&amp;post_type=event');
   remove_submenu_page('edit.php?post_type=thought', 'edit-tags.php?taxonomy=focus_area&amp;post_type=thought');

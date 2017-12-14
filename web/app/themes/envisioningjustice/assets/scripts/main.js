@@ -60,11 +60,11 @@ var EJ = (function($) {
     // Init behavior for various sections
     _injectSvgs();
     _initPageActions();
-    _initThoughtSubmit();
+    _initStorySubmit();
     _initNav();
     _initSearch();
     _initFormActions();
-    _initMap();
+    // _initMap();
     _initMasonry();
     _initLoadMore();
     _initBigClicky();
@@ -226,8 +226,12 @@ var EJ = (function($) {
   function _initAccordions() {
     // Attach button
     $('.accordion').each(function() {
-      $(this).find('.accordion-content').hide();
-      $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></button>');
+      if (!$(this).is('.-open')) {
+        $(this).find('.accordion-content').hide();
+        $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></button>');
+      } else {
+        $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg></button>');
+      }
     });
 
     $('.accordion-toggle').on('click', function(e) {
@@ -263,7 +267,7 @@ var EJ = (function($) {
   function _initMap() {
     // Only init Mapbox if > breakpoint_medium, or on a body.single page (small sidebar maps)
     if ($('#map').length && (breakpoint_medium || $('body.single').length)) {
-      L.mapbox.accessToken = 'pk.eyJ1IjoiZmlyZWJlbGx5ZGVzaWduIiwiYSI6IlZMd0JwWWcifQ.k9GG6CFOLrVk7kW75z6ZZA';
+      L.mapbox.accessToken = 'pk.eyJ1IjoidHNxdWFyZWQxMDE3IiwiYSI6ImNpdG5hdXJnYTAzcmsyb24waW42MTlsY24ifQ.8hBEeKstyMlXhbK8mSxJoA';
       map = L.mapbox.map('map', 'firebellydesign.0238ce0b', { zoomControl: false, attributionControl: false }).setView([41.843, -88.075], 11);
 
       mapFeatureLayer = L.mapbox.featureLayer().addTo(map);
@@ -508,57 +512,61 @@ var EJ = (function($) {
     });
   }
 
-  function _initThoughtSubmit() {
-    $document.on('click', '.submit-thought a', function(e) {
-      e.preventDefault();
-      if ($('.thought-of-the-day').hasClass('submitting-thought')) {
-        _cancelThoughtSubmit();
-      } else {
-        $('.thought-of-the-day').velocity({opacity: 0, left: -50}, { easing: 'easeInSine', duration: 150,
-          complete: function(e) {
-            $('.thought-of-the-day').css('left',50).addClass('submitting-thought').velocity({opacity: 1, left: 0}, {  easing: 'easeOutSine', duration: 150 });
-          }
-        });
-      }
-    });
-    $('.thought-of-the-day .close-button').on('click', _cancelThoughtSubmit);
-
-    // Handle ajax submit of new thought
-    $document.on('submit', 'form.new-thought-form', function(e) {
-      e.preventDefault();
-      var $form = $(this);
-      var data = $form.addClass('working').serialize();
-      $.ajax({
-          url: wp_ajax_url,
-          method: 'post',
-          data: data,
-          success: function(response) {
-            $form.removeClass('working');
-            if (response.success) {
-              $('.thought-of-the-day').velocity({opacity: 0, left: -50}, { easing: 'easeInSine', duration: 150,
-                complete: function(e) {
-                  $('.new-thought-form')[0].reset();
-                  $('.thought-of-the-day .response').text(response.data.message);
-                  $('.thought-of-the-day').css('left',50).removeClass('submitting-thought').addClass('thought-submitted').velocity({opacity: 1, left: 0}, {  easing: 'easeOutSine', duration: 150 });
+  function _initStorySubmit() {
+    // Handle ajax submit of new Story
+    $document.on('click', 'form.new-story-form button[type=submit]', function(e) {
+      var $form = $(this).closest('form');
+      $form.validate({
+        messages: {
+          story_name: 'Please leave us your first name',
+          story_email: 'We will need a valid email to contact you at'
+        },
+        submitHandler: function(form) {
+          // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
+          if( window.FormData !== undefined ) {
+            var formData = new FormData(form);
+            // Show working state, disable submit button
+            $form.addClass('working').find('button[type=submit]').prop('disabled', true).html('<span>Working</span>');
+            $.ajax({
+              url: wp_ajax_url,
+              method: 'post',
+              data: formData,
+              dataType: 'json',
+              mimeType: 'multipart/form-data',
+              processData: false,
+              contentType: false,
+              cache: false,
+              success: function(response) {
+                if (response.success) {
+                  alert('success!');
+                  // _feedbackMessage('Your application was submitted successfully!', 1);
+                  form.reset();
+                  // $form.find('.files-attached').html('');
+                } else {
+                  alert(response.data.message);
+                  // _feedbackMessage(response.data.message);
                 }
-              });
-
-            } else {
-              alert('There was an error: '+response.data.message);
-            }
+              },
+              error: function(response) {
+                var message;
+                if (!respond.data && response.responseText.match(/exceeds the limit/)) {
+                  message = 'There was an error: files are larger than the accepted limit (100mb).';
+                } else {
+                  message = response.data ? response.data.message : 'There was an error uploading. Please try again.';
+                }
+                alert(message);
+                // _feedbackMessage(message);
+              }
+            }).always(function() {
+              // Re-enable form
+              $form.removeClass('working').find('button[type=submit]').prop('disabled', false).html('<span>Submit</span>');
+            });
+          } else {
+            form.submit();
           }
-      });
-    });
-  }
-
-  function _cancelThoughtSubmit() {
-    if ($('.thought-of-the-day').is('.submitting-thought,.thought-submitted')) {
-      $('.thought-of-the-day').velocity({opacity: 0, left: 50}, { easing: 'easeInSine', duration: 150,
-        complete: function(e) {
-          $('.thought-of-the-day').css('left',-50).removeClass('submitting-thought thought-submitted').velocity({opacity: 1, left: 0}, {  easing: 'easeOutSine', duration: 150 });
         }
       });
-    }
+    });
   }
 
   function _initSlashFields() {

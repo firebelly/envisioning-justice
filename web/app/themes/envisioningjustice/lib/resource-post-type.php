@@ -59,44 +59,44 @@ function metaboxes( array $meta_boxes ) {
   /**
    * Repeating blocks
    */
-  $cmb_group = new_cmb2_box( array(
-      'id'           => $prefix . 'metabox',
-      'title'        => __( 'Page Blocks', 'cmb2' ),
-      'priority'      => 'low',
-      'object_types' => array( 'resource', 'page', ),
-    ) 
-  );
+  // $cmb_group = new_cmb2_box( array(
+  //     'id'           => $prefix . 'metabox',
+  //     'title'        => __( 'Page Blocks', 'cmb2' ),
+  //     'priority'      => 'low',
+  //     'object_types' => array( 'resource', 'page', ),
+  //   ) 
+  // );
 
-  $group_field_id = $cmb_group->add_field( array(
-      'id'          => $prefix . 'page_blocks',
-      'type'        => 'group',
-      'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
-      'options'     => array(
-          'group_title'   => __( 'Block {#}', 'cmb' ),
-          'add_button'    => __( 'Add Another Block', 'cmb' ),
-          'remove_button' => __( 'Remove Block', 'cmb' ),
-          'sortable'      => true, // beta
-      ),
-  ) );
+  // $group_field_id = $cmb_group->add_field( array(
+  //     'id'          => $prefix . 'page_blocks',
+  //     'type'        => 'group',
+  //     'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
+  //     'options'     => array(
+  //         'group_title'   => __( 'Block {#}', 'cmb' ),
+  //         'add_button'    => __( 'Add Another Block', 'cmb' ),
+  //         'remove_button' => __( 'Remove Block', 'cmb' ),
+  //         'sortable'      => true, // beta
+  //     ),
+  // ) );
 
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Block Title',
-      'id'   => 'title',
-      'type' => 'text',
-  ) );
+  // $cmb_group->add_group_field( $group_field_id, array(
+  //     'name' => 'Block Title',
+  //     'id'   => 'title',
+  //     'type' => 'text',
+  // ) );
 
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Body',
-      'id'   => 'body',
-      'type' => 'wysiwyg',
-  ) );
+  // $cmb_group->add_group_field( $group_field_id, array(
+  //     'name' => 'Body',
+  //     'id'   => 'body',
+  //     'type' => 'wysiwyg',
+  // ) );
 
-  $cmb_group->add_group_field( $group_field_id, array(
-      'name' => 'Hide Block',
-      // 'desc' => 'Check this to hide Page Block from the front end',
-      'id'   => 'hide_block',
-      'type' => 'checkbox',
-  ) );
+  // $cmb_group->add_group_field( $group_field_id, array(
+  //     'name' => 'Hide Block',
+  //     // 'desc' => 'Check this to hide Page Block from the front end',
+  //     'id'   => 'hide_block',
+  //     'type' => 'checkbox',
+  // ) );
 
   return $meta_boxes;
 }

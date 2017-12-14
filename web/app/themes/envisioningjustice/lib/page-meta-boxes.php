@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['page_metabox'] = array(
     'id'            => 'page_metabox',
     'title'         => __( 'Header Text', 'cmb2' ),
-    'object_types'  => array( 'page', 'program' ),
+    'object_types'  => array( 'page', 'program', 'commission' ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -36,6 +36,29 @@ function metaboxes( array $meta_boxes ) {
         'options' => array(
           'textarea_rows' => 4,
         ),
+      ),
+    ),
+  );
+
+  $meta_boxes['page_content_areas'] = array(
+    'id'            => 'page_content_areas',
+    'title'         => __( 'Content', 'cmb2' ),
+    'object_types'  => array( 'page' ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['front-page.php','page-grants-commissions.php','page-share-your-story.php'] ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      
+      array(
+        'name' => 'Primary Content Area',
+        'id'   => $prefix . 'primary_content',
+        'type' => 'wysiwyg',
+      ),
+      array(
+        'name' => 'Secondary Content Area',
+        'id'   => $prefix . 'secondary_content',
+        'type' => 'wysiwyg',
       ),
     ),
   );

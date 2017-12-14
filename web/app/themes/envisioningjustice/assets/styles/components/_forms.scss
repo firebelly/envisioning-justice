@@ -9,6 +9,7 @@ form {
   .input-wrap {
     display: flex;
     position: relative;
+    margin-top: $padding;
     &::after {
       left: 0;
       right: 0;
@@ -24,6 +25,9 @@ form {
         height: 5px;
       }
     }
+    &:first-of-type {
+      margin-top: 0;
+    }
     label {
       max-width: 200px;
       flex-basis: 200px;
@@ -38,6 +42,27 @@ form {
         // display: none;
       }
     }
+
+    &.textarea-wrap {
+      display: block;
+
+      label {
+        padding: 0;
+        top: $padding;
+        left: $padding;
+        position: absolute;
+      }
+      input {
+        text-align: left;
+      }
+
+      &.-focus,
+      &.filled {
+        label {
+          display: none;
+        }
+      }
+    }
   }
 
   input,
@@ -47,12 +72,8 @@ form {
     display: block;
     appearance: none;
     background: none;
-    margin-top: $padding;
     &:focus {
       outline: none;
-    }
-    &:first-of-type {
-      margin-top: 0;
     }
   }
 

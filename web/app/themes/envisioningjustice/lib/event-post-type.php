@@ -4,84 +4,20 @@
  */
 
 namespace Firebelly\PostTypes\Event;
+use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
-// Custom image size for post type?
-// add_image_size( 'event-thumb', 350, null, null );
+$options = [
+  'supports'   => ['editor', 'title', 'thumbnail'],
+  'rewrite'    => ['with_front' => false],
+];
+$events = new PostType('event', $options);
+$events->taxonomy('program type');
+$events->register();
 
-/**
- * Register Custom Post Type
- */
-function post_type() {
-
-  $labels = array(
-    'name'                => 'Events',
-    'singular_name'       => 'Event',
-    'menu_name'           => 'Events',
-    'parent_item_colon'   => '',
-    'all_items'           => 'All Events',
-    'view_item'           => 'View Event',
-    'add_new_item'        => 'Add New Event',
-    'add_new'             => 'Add New',
-    'edit_item'           => 'Edit Event',
-    'update_item'         => 'Update Event',
-    'search_items'        => 'Search Events',
-    'not_found'           => 'Not found',
-    'not_found_in_trash'  => 'Not found in Trash',
-  );
-  $rewrite = array(
-    'slug'                => 'events',
-    'with_front'          => false,
-    'pages'               => true,
-    'feeds'               => true,
-  );
-  $args = array(
-    'label'               => 'event',
-    'description'         => 'Events',
-    'labels'              => $labels,
-    'supports'            => array( 'title', 'editor', 'thumbnail', ),
-    'hierarchical'        => false,
-    'public'              => true,
-    'show_ui'             => true,
-    'show_in_menu'        => true,
-    'show_in_nav_menus'   => true,
-    'show_in_admin_bar'   => true,
-    'menu_position'       => 20,
-    'menu_icon'           => 'dashicons-admin-post',
-    'can_export'          => false,
-    'has_archive'         => true,
-    'exclude_from_search' => false,
-    'publicly_queryable'  => true,
-    'rewrite'             => $rewrite,
-    'capability_type'     => 'event',
-    'map_meta_cap'        => true
-  );
-  register_post_type( 'event', $args );
-
-}
-add_action( 'init', __NAMESPACE__ . '\post_type', 0 );
-
-/**
- * Add capabilities to control permissions of Post Type via roles
- */
-function add_capabilities() {
-  $role_admin = get_role('administrator');
-  // programs
-  $role_admin->add_cap('edit_event');
-  $role_admin->add_cap('read_event');
-  $role_admin->add_cap('delete_event');
-  $role_admin->add_cap('edit_events');
-  $role_admin->add_cap('edit_others_events');
-  $role_admin->add_cap('publish_events');
-  $role_admin->add_cap('read_private_events');
-  $role_admin->add_cap('delete_events');
-  $role_admin->add_cap('delete_private_events');
-  $role_admin->add_cap('delete_published_events');
-  $role_admin->add_cap('delete_others_events');
-  $role_admin->add_cap('edit_private_events');
-  $role_admin->add_cap('edit_published_events');
-  $role_admin->add_cap('create_events');
-}
-add_action('switch_theme', __NAMESPACE__ . 'add_capabilities');
+// Taxonomies
+$event_types = new Taxonomy('program type');
+$event_types->register();
 
 /**
  * Custom admin columns for post type
@@ -92,7 +28,6 @@ function edit_columns($columns){
     'title' => 'Title',
     'event_dates' => 'Date',
     '_cmb2_venue' => 'Venue',
-    'taxonomy-focus_area' => 'Focus Area',
   );
   return $columns;
 }
@@ -283,19 +218,10 @@ function get_events($options=[]) {
       'compare' => !empty($options['exhibitions']) ? '=' : 'NOT EXISTS',
     );
   }
-  if (!empty($options['focus_area'])) {
-    $args['tax_query'] = array(
-        array(
-            'taxonomy' => 'focus_area',
-            'field' => 'slug',
-            'terms' => $options['focus_area'],
-        )
-    );
-  }
-  if (!empty($options['program'])) {
+  if (!empty($options['hub'])) {
     $args['meta_query'][] = array(
-      'key' => '_cmb2_related_program',
-      'value' => array( (int)$options['program'] ),
+      'key' => '_cmb2_related_hub',
+      'value' => array( (int)$options['hub'] ),
       'compare' => 'IN',
     );
   }
@@ -525,8 +451,7 @@ function get_ical_date($time, $incl_time=true){
 function add_query_vars_filter($vars){
   $vars[] = "past_events";
   $vars[] = "exhibitions";
-  $vars[] = "filter_program";
-  $vars[] = "filter_focus_area";
+  $vars[] = "filter_hub";
   $vars[] = "prox_miles";
   $vars[] = "prox_zip";
   return $vars;

@@ -298,7 +298,7 @@
     h3 {
       margin: 0;
       color: $black;
-      @include type-h3;
+      @include type-h2;
     }
 
     .page-header-text {
@@ -316,6 +316,11 @@
         order: 0;
         @include killAngle(before);
         padding-top: $padding-medium;
+        &.no-image {
+          h3 {
+            width: 75%;
+          }
+        }
       }
       .page-header-background {
         order: 1;

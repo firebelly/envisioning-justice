@@ -65,10 +65,12 @@ function get_commissions($options=[]) {
   $commissions_posts = get_posts($args);
   if (!$commissions_posts) return false;
   $output = '';
+  $output .= '<ul class="commissions-list grid">';
   foreach ($commissions_posts as $commission_post):
     ob_start();
     include(locate_template('templates/article-commission.php'));
     $output .= ob_get_clean();
   endforeach;
+  $output .= '</ul>';
   return $output;
 }

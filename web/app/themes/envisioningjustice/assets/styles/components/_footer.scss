@@ -32,6 +32,16 @@ footer.site-footer {
     }
   }
 
+  .social-media-links {
+    li {
+      margin-left: 40px;
+      display: inline-block;
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+
   .newsletter-form {
     margin-bottom: 60px;
     h3 {

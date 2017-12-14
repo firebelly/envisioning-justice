@@ -1,19 +1,26 @@
-<?php get_template_part('templates/page', 'header'); ?>
+<?php
+/**
+ * 404
+ */
+?>
 
-<div class="content-wrap">
-  <header class="page-header">
-    <div class="container">
-      <div class="image-wrap">
-        <div class="header-text">
-          <h1><?= \Roots\Sage\Titles\title(); ?></h1>
+<header class="page-header container">
+  <div class="-inner">
+    <div class="page-header-top">    
+      <div class="slashfield" data-rows="5"></div>
+      <h2 class="page-title"><span class="color-black">Error 404</span><br> Not Found</h2>
+    </div>
+    <div class="page-header-bottom grid">
+      <div class="page-header-text md-one-half -left section">
+        <div class="-inner">
+          <h3 class="type-h3">Sorry, but the page you were trying to view does not exist.</h3>
+        </div>
+      </div>
+      <div class="page-search color-bg-orange md-one-half -right">
+        <div class="-inner">
+          <?php get_search_form(); ?>
         </div>
       </div>
     </div>
-  </header>
-
-  <main>
-    <div class="alert alert-warning">
-      <?php _e('Sorry, but the page you were trying to view does not exist.', 'sage'); ?>
-    </div>
-  </main>
-</div>
+  </div>
+</header>

@@ -1,5 +1,20 @@
 // Hubs Page
 
-.page.hubs {
+.page.hubs,
+body.single-hub {
   @include colorScheme($green);
+}
+
+// Hubs List
+.hub-list {
+  .hub {
+    margin-top: $padding;
+    
+    .article-title {
+      margin: 0 0 6px;
+    }
+    .hub-address {
+      margin: 0;
+    }
+  }
 }

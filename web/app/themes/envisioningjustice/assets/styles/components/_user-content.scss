@@ -1,5 +1,21 @@
 // Styling of content that is editable in wysiwyg
 
 .user-content {
+  h1,h2,h3,h4,h5,h6 {
+    @include type-h3;
+  }  
 
+  ul {
+    li {
+      list-style: disc;
+    }
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  u {
+    text-decoration: underline;
+  }
 } // END .user-content

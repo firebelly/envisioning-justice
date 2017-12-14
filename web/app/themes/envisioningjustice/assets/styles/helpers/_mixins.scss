@@ -74,6 +74,38 @@
   }
 }
 
+// Angled Rules
+@mixin angledRule($sides, $color) {
+  position: relative;
+  @if $sides == 'before' or $sides == 'both' {
+    padding-top: $padding;
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      content: '';
+      position: absolute;
+      background-color: $color;
+      transform: skewY($angle);
+      transform-origin: left;
+    }
+  }
+  @if $sides == 'after' or $sides == 'both' {
+    padding-bottom: $padding;
+    &::after {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      content: '';
+      position: absolute;
+      background-color: $color;
+      transform: skewY($angle);
+      transform-origin: left;
+    }
+  }
+}
 
 // Clearfix
 @mixin clearfix {
