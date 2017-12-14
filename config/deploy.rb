@@ -1,4 +1,4 @@
-set :application, 'ihc'
+set :application, 'envisioningjustice'
 set :login, 'firebelly'
 set :repo_url, 'git@github.com:firebelly/envisioning-justice.git'
 
