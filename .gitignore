@@ -4,6 +4,7 @@ web/app/plugins/*
 web/app/mu-plugins/*
 !web/app/mu-plugins/.gitkeep
 web/app/upgrade
+web/app/debug.log
 web/app/uploads/*
 !web/app/uploads/.gitkeep
 !web/app/mu-plugins/disallow-indexing.php
@@ -43,3 +44,7 @@ bin
 # Cache
 web/app/cache
 web/app/wp-cache-config.php
+
+# Project Stuff
+.todo
+log
