@@ -12,11 +12,11 @@
     display: flex;
     flex-wrap: wrap;
     &.sm-spaced {
-      margin-left: -#{$padding / 2};
+      margin-left: -#{$padding};
       width: calc(100% + #{$padding});
       > .grid-item {
-        padding-left: #{$padding / 2};
-        padding-right: #{$padding / 2};
+        padding-left: #{$padding};
+        padding-right: #{$padding};
       }
     }
     &.sm-col-spaced {
@@ -31,11 +31,11 @@
 
   @include media-md {
     &.md-spaced {
-      margin-left: -#{$padding / 2};
+      margin-left: -#{$padding};
       width: calc(100% + #{$padding});
       > .grid-item {
-        padding-left: #{$padding / 2};
-        padding-right: #{$padding / 2};
+        padding-left: #{$padding};
+        padding-right: #{$padding};
       }
     }
     &.md-col-spaced {
@@ -100,4 +100,21 @@
     flex-basis: 66.6666667%;
     max-width: 66.6666667%;
   }
+}
+
+// Independent of grid, width classes
+.w-25 {
+  width: 25%;
+}
+.w-33 {
+  width: 33.3333%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-66 {
+  width: 66.6666%;
+}
+.w-75 {
+  width: 75%;
 }
