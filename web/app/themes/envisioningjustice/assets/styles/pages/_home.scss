@@ -70,21 +70,30 @@
     height: 100%;
   }
 
-  #page-content {
-    > .container > .grid {
-      &.-second {
-        .slashfield-container {
-          z-index: 1;
-          width: 100%;
-          margin-top: -45px;
-          padding: 0 $padding;
-          .-inner {
-            position: relative;
-          }
-          @include media-md {
-            padding: 0 $padding-medium;
-          }
-        }
+  .home-section.-second {
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $yellow);
+    margin-top: 0;
+
+    .slashfield-container {
+      z-index: 1;
+      width: 100%;
+      padding: 0 $padding;
+      .-inner {
+        position: relative;
+      }
+      .slashfield {
+        margin-top: -5vw;
+      }
+      @include media-md {
+        padding: 0 $padding-medium;
+      }
+    }
+  }
+
+  .events-section {
+    .events-buttons {
+      .button {
+        width: 100%;
       }
     }
   }
@@ -107,10 +116,51 @@
     }
   }
 
+  .hub-section {
+    .section-title {
+      @include media-md {
+        width: 50%;
+      }
+    }
+
+    .view-all {
+      @include media-md {
+        width: 50%;
+        padding-right: 20px;
+        a {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   .hub-list {
-    margin-top: 30px;
+    @include media-sm {    
+      margin-top: 30px;
+      margin-left: -20px;
+      width: calc(100% + 40px);
+    }
     .hub {
       @include angledRule(before, $gray-dark);
+      @include media-sm {
+        max-width: 50%;
+        flex-basis: 50%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 40px;
+        &::before {
+          left: 20px;
+          right: 20px;
+        }
+      }
+
+      .hub-address {
+        @include type-h3;
+      }      
+
+      .actions {
+        display: none;
+      }
     }
 
     .view-all {
@@ -130,7 +180,7 @@
     }
   }
 
-  .sponsor-recognition {
+  .sponsors-section {
     @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
     margin-top: 0;
     background-color: $gray;

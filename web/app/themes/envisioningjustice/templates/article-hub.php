@@ -8,9 +8,11 @@
   <div class="article-details">
     <p class="hub-address"><?= $hub_address['address-1'].', '.$hub_address['city'].', '.$hub_address['state'].', '.$hub_address['zip'] ?></p>
   </div>
+  <?php if ($show_description !== false) { ?>
   <p class="hub-description">
     <?= $hub_description ?>
   </p>
+  <?php } ?>
   <p class="actions">
     <a href="<?= $hub_url ?>">Find Out More</a>
   </p>
