@@ -124,6 +124,15 @@
     }
 
     .view-all {
+      margin-top: 70px;
+      .button {
+        display: block;
+        &:hover,
+        &:active {
+          color: $yellow;
+        }
+      }
+
       @include media-md {
         width: 50%;
         padding-right: 20px;
@@ -160,16 +169,6 @@
 
       .actions {
         display: none;
-      }
-    }
-
-    .view-all {
-      margin-top: 70px;
-      .button {
-        display: block;
-        &:hover {
-          color: $yellow;
-        }
       }
     }
   }
