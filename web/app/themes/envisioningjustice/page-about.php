@@ -18,25 +18,35 @@ $body_content = apply_filters('the_content', $post->post_content);
           <?= $body_content ?>
         </div>
 
-        <div class="accordion -open">
-          <h3 class="accordion-toggle type-h3"><span>Funders</span></h3>
-          <div class="accordion-content">
-            <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'funders']) ?>
-          </div>
-        </div>
+        <div class="sponsor-types">
+          
+          <?php
 
-        <div class="accordion">
-          <h3 class="accordion-toggle type-h3"><span>Partners</span></h3>
-          <div class="accordion-content">
-            <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'partners']) ?>
-          </div>
-        </div>
+            $sponsor_types = get_terms( array(
+              'taxonomy' => 'sponsor type'
+            ));
 
-        <div class="accordion">
-          <h3 class="accordion-toggle type-h3"><span>Supporters</span></h3>
-          <div class="accordion-content">
-            <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'supporters']) ?>
-          </div>
+            foreach ($sponsor_types as $key => $sponsor_type) {
+              // Sponsors are not shown on the about page
+              if ($sponsor_type->slug == 'sponsors') {
+                continue;
+              } else {
+                $term = get_term_by('slug', $sponsor_type->slug, 'sponsor type'); 
+                $description = term_description($term->term_id, 'sponsor type');
+                echo '<div class="accordion'.($key===0?' -open':'').'">
+                        <h3 class="accordion-toggle type-h3"><span>'.$sponsor_type->name.'</span></h3>';
+                if (!empty($description)) {
+                  echo '<p>'.$description.'</p>';
+                }
+                echo '<div class="accordion-content">';
+                echo Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>$sponsor_type->slug]);
+                echo '</div>
+                  </div>';
+              }
+            }
+
+          ?>
+
         </div>
 
       </div>
