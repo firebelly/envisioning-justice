@@ -46,13 +46,6 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
           </div>
         </div>
 
-        <div class="hub-sponsors accordion">
-          <h3 class="accordion-toggle type-h3"><span>Sponsors</span></h3>
-          <div class="accordion-content">
-            <?= Firebelly\PostTypes\Hub\get_hub_sponsors($post) ?>
-          </div>
-        </div>
-
       </div>
 
       <div class="events-section section md-one-half color-bg-gray">
