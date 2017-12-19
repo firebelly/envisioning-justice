@@ -518,8 +518,13 @@ var EJ = (function($) {
       var $form = $(this).closest('form');
       $form.validate({
         messages: {
-          story_name: 'Please leave us your first name',
-          story_email: 'We will need a valid email to contact you at'
+          story_name: 'Please leave us your name or a title for the story',
+          story_email: 'We will need a valid email to contact you at',
+          story_content: 'This field is required. If you are attaching your story as an uploaded text document, please state so in this field'
+        },
+        errorPlacement: function(error, element) {
+          console.log(element);
+          error.insertAfter(element.parent('.input-wrap'));
         },
         submitHandler: function(form) {
           // only AJAXify if browser supports FormData (necessary for file uploads via AJAX, <IE10 = no go)
@@ -538,10 +543,10 @@ var EJ = (function($) {
               cache: false,
               success: function(response) {
                 if (response.success) {
-                  alert('success!');
-                  // _feedbackMessage('Your application was submitted successfully!', 1);
                   form.reset();
-                  // $form.find('.files-attached').html('');
+                  $form.find('.files-attached').html('');
+                  $form.addClass('hide');
+                  $('.story-submitted-wrapper').removeClass('hide');
                 } else {
                   alert(response.data.message);
                   // _feedbackMessage(response.data.message);
@@ -566,6 +571,24 @@ var EJ = (function($) {
           }
         }
       });
+    });
+
+    // Handle file input interaction
+    $document.on('change', '.new-story-form input[type=file]', function(e) {
+      var files = $(this).prop('files');
+      var $files_label = $('label[for='+$(this).attr('id')+']');
+      var $files_attached = $(this).closest('form').find('.files-attached');
+      if (files.length) {
+        $files_label.html('('+files.length+') File(s) Attached');
+        for (var i=0;i<files.length;i++) {
+          $files_attached.append('<p>'+files[i].name+'</p>');
+        }
+        $(this).attr('data-content', 'Click to replace file(s)');
+      } else {
+        $(this).attr('data-content', 'Click to add file(s)');
+        $files_label.html('Story Images and/or Files (optional)');
+        $files_attached.html('');
+      }
     });
   }
 

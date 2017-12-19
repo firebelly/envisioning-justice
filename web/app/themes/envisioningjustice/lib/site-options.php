@@ -157,6 +157,13 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Story Submission Success Message', 'firebelly' ),
+      'id'   => 'story_submission_success',
+      'desc' => __( 'Message displayed when a story is successfully submitted.'),
+      'type' => 'textarea',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Facebook', 'firebelly' ),
       'desc' => __( 'Facebook Account Url', 'firebelly' ),
       'id'   => 'facebook_url',

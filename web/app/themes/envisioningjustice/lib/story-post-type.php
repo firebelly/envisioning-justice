@@ -68,13 +68,14 @@ function submit_form() {
       <label for="story_email">Email</label>
       <input type="email" name="story_email" id="story_email" required>
     </div>
-    <div class="input-wrap">
-      <label for="story_images">Story Images (optional)</label>
-      <input type="file" id="story_images" name="story_images[]" multiple>
-    </div>
     <div class="input-wrap textarea-wrap">
       <label for="story_content">Your Story</label>
       <textarea name="story_content" required></textarea>
+    </div>
+    <div class="input-wrap file-input-wrap">
+      <label for="story_images" class="attach-files-label">Story Images and/or Files (optional)</label>
+      <div class="files-attached"></div>
+      <input type="file" id="story_images" name="story_images[]" multiple data-content="Click to add file(s)">
     </div>
     <?php wp_nonce_field( 'story_form', 'story_form_nonce' ); ?>
     <!-- die bots --><div style="position: absolute; left: -5000px;"><input type="text" name="die_bots_5000" tabindex="-1" value=""></div>

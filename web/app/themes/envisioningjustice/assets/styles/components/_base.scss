@@ -126,6 +126,10 @@ p {
   @include media-md {
     padding: $padding-medium;
   }
+
+  .section-title {
+    margin-top: 0;
+  }
 }
 
 // Main Content Area
@@ -133,6 +137,6 @@ p {
   .container {
     padding: 0;
     background: $gray;
-    @include angledEdge(after, $color: $gray);
+    @include angledEdge(after, $color: $black);
   }
 }

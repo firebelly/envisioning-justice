@@ -16,6 +16,12 @@ body.single-story {
   }
 }
 
+.story-submitted-wrapper {
+  h3 {
+    color: $green;
+  }
+}
+
 // Stories List
 .story-list {
   .story {
