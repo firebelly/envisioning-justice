@@ -547,9 +547,10 @@ var EJ = (function($) {
                   $form.find('.files-attached').html('');
                   $form.addClass('hide');
                   $('.story-submitted-wrapper').removeClass('hide');
+                  _scrollBody($form.closest('.section'));
                 } else {
-                  alert(response.data.message);
-                  // _feedbackMessage(response.data.message);
+                  $('.story-submitted-wrapper').removeClass('hide');
+                  $('.story-submitted-wrapper .response').html(response.data.message);
                 }
               },
               error: function(response) {
@@ -559,8 +560,8 @@ var EJ = (function($) {
                 } else {
                   message = response.data ? response.data.message : 'There was an error uploading. Please try again.';
                 }
-                alert(message);
-                // _feedbackMessage(message);
+                $('.story-submitted-wrapper').removeClass('hide');
+                $('.story-submitted-wrapper .response').html(message);
               }
             }).always(function() {
               // Re-enable form
