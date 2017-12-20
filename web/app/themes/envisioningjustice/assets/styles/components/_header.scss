@@ -306,6 +306,12 @@
 
     .page-header-text {
       @include angledEdge(before, $beforeOrientation: rtl, $color: inherit);
+      a {
+        text-decoration: underline;
+        &:hover {
+          color: $gray-dark;
+        }
+      }
     }
 
     .page-header-background {

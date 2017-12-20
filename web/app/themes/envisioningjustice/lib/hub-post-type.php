@@ -12,12 +12,6 @@ $options = [
   'rewrite'    => ['with_front' => false],
   'menu_icon'  => 'dashicons-location-alt',
 ];
-// $labels = [
-//   'featured_image'  => 'Hub Image',
-//   'set_featured_image'  => 'Set Hub Image',
-//   'remove_featured_image'  => 'Remove Hub Image',
-//   'use_featured_image'  => 'Use Hub Image'
-// ];
 $hubs = new PostType('hub', $options, $labels);
 $hubs->taxonomy('hub area');
 $hubs->register();
@@ -41,19 +35,24 @@ function metaboxes( array $meta_boxes) {
     'show_names'    => true,
     'fields'        => array(
       array(
-        'name'      => 'Hub Address',
-        'id'        => $prefix . 'hub_address',
-        'type'      => 'address',
-      ),
-      array(
         'name'      => 'Hub Description',
         'id'        => $prefix . 'hub_description',
         'type'      => 'textarea_small',
         'desc'      => 'Displays on hubs landing page'
       ),
       array(
-        'name'      => 'Hub Website',
-        'id'        => $prefix . 'hub_website',
+        'name'      => 'Primary Organization Name',
+        'id'        => $prefix . 'primary_org_name',
+        'type'      => 'text',
+      ),
+      array(
+        'name'      => 'Primary Organization Address',
+        'id'        => $prefix . 'primary_org_address',
+        'type'      => 'address',
+      ),
+      array(
+        'name'      => 'Primary Organization Website',
+        'id'        => $prefix . 'primary_org_website',
         'type'      => 'text_url',
       ),
     ),
@@ -64,7 +63,7 @@ function metaboxes( array $meta_boxes) {
    */
   $hub_staff = new_cmb2_box( array(
       'id'           => $prefix . 'hub_staff_organizers_group',
-      'title'        => __( 'Staff/Organizers', 'cmb2' ),
+      'title'        => __( 'Primary Organization Staff/Organizers', 'cmb2' ),
       'priority'      => 'low',
       'object_types' => array( 'hub'),
     ) 
@@ -99,50 +98,43 @@ function metaboxes( array $meta_boxes) {
       )
   ) );
 
-  $hub_sponsors = new_cmb2_box( array(
-      'id'           => $prefix . 'hub_sponsors_group',
-      'title'        => __( 'Sponsors', 'cmb2' ),
+  $secondary_orgs = new_cmb2_box( array(
+      'id'           => $prefix . 'secondary_orgs_group',
+      'title'        => __( 'Secondary Organizations', 'cmb2' ),
       'priority'      => 'low',
       'object_types' => array( 'hub'),
     ) 
   );
 
-  $group_field_id = $hub_sponsors->add_field( array(
-      'id'          => $prefix . 'hub_sponsors',
+  $group_field_id = $secondary_orgs->add_field( array(
+      'id'          => $prefix . 'secondary_orgs',
       'type'        => 'group',
       'description' => __( '' ),
       'options'     => array(
-          'group_title'   => __( 'Hub Sponsor #{#}', 'cmb' ),
-          'add_button'    => __( 'Add Another Sponsor', 'cmb' ),
-          'remove_button' => __( 'Remove Sponsor', 'cmb' ),
+          'group_title'   => __( 'Supporting Organization #{#}', 'cmb' ),
+          'add_button'    => __( 'Add Another Organization', 'cmb' ),
+          'remove_button' => __( 'Remove Organization', 'cmb' ),
           'sortable'      => true, // beta
       ),
   ) );
 
-  $hub_sponsors->add_group_field( $group_field_id, array(
+  $secondary_orgs->add_group_field( $group_field_id, array(
       'name' => 'Name',
       'id'   => 'name',
       'type' => 'text'
   ) );
 
-  $hub_sponsors->add_group_field( $group_field_id, array(
-      'name' => 'Website',
-      'id'   => 'url',
-      'desc' => 'Include http://',
-      'type' => 'text_url'
+  $secondary_orgs->add_group_field( $group_field_id, array(
+      'name' => 'Description',
+      'id'   => 'description',
+      'type' => 'wysiwyg'
   ) );
 
-  $hub_sponsors->add_group_field( $group_field_id, array(
-    'name'    => 'Sponsor Logo',
-    'desc'    => 'Upload a sponsor logo, ideally in .svg format',
-    'id'      => 'logo',
-    'type'    => 'file',
-    'options' => array(
-      'url' => false, // Hide the text input for the url
-    ),
-    'text'    => array(
-      'add_upload_file_text' => 'Add Logo'
-    )
+  $secondary_orgs->add_group_field( $group_field_id, array(
+      'name' => 'Website',
+      'id'   => 'website',
+      'desc' => 'Include http://',
+      'type' => 'text_url'
   ) );
 
   return $meta_boxes;
@@ -189,49 +181,49 @@ function get_hubs($options=[]) {
 function get_hub_staff($post) {
   $output = '';
   $hub_staff_organizers = get_post_meta($post->ID, '_cmb2_hub_staff_organizers', true);
-  if ($hub_staff_organizers) {
-    foreach ($hub_staff_organizers as $staff_member_organizer) {
-      if (!empty($staff_member_organizer['name']))
-        $staff_member_organizer_name = $staff_member_organizer['name'];
-      if (!empty($staff_member_organizer['bio'])) {
-        $staff_member_organizer_bio = apply_filters('the_content', $staff_member_organizer['bio']);
-        $output .= '<div class="staff-member-organizer">';
-        $output .= '<h4 class="type-h2">' . $staff_member_organizer_name . '</h4>';
-        $output .= '<div class="bio user-content">' . $staff_member_organizer_bio . '</div>';
-        $output .= '</div>';
-      }
+  if (!$hub_staff_organizers) return false;
+  $output .= '<div class="hub-staff accordion">
+    <h3 class="accordion-toggle type-h3"><span>Hub Staff/Organizers</span></h3>
+    <div class="accordion-content">';
+  foreach ($hub_staff_organizers as $staff_member_organizer) {
+    if (!empty($staff_member_organizer['name']))
+      $staff_member_organizer_name = $staff_member_organizer['name'];
+    if (!empty($staff_member_organizer['bio'])) {
+      $staff_member_organizer_bio = apply_filters('the_content', $staff_member_organizer['bio']);
+      $output .= '<div class="staff-member-organizer">';
+      $output .= '<h4 class="type-h2">' . $staff_member_organizer_name . '</h4>';
+      $output .= '<div class="bio user-content">' . $staff_member_organizer_bio . '</div>';
+      $output .= '</div>';
     }
   }
+  $output .= '</div></div>';
   return $output;
 }
 
 /**
- * Get Hub Sponsors
+ * Get Secondary Organizations
  */
-function get_hub_sponsors($post) {
+function get_secondary_orgs($post) {
   $output = '';
-  $hub_sponsors = get_post_meta($post->ID, '_cmb2_hub_sponsors', true);
-  if ($hub_sponsors) {
-    foreach ($hub_sponsors as $hub_sponsor) {
-      if (!empty($hub_sponsor['name']))
-        $hub_sponsor_name = $hub_sponsor['name'];
-      if (!empty($hub_sponsor['url'])) {
-        $hub_sponsor_url = $hub_sponsor['url'];
-        $output .= '<div class="sponsor big-clicky">';
-      } else {
-        $output .= '<div class="sponsor">';
-      }
-      if (!empty($hub_sponsor['logo'])) {;
-        $output .= '<img src="'.$hub_sponsor['logo'].'" class="sponsor-logo">';
-      }
-      $output .= '<h4 class="type-h3">';
-      if ($hub_sponsor_url) {
-        $output .= '<a href="'.$hub_sponsor_url.'">'.$hub_sponsor_name.'</a>';
-      } else {
-        $output .= $hub_sponsor_name;
-      }
+  $secondary_orgs = get_post_meta($post->ID, '_cmb2_secondary_orgs', true);
+  if (!$secondary_orgs) return false;
+  $output .= '<div class="secondary-orgs"><h3 class="type-h2">Supporting Organizations</h3>';
+  foreach ($secondary_orgs as $secondary_org) {
+    $output .= '<div class="secondary-org accordion">';
+    if (!empty($secondary_org['name']))
+      $secondary_org_name = $secondary_org['name'];
+    if (!empty($secondary_org['description'])) {
+      $secondary_org_description = apply_filters('the_content', $secondary_org['description']);
+      $output .= '<h3 class="accordion-toggle type-h3"><span>'.$secondary_org_name.'</span></h3>';
+      $output .= '<div class="accordion-content user-content">';
+      $output .= '<div class="description user-content">'.$secondary_org_description.'</div>';
+      if (!empty($secondary_org['website']))
+        $secondary_org_website = $secondary_org['website'];
+        $output .= '<p class="organization-website"><a class="button" href="'.$secondary_org_website.'" target="_blank">Visit Website</a></p>';
       $output .= '</div>';
     }
+    $output .= '</div>';
   }
+  $output .= '</div>';
   return $output;
 }

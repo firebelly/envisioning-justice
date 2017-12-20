@@ -18,3 +18,32 @@ body.single-hub {
     }
   }
 }
+
+// Single Hubs
+body.single-hub {
+
+  // Hub Staff
+  .hub-staff {
+    margin-top: 40px;
+
+    .staff-member-organizer {
+      h4 {
+        margin: 0;
+      }
+      + .staff-member-organizer {
+        margin-top: 40px;
+      }
+    }
+  }
+
+  // Secondary Orgs
+  .secondary-orgs {
+    margin-top: 100px;
+  }
+  .secondary-org {
+    .organization-website {
+      margin-top: 20px;
+    }
+  }
+
+}

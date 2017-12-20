@@ -1,7 +1,9 @@
 <?php
 // Single Hub
 
-$hub_address = get_post_meta($post->ID, '_cmb2_hub_address', true);
+$primary_org_name = get_post_meta($post->ID, '_cmb2_primary_org_name', true);
+$primary_org_website = get_post_meta($post->ID, '_cmb2_primary_org_website', true);
+$primary_org_address = get_post_meta($post->ID, '_cmb2_primary_org_address', true);
 $body_content = apply_filters('the_content', $post->post_content);
 $category = \Firebelly\Utils\get_first_term($post, 'hub area');
 ?>
@@ -9,15 +11,21 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
 <header class="page-header container">
   <div class="-inner">
     <div class="page-header-top">
-      <div class="slashfield" data-rows="5"></div>
+      <div class="slashfield" data-rows="7"></div>
       <h2 class="page-title"><span class="color-black">Hub</span><br> <?= get_the_title(); ?></h2>
     </div>
     <div class="page-header-bottom grid">
       <div class="page-header-text md-one-half -left section">
         <div class="-inner">
           <h3 class="hub-address type-h2">
-            <?= get_the_title(); ?><br>
-            <?= $hub_address['address-1'].'<br> '.$category->name.', '.$hub_address['zip'] ?>
+            <?php if (!empty($primary_org_website)) { 
+                echo '<a href="'.$primary_org_website.'" target="_blank">'.$primary_org_name.'</a>';
+              } else {
+                echo $primary_org_name;
+              }
+            ?>
+            <br>
+            <?= $primary_org_address['address-1'].'<br> '.$category->name.', '.$primary_org_address['zip'] ?>
           </h3>
         </div>
       </div>
@@ -39,12 +47,9 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
           <?php echo apply_filters('the_content', $post->post_content); ?>
         </div>
 
-        <div class="hub-staff accordion">
-          <h3 class="accordion-toggle type-h3"><span>Hub Staff/Organizers</span></h3>
-          <div class="accordion-content">
-            <?= Firebelly\PostTypes\Hub\get_hub_staff($post) ?>
-          </div>
-        </div>
+        <?= Firebelly\PostTypes\Hub\get_hub_staff($post) ?>
+
+        <?= Firebelly\PostTypes\Hub\get_secondary_orgs($post) ?>
 
       </div>
 
