@@ -23,7 +23,7 @@
 
       <div class="md-one-half color-bg-gray">
         <div class="map-container">
-          <div id="map"></div>
+          <div id="map" data-color="orange"></div>
         </div>
       </div>
 
