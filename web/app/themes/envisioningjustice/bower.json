@@ -17,6 +17,7 @@
     "velocity": "~1.2.2",
     "masonry": "~3.2.2",
     "mapbox.js": "~2.1.6",
+    "mapbox-gl-supported": "^1.2.0",
     "slick-carousel": "~1.6.0",
     "fastclick": "~1.0.6"
   },

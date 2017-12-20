@@ -35,7 +35,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
       
       <div class="grid-item md-one-half">
         <div class="map-container">
-          <div id="map"></div>
+          <div id="map" data-color="yellow"></div>
         </div>
         <?php 
         // homepage shows all current events on map

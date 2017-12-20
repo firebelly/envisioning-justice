@@ -142,6 +142,60 @@ function metaboxes( array $meta_boxes) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
+ * Update lookup table for events geodata, if post_id isn't sent, all posts are updates/inserted into wp_events_lat_lng
+ */
+function update_hubs_lat_lng($post_id='') {
+  global $wpdb;
+  $hub_cache = [];
+  $post_id_sql = empty($post_id) ? '' : ' AND post_id='.(int)$post_id;
+  $hub_posts = $wpdb->get_results("SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta WHERE meta_key IN ('_cmb2_lat','_cmb2_lng') AND meta_value != '' {$post_id_sql} ORDER BY post_id");
+  if ($hub_posts) {
+    foreach ($hub_posts as $hub) {
+      $hub_cache[$hub->post_id][$hub->meta_key] = $hub->meta_value;
+    }
+    foreach ($hub_cache as $hub_id=>$arr) {
+      $cnt = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM wp_hubs_lat_lng WHERE post_id=%d", $hub_id) );
+      if ($cnt>0) {
+        $wpdb->query( $wpdb->prepare("UPDATE wp_hubs_lat_lng SET lat=%s, lng=%s WHERE post_id=%d", $arr['_cmb2_lat'], $arr['_cmb2_lng'], $hub_id) );
+      } else {
+        $wpdb->query( $wpdb->prepare("INSERT INTO wp_hubs_lat_lng (post_id,lat,lng) VALUES (%d,%s,%s)", $hub_id, $arr['_cmb2_lat'], $arr['_cmb2_lng']) );
+      }
+    }
+  }
+}
+
+
+/**
+ * Geocode address for hub and save in custom fields
+ */
+function geocode_address($post_id, $post='') {
+  $address = get_post_meta($post_id, '_cmb2_primary_org_address', 1);
+  $address = wp_parse_args($address, array(
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+   ));
+
+  if (!empty($address['address-1'])):
+    $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
+    $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
+
+    $xml = simplexml_load_file($request_url);
+    $status = $xml->status;
+    if(strcmp($status, 'OK')===0):
+        $lat = $xml->result->geometry->location->lat;
+        $lng = $xml->result->geometry->location->lng;
+        update_post_meta($post_id, '_cmb2_lat', (string)$lat);
+        update_post_meta($post_id, '_cmb2_lng', (string)$lng);
+        update_hubs_lat_lng($post_id);
+    endif;
+  endif;
+}
+add_action('save_post_hub', __NAMESPACE__ . '\\geocode_address', 20, 2);
+
+/**
  * Get Hubs
  */
 function get_hubs($options=[]) {

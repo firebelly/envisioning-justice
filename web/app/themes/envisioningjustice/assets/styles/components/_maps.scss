@@ -9,9 +9,9 @@
 .map {
   display: none;
   // background: #eee;
-  background-image: url('../images/map-image.jpg');
-  background-size: cover;
-  background-position: center center;
+  // background-image: url('../images/map-image.jpg');
+  // background-size: cover;
+  // background-position: center center;
   @include media-md {
     height: 100%;
     display: block;

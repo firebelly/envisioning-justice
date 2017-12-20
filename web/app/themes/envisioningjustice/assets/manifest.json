@@ -40,6 +40,9 @@
     "mapbox.js": {
       "bower": ["mapbox.js"]
     },
+    "mapbox-gl-supported.js": {
+      "bower": ["mapbox-gl-supported.js"]
+    },
     "modernizr.js": {
       "bower": ["modernizr"]
     },

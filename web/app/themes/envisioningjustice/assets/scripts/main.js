@@ -114,6 +114,26 @@ var EJ = (function($) {
       }
     });
 
+    // Maps
+    if($('#map').length){
+      // Mapbox GL will only work in ie11+
+      // For ie9 and ie10, we will need to use the old school raster-tile mapbox
+      useMapboxGl = mapboxgl.supported();
+
+      // Get the correct CSS
+      var mapboxCss = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.css' : 'https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css';
+      $('head').append('<link href="'+mapboxCss+'" rel="stylesheet" />');
+
+
+      // Get the correct JS, init maps on load
+      var mapboxJs = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.js' : 'https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js';
+      $.getScript(mapboxJs, function() {
+        if (breakpoint_medium) {
+          _initMap(useMapboxGl, 11, [-87.6568088,41.8909229]);
+        }
+      });
+    }
+
   } // end _init()
 
   function _injectSvgs() {
@@ -279,83 +299,287 @@ var EJ = (function($) {
     $content.slideUp(250);
   }
 
-  function _initMap() {
-    // Only init Mapbox if > breakpoint_medium, or on a body.single page (small sidebar maps)
-    if ($('#map').length && (breakpoint_medium || $('body.single').length)) {
+  function _initMap(useGl, startZoom, startCenter) {
+
+    var mapPoints = [];
+    var $mapPoint = $('.map-point');
+    var color = $('#map').attr('data-color');
+
+    // FOR MAPBOX GL (ie11+, and everything else)
+    if (useGl) {
+      if (typeof mapboxgl === 'undefined') { return; }
+      mapboxgl.accessToken = 'pk.eyJ1IjoidHNxdWFyZWQxMDE3IiwiYSI6ImNpdG5hdXJnYTAzcmsyb24waW42MTlsY24ifQ.8hBEeKstyMlXhbK8mSxJoA';
+      map = new mapboxgl.Map({
+        container: 'map',
+        scrollZoom: false,
+        zoom: startZoom,
+        center: startCenter,
+        style: 'mapbox://styles/tsquared1017/cj8c5fqt57w1q2slaz7ca5t7a'
+      });
+
+      // Add mapbox nav controls (styling overrided in _maps.scss)
+      // map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+      // Just init single map?
+      if ($mapPoint.length === 0) { return; }
+
+      // Cull map points from DOM
+      mapPoints = [];
+      $mapPoint.each(function(){
+        var $this = $(this);
+        mapPoints.push({
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+          },
+          'properties': {
+            'title': $this.attr('data-title'),
+            'url': $this.attr('data-url'),
+            'enabled': !$this.hasClass('disabled')
+          }
+        });
+      });
+
+      map.on('load', function () {
+        map.addSource('points', {
+          'type': 'geojson',
+          'data': {
+            'type': 'FeatureCollection',
+            'features': mapPoints
+          }
+        });
+
+        // Add points as a layer
+        map.addLayer({
+          'id': 'points',
+          'type': 'symbol',
+          'source': 'points',
+          'layout': {
+            'icon-image': 'map-pin-'+color,
+            'icon-allow-overlap': true
+          }
+        });
+
+        // Add points as a hover layer with "map-pin-hover" icon
+        map.addLayer({
+          'id': 'points-hover',
+          'type': 'symbol',
+          'source': 'points',
+          'layout': {
+            'icon-image': 'map-pin-'+color+'-hover',
+            'icon-allow-overlap': true
+          },
+          'filter': ['==', 'url', '']
+        });
+
+        // When clicking on map, check if clicking on a pin, and open URL if so
+        map.on('click', function(e) {
+          var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
+          if (features.length && features[0].properties.enabled) {
+            location.href = features[0].properties.url;
+          }
+        });
+
+        // Map hover state handling
+        map.on('mousemove', function(e) {
+          var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
+          // Clear community active classes
+          $mapPoint.removeClass('active');
+          if (features.length && features[0].properties.enabled) {
+            // Cursor pointer = clickable
+            map.getCanvas().style.cursor = 'pointer';
+
+            // Hover state for pin: show pins in points-hover that match feature URL
+            map.setFilter('points-hover', ['==', 'url', features[0].properties.url]);
+
+            // Match community link for point and add "active" class
+            $mapPoint.find('a[href="' + features[0].properties.url +'"]').parent().addClass('active');
+          } else {
+            // Clear out hover states for pins and features
+            map.getCanvas().style.cursor = '';
+            map.setFilter('points-hover', ['==', 'url', '']);
+          }
+        });
+
+        // Highlight related pins on map when hovering over communities
+        $mapPoint.on('mouseenter', function() {
+          var url = $(this).find('a').attr('href');
+          map.setFilter('points-hover', ['==', 'url', url]);
+        }).on('mouseleave', function() {
+          map.setFilter('points-hover', ['==', 'url', '']);
+        });
+      });
+
+    // FOR OLD SCHOOL MAPBOX JS (ie9,10)
+    } else {
+
+      if (typeof L.mapbox === 'undefined') { return; }
+
       L.mapbox.accessToken = 'pk.eyJ1IjoidHNxdWFyZWQxMDE3IiwiYSI6ImNpdG5hdXJnYTAzcmsyb24waW42MTlsY24ifQ.8hBEeKstyMlXhbK8mSxJoA';
-      map = L.mapbox.map('map', 'firebellydesign.0238ce0b', { zoomControl: false, attributionControl: false }).setView([41.843, -88.075], 11);
 
-      mapFeatureLayer = L.mapbox.featureLayer().addTo(map);
+      // Convert given zoom and centers to something readable by raster mapbox js
+      var zoom = Math.ceil(startZoom)+1;
+      var center = [startCenter[1],startCenter[0]];
 
-      mapIconRed = L.icon({
-        iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-red.png",
-        iconSize: [25, 42],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -40],
-        className: "marker-red"
-      });
-      mapIconBlue = L.icon({
-        iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-blue.png",
-        iconSize: [25, 42],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -40],
-        className: "marker-blue"
+      // Init map
+      map = new L.mapbox.Map('map', null, { zoomControl: false }).setView(center, zoom);
+
+      var rasterTileLayer = L.mapbox.styleLayer('mapbox://styles/tsquared1017/cj8c5fqt57w1q2slaz7ca5t7a').addTo(map);
+
+      // Add loaded class when the raster tile layer is up and runnin
+      rasterTileLayer.on('load', function(e) {
+        $('#map').addClass('loaded');
       });
 
-      // Set custom icons
-      mapFeatureLayer.on('layeradd', function(e) {
+      // disable drag and zoom handlers
+      map.scrollWheelZoom.disable();
+
+      // Add mapbox nav controls (styling overrided in _maps.scss)
+      new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+      // Just init single map?
+      if ($mapPoint.length === 0) { return; }
+
+      mapPoints = [];
+      $mapPoint.each(function(){
+        var $this = $(this);
+        mapPoints.push({
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+          },
+          'properties': {
+            'title': $this.attr('data-title'),
+            'url': $this.attr('data-url'),
+            'enabled': !$this.hasClass('disabled'),
+            'icon' : {
+              'iconUrl': '/assets/svgs/map-pin-'+pinColors[parseInt($this.attr('data-pin-color'))]+'.svg',
+              'iconSize': [30, 30],
+              'iconAnchor': [15, 15],
+            },
+          },
+        });
+      });
+
+      var pointsLayer = L.mapbox.featureLayer(null, {id: 'points', 'type': 'symbol'}).addTo(map);
+
+      // Give layers proper icons
+      pointsLayer.on('layeradd', function(e) {
         var marker = e.layer,
           feature = marker.feature;
-        marker.setIcon(feature.properties.icon);
+          marker.setIcon(L.icon(feature.properties.icon));
+          marker.unbindPopup();
       });
 
-      // Larger map behavior
-      if ($('#map').hasClass('large')) {
-        // Disable zoom/scroll
-        map.dragging.disable();
-        map.touchZoom.disable();
-        map.doubleClickZoom.disable();
-        map.scrollWheelZoom.disable();
+      // Add geoJson
+      pointsLayer.setGeoJSON(mapPoints);
 
-        // Prevent the listeners from disabling default
-        // actions (http://bingbots.com/questions/1428306/mapbox-scroll-page-on-touch)
-        L.DomEvent.preventDefault = function(e) {return;};
+      // Add click event
+      pointsLayer.on('click', function(e) {
+        if(e.layer.feature.properties.enabled) {
+          location.href = e.layer.feature.properties.url;
+        }
+      });
 
-        // Click to open event
-        mapFeatureLayer.on('click', function(e) {
-          e.layer.closePopup();
-          var event_url = e.layer.feature.properties.event_url;
-          location.href = event_url;
-        });
-
-        // Hover events to highlight listings
-        mapFeatureLayer.on('mouseover', function(e) {
-          // e.layer.openPopup();
-          var event_id = e.layer.feature.properties.event_id;
-          var article = $('.events article[data-id='+event_id+']');
-          if (article.length) {
-            article.addClass('hover');
-          }
-          _highlightMapPoint(event_id);
-        });
-        mapFeatureLayer.on('mouseout', function(e) {
-          e.layer.closePopup();
-          var event_id = e.layer.feature.properties.event_id;
-          var article = $('.events article[data-id='+event_id+']');
-          if (article.length) {
-            article.removeClass('hover');
-          }
-          _unHighlightMapPoints();
-        });
-      } else {
-        // Smaller maps need no tooltip
-        mapFeatureLayer.on('click', function(e) {
-          e.layer.closePopup();
-        });
-      }
-
-      _getMapPoints();
     }
+
+    // After render and titles loaded hide the
+    // overlaying ::before element on the map
+    // to reveale the map to avoid the flashing of
+    // the light green base layer
+    map.on('render', _isMapLoaded);
+    function _isMapLoaded() {
+      if (!$('#map').is('.loaded')) {
+        if (map.loaded()) {
+          $('#map').addClass('loaded');
+        }
+      } else {
+        // if it's already loaded then stop the call
+        _mapOff();
+      }
+    }
+    function _mapOff() {
+      map.off('render', _isMapLoaded);
+    }
+
+    // Only init Mapbox if > breakpoint_medium, or on a body.single page (small sidebar maps)
+    // if ($('#map').length && (breakpoint_medium || $('body.single').length)) {
+    //   L.mapbox.accessToken = 'pk.eyJ1IjoidHNxdWFyZWQxMDE3IiwiYSI6ImNpdG5hdXJnYTAzcmsyb24waW42MTlsY24ifQ.8hBEeKstyMlXhbK8mSxJoA';
+    //   map = L.mapbox.map('map', 'firebellydesign.0238ce0b', { zoomControl: false, attributionControl: false }).setView([41.843, -88.075], 11);
+
+    //   mapFeatureLayer = L.mapbox.featureLayer().addTo(map);
+
+    //   mapIconRed = L.icon({
+    //     iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-red.png",
+    //     iconSize: [25, 42],
+    //     iconAnchor: [12, 40],
+    //     popupAnchor: [0, -40],
+    //     className: "marker-red"
+    //   });
+    //   mapIconBlue = L.icon({
+    //     iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-blue.png",
+    //     iconSize: [25, 42],
+    //     iconAnchor: [12, 40],
+    //     popupAnchor: [0, -40],
+    //     className: "marker-blue"
+    //   });
+
+    //   // Set custom icons
+    //   mapFeatureLayer.on('layeradd', function(e) {
+    //     var marker = e.layer,
+    //       feature = marker.feature;
+    //     marker.setIcon(feature.properties.icon);
+    //   });
+
+    //   // Larger map behavior
+    //   if ($('#map').hasClass('large')) {
+    //     // Disable zoom/scroll
+    //     map.dragging.disable();
+    //     map.touchZoom.disable();
+    //     map.doubleClickZoom.disable();
+    //     map.scrollWheelZoom.disable();
+
+    //     // Prevent the listeners from disabling default
+    //     // actions (http://bingbots.com/questions/1428306/mapbox-scroll-page-on-touch)
+    //     L.DomEvent.preventDefault = function(e) {return;};
+
+    //     // Click to open event
+    //     mapFeatureLayer.on('click', function(e) {
+    //       e.layer.closePopup();
+    //       var event_url = e.layer.feature.properties.event_url;
+    //       location.href = event_url;
+    //     });
+
+    //     // Hover events to highlight listings
+    //     mapFeatureLayer.on('mouseover', function(e) {
+    //       // e.layer.openPopup();
+    //       var event_id = e.layer.feature.properties.event_id;
+    //       var article = $('.events article[data-id='+event_id+']');
+    //       if (article.length) {
+    //         article.addClass('hover');
+    //       }
+    //       _highlightMapPoint(event_id);
+    //     });
+    //     mapFeatureLayer.on('mouseout', function(e) {
+    //       e.layer.closePopup();
+    //       var event_id = e.layer.feature.properties.event_id;
+    //       var article = $('.events article[data-id='+event_id+']');
+    //       if (article.length) {
+    //         article.removeClass('hover');
+    //       }
+    //       _unHighlightMapPoints();
+    //     });
+    //   } else {
+    //     // Smaller maps need no tooltip
+    //     mapFeatureLayer.on('click', function(e) {
+    //       e.layer.closePopup();
+    //     });
+    //   }
+
+    //   _getMapPoints();
+    // }
   }
 
   function _getMapPoints() {

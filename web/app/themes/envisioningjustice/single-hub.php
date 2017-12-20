@@ -1,14 +1,16 @@
 <?php
 // Single Hub
-
+$hub_url = get_permalink($post);
 $primary_org_name = get_post_meta($post->ID, '_cmb2_primary_org_name', true);
 $primary_org_website = get_post_meta($post->ID, '_cmb2_primary_org_website', true);
 $primary_org_address = get_post_meta($post->ID, '_cmb2_primary_org_address', true);
+$hub_lat = get_post_meta($post->ID, '_cmb2_lat', true);
+$hub_lng = get_post_meta($post->ID, '_cmb2_lng', true);
 $body_content = apply_filters('the_content', $post->post_content);
 $category = \Firebelly\Utils\get_first_term($post, 'hub area');
 ?>
 
-<header class="page-header container">
+<header class="page-header container map-point" data-url="<?= $hub_url ?>" data-lat="<?= $hub_lat ?>" data-lng="<?= $hub_lng ?>" data-title="<?= $post->title ?>">
   <div class="-inner">
     <div class="page-header-top">
       <div class="slashfield" data-rows="7"></div>
@@ -31,7 +33,7 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
       </div>
       <div class="page-header-map md-one-half -right">
         <div class="map-container">
-          <div id="map"></div>
+          <div id="map" data-color="green"></div>
         </div>
       </div>
     </div>

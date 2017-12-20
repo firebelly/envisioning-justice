@@ -24,7 +24,7 @@ $body_content = apply_filters('the_content', $post->post_content);
 
       <div class="md-one-half color-bg-gray">
         <div class="map-container">
-          <div id="map"></div>
+          <div id="map" data-color="green"></div>
         </div>
       </div>
 
