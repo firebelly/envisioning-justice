@@ -15,8 +15,8 @@ $body_content = apply_filters('the_content', $post->post_content);
 
         <div class="user-content">
           <?= $body_content ?>
-          <div class="hub-list article-list grid">
-            <?= Firebelly\PostTypes\Hub\get_hubs() ?>
+          <div class="hub-list article-list grid map-points-container">
+            <?= Firebelly\PostTypes\Hub\get_hubs(['show_description'=>true,'display_on_map'=>true]) ?>
           </div>
         </div>
 

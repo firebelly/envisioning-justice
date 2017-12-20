@@ -215,6 +215,7 @@ function get_hubs($options=[]) {
   }
 
   if (empty($options['show_description'])) $options['show_description'] = false;
+  if (empty($options['display_on_map'])) $options['display_on_map'] = false;
 
   // Display all matching posts using article-{$post_type}.php
   $hubs_posts = get_posts($args);
@@ -222,6 +223,7 @@ function get_hubs($options=[]) {
   $output = '';
   foreach ($hubs_posts as $hub_post):
     $show_description = $options['show_description'];
+    $display_on_map = $options['display_on_map'];
     ob_start();
     include(locate_template('templates/article-hub.php'));
     $output .= ob_get_clean();

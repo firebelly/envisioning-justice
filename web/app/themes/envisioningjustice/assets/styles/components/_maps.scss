@@ -18,25 +18,11 @@
   }
 }
 
-// Mapbox fix URLs
-.leaflet-control-attribution:after,
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out,
-.leaflet-popup-close-button,
-.leaflet-control-layers-toggle,
-.leaflet-container.dark .map-tooltip .close,
-.map-tooltip .close,
-.mapbox-icon {
-  background-image: url(../images/mapbox/icons-000000@2x.png);
-}
-.leaflet-container.dark .leaflet-control-attribution:after,
-.mapbox-button-icon:before,
-.leaflet-container.dark .leaflet-control-zoom-in,
-.leaflet-container.dark .leaflet-control-zoom-out,
-.leaflet-container.dark .leaflet-control-layers-toggle,
-.leaflet-container.dark .mapbox-icon {
-  background-image: url(../images/mapbox/icons-ffffff@2x.png);
-}
-.mapbox-logo-true {
-  display: none;
+// Map-point styles
+.map-point {
+  &.-hover {
+    .article-title a {
+      text-decoration: underline;
+    }
+  }
 }

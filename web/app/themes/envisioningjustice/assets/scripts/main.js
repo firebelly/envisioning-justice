@@ -64,7 +64,6 @@ var EJ = (function($) {
     _initNav();
     _initSearch();
     _initFormActions();
-    // _initMap();
     _initSlickSliders();
     _initMasonry();
     _initLoadMore();
@@ -317,9 +316,6 @@ var EJ = (function($) {
         style: 'mapbox://styles/tsquared1017/cj8c5fqt57w1q2slaz7ca5t7a'
       });
 
-      // Add mapbox nav controls (styling overrided in _maps.scss)
-      // map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
       // Just init single map?
       if ($mapPoint.length === 0) { return; }
 
@@ -367,7 +363,7 @@ var EJ = (function($) {
           'type': 'symbol',
           'source': 'points',
           'layout': {
-            'icon-image': 'map-pin-'+color+'-hover',
+            'icon-image': 'map-pin-black',
             'icon-allow-overlap': true
           },
           'filter': ['==', 'url', '']
@@ -384,20 +380,20 @@ var EJ = (function($) {
         // Map hover state handling
         map.on('mousemove', function(e) {
           var features = map.queryRenderedFeatures(e.point, { layers: ['points', 'points-hover'] });
-          // Clear community active classes
-          $mapPoint.removeClass('active');
+
           if (features.length && features[0].properties.enabled) {
             // Cursor pointer = clickable
             map.getCanvas().style.cursor = 'pointer';
 
             // Hover state for pin: show pins in points-hover that match feature URL
-            map.setFilter('points-hover', ['==', 'url', features[0].properties.url]);
+            map.setFilter('points-hover', ['!=', 'url', features[0].properties.url]);
 
-            // Match community link for point and add "active" class
-            $mapPoint.find('a[href="' + features[0].properties.url +'"]').parent().addClass('active');
+            // Match map-point link for point and add "-hover" class
+            $mapPoint.find('a[href="' + features[0].properties.url +'"]').closest('.map-point').addClass('-hover');
           } else {
             // Clear out hover states for pins and features
             map.getCanvas().style.cursor = '';
+            $mapPoint.removeClass('-hover');
             map.setFilter('points-hover', ['==', 'url', '']);
           }
         });
@@ -405,7 +401,7 @@ var EJ = (function($) {
         // Highlight related pins on map when hovering over communities
         $mapPoint.on('mouseenter', function() {
           var url = $(this).find('a').attr('href');
-          map.setFilter('points-hover', ['==', 'url', url]);
+          map.setFilter('points-hover', ['!=', 'url', url]);
         }).on('mouseleave', function() {
           map.setFilter('points-hover', ['==', 'url', '']);
         });
