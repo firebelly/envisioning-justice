@@ -146,3 +146,39 @@ function news_filters($query){
   }
 }
 add_action('pre_get_posts', __NAMESPACE__ . '\\news_filters');
+
+/**
+ * Get post images and put into slideshow
+ */
+function get_post_slideshow($post_id) {
+  $images = [];
+  $files = get_post_meta($post_id, '_cmb2_slideshow-images', true);
+  if ($files) {
+    foreach ($files as $file) {
+      if (strpos($file, '.jpg') !== false) {
+        array_push($images, $file);
+      } else {
+        continue;
+      }
+    }
+  }
+
+  if (!$images) return false;
+  $output = '<ul class="slider">';
+  // Is there also a featured image?
+  if (get_the_post_thumbnail($post_id)) {
+    $image = get_post($post_id);
+    $image = \Firebelly\Media\get_header_bg($image);
+    $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+  }
+  if ($images) {
+    foreach ($images as $attachment_id => $attachment_url):
+      $image_id = attachment_url_to_postid($attachment_url);
+      $image = get_attached_file($image_id, false);
+      $image = \Firebelly\Media\get_header_bg($image);
+      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+    endforeach;
+  }
+  $output .= '</ul>';
+  return $output;
+}

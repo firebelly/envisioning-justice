@@ -17,11 +17,18 @@
     "velocity": "~1.2.2",
     "masonry": "~3.2.2",
     "mapbox.js": "~2.1.6",
+    "slick-carousel": "~1.6.0",
     "fastclick": "~1.0.6"
   },
   "overrides": {
     "modernizr": {
       "main": "./modernizr.js"
+    },
+    "slick-carousel": {
+      "main": [
+        "./slick/slick.min.js",
+        "./slick/slick.css"
+      ]
     },
     "boomsvgloader": {
       "main": "./dist/js/boomsvgloader.js"

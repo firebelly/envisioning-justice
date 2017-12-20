@@ -24,12 +24,23 @@ body.single-story {
 
 // Stories List
 .story-list {
-  .story {
+  margin-top: 40px;
 
+  .empty-message {
+    padding-left: 20px;
+  }
+
+  .story {
+    .article-title {
+      margin: 0 0 10px;
+    }
+    p {
+      margin: 0;
+    }
   }
 }
 
 // Single Story
 body.single-story {
-  
+
 }

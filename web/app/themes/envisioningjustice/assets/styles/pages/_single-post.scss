@@ -1,90 +1,110 @@
 // Single Posts
-.single .post {
-  margin: 80px 0;
-  position: relative;
-  .share {
-    display: block;
-    margin-top: 20px;
-  }
-  #map {
-    display: block;
-  }
-  @include tablet {
-    .share {
-      float: right;
-      margin-top: -18px;
-    }
-    .article-tags {
-      padding-right: 130px;
-    }
-    aside.main {
-      margin: 0 0 100px;
-    }
-    main {
-      .article-tags a:hover {
-        color: $dk-blue;
-        border-bottom-color: $dk-blue;
+// .single .post {
+//   margin: 80px 0;
+//   position: relative;
+//   .share {
+//     display: block;
+//     margin-top: 20px;
+//   }
+//   #map {
+//     display: block;
+//   }
+//   @include tablet {
+//     .share {
+//       float: right;
+//       margin-top: -18px;
+//     }
+//     .article-tags {
+//       padding-right: 130px;
+//     }
+//     aside.main {
+//       margin: 0 0 100px;
+//     }
+//     main {
+//       .article-tags a:hover {
+//         color: $dk-blue;
+//         border-bottom-color: $dk-blue;
+//       }
+//     }
+//   }
+
+//   .article-thumb {
+//     min-height:270px;
+//     &::before,
+//     &::after {
+//       top:250px;
+//     }
+//   }
+
+//   main {
+//     .post-inner {
+//       background: $white;
+//     }
+//     .registration-embed {
+//       margin-top: 60px;
+//       .entry-content {
+//         padding: 30px 50px 30px 25px;
+//         margin-bottom: 0;
+//       }
+//     }
+//     header,
+//     .entry-content {
+//       padding: 30px 50px 0 25px;
+//     }
+//     header.with-image {
+//       padding-top: 10px;
+//     }
+//     footer {
+//       @include clearfix;
+//       padding: 0 30px 30px 25px;
+//       position: relative;
+//       min-height: 70px;
+//     }
+//     h1 {
+//       color: $dk-blue;
+//       margin: 0;
+//     }
+
+//     .article-title {
+//       display: inline;
+//       font: 900 #{$lg}/40px $sans;
+//       letter-spacing: .2em;
+//       text-transform: uppercase;
+//       border-bottom: 3px solid $dk-blue;
+
+//       @include phablet {
+//         font: 900 #{$xl}/50px $sans;
+//       }
+//     }
+
+//     .byline-area {
+//       border-bottom: 1px solid $gray-lite;
+
+//       p {
+//         @include font-style1;
+//         color: $dk-blue;
+//         margin: 20px 0;
+//       }
+//     }
+//   }
+// }
+
+// Common Single Post styles
+body.single {
+
+  // Images Slider
+  .images-section {
+    position: relative;
+
+    .slider {
+
+      .slide-image {
+        height: 0;
+        width: 100%;
+        background-size: cover;
+        padding-bottom: 85.7142857%;
       }
     }
   }
 
-  .article-thumb {
-    min-height:270px;
-    &::before,
-    &::after {
-      top:250px;
-    }
-  }
-
-  main {
-    .post-inner {
-      background: $white;
-    }
-    .registration-embed {
-      margin-top: 60px;
-      .entry-content {
-        padding: 30px 50px 30px 25px;
-        margin-bottom: 0;
-      }
-    }
-    header,
-    .entry-content {
-      padding: 30px 50px 0 25px;
-    }
-    header.with-image {
-      padding-top: 10px;
-    }
-    footer {
-      @include clearfix;
-      padding: 0 30px 30px 25px;
-      position: relative;
-      min-height: 70px;
-    }
-    h1 {
-      color: $dk-blue;
-      margin: 0;
-    }
-
-    .article-title {
-      display: inline;
-      font: 900 #{$lg}/40px $sans;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      border-bottom: 3px solid $dk-blue;
-
-      @include phablet {
-        font: 900 #{$xl}/50px $sans;
-      }
-    }
-
-    .byline-area {
-      border-bottom: 1px solid $gray-lite;
-
-      p {
-        @include font-style1;
-        color: $dk-blue;
-        margin: 20px 0;
-      }
-    }
-  }
 }

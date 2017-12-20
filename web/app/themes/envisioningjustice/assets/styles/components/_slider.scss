@@ -1,0 +1,39 @@
+// Slider
+
+.slider {
+  margin: 0;
+  padding: 0;
+
+  .slide-item {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .nav-button {
+    z-index: 1;
+    bottom: 40px;
+    position: absolute;
+
+    &.button-prev {
+      left: $padding;
+      .icon {
+        transform: rotate(180deg) translate(50%,50%);
+      }
+    }
+    &.button-next {
+      right: $padding;
+    }
+
+    @include media-md {
+      bottom: 110px;
+
+      &.button-prev {
+        left: 70px;
+      }
+      &.button-next {
+        right: 70px;
+      }      
+    }
+  }
+}

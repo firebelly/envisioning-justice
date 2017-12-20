@@ -42,8 +42,8 @@ function metaboxes(array $meta_boxes) {
       ),
       array(
           'name'    => 'Uploaded Images',
-          // 'desc'    => 'field description (optional)',
-          'id'      => $prefix . 'story_images',
+          'desc'    => 'Images will be displayed on the individual story page, text documents will be ignored.',
+          'id'      => $prefix . 'slideshow-images',
           'type'    => 'file_list',
 
       ),
@@ -302,12 +302,15 @@ function get_stories($options=[]) {
 
   // Display all matching posts using article-{$post_type}.php
   $stories_posts = get_posts($args);
-  if (!$stories_posts) return false;
   $output = '';
-  foreach ($stories_posts as $story_post):
-    ob_start();
-    include(locate_template('templates/article-story.php'));
-    $output .= ob_get_clean();
-  endforeach;
+  if (!$stories_posts) {
+    $output .= '<h3 class="empty-message type-h3">No stories to share yet. Please submit yours now!</h3>';
+  } else {  
+    foreach ($stories_posts as $story_post):
+      ob_start();
+      include(locate_template('templates/article-story.php'));
+      $output .= ob_get_clean();
+    endforeach;
+  }
   return $output;
 }

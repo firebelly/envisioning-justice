@@ -16,6 +16,7 @@
 
   article {
     .article-title {
+      margin: 0 0 10px;
       @include type-h2;
     }
 

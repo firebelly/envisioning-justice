@@ -65,6 +65,7 @@ var EJ = (function($) {
     _initSearch();
     _initFormActions();
     // _initMap();
+    _initSlickSliders();
     _initMasonry();
     _initLoadMore();
     _initBigClicky();
@@ -220,6 +221,20 @@ var EJ = (function($) {
       $(this).parents('.input-wrap').removeClass('-focus');
     }).on('keypress', function(e) {
       $(this).parents('.input-wrap').addClass('filled');
+    });
+  }
+
+  function _initSlickSliders() {
+    $('.slider').slick({
+      slide: '.slide-item',
+      autoplay: true,
+      arrows: true,
+      prevArrow: '<button class="button button-circular previous-item button-prev nav-button"><svg class="icon icon-arrow" aria-hidden="true" role="presentation"><use xlink:href="#icon-arrow"/></svg></button>',
+      nextArrow: '<button class="button button-circular next-item button-next nav-button"><svg class="icon icon-arrow" aria-hidden="true" role="presentation"><use xlink:href="#icon-arrow"/></svg></button>',
+      dots: false,
+      autoplaySpeed: 6000,
+      speed: 300,
+      lazyLoad: 'ondemand'
     });
   }
 
