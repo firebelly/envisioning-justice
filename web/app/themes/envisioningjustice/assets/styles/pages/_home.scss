@@ -66,8 +66,12 @@
     }
   }
 
-  .map-container {
-    height: 100%;
+  .home-section.-first {
+    @include media-md {
+      .map-container {
+        min-height: 700px;
+      }
+    }
   }
 
   .home-section.-second {

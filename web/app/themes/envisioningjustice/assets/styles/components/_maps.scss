@@ -7,43 +7,14 @@
 
 #map,
 .map {
+  z-index: 0;
   display: none;
-  // background: #eee;
-  // background-image: url('../images/map-image.jpg');
-  // background-size: cover;
-  // background-position: center center;
   @include media-md {
     height: 100%;
     display: block;
-    &.large {
-      background: none;
-      position: absolute;
-      top: 700px;
-      left: -500px;
-      margin-left: 10%;
-      width: 1200px;
-      height: 1000px;
-      cursor: default;
-      // Give leaflet panes layout to match #map
-      .leaflet-map-pane,
-      .leaflet-tile-pane {
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-      }
-      // Gradient just above the leaflet-tile-pane (not above markers)
-      .leaflet-tile-pane::after {
-       content: '';
-       position: absolute;
-       box-shadow: inset 0 0 300px 300px $black;
-       top: 0;
-       left: 0;
-       right: 0;
-       bottom: 0;
-      }
-
-    }
+    background-image: url('../images/map-image.jpg');
+    background-size: cover;
+    background-position: center center;
   }
 }
 
