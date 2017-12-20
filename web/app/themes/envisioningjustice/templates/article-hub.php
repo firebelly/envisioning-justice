@@ -1,6 +1,6 @@
 <?php
   $hub_url = get_permalink($hub_post);
-  $hub_address = get_post_meta($hub_post->ID, '_cmb2_hub_address', true);
+  $hub_address = get_post_meta($hub_post->ID, '_cmb2_primary_org_address', true);
   $hub_description = get_post_meta($hub_post->ID, '_cmb2_hub_description', true);
 ?>
 <article class="hub">
