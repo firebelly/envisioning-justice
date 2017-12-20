@@ -283,7 +283,7 @@
   }
 
   .page-header-top {
-    z-index: 1;
+    z-index: 2;
     position: relative;
     @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
     .slashfield {
@@ -294,6 +294,9 @@
   .page-header-bottom {
     @extend .break-padding;
     @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
+    &::before {
+      z-index: 1;
+    }
 
     h3 {
       margin: 0;
