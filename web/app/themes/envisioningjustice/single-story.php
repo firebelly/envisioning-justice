@@ -46,7 +46,6 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
           </div>
         </article>
 
-
       </div>
 
       <div class="images-section md-one-half color-bg-gray">
