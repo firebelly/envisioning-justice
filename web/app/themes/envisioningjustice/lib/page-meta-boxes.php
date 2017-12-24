@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['page_metabox'] = array(
     'id'            => 'page_metabox',
     'title'         => __( 'Header Text', 'cmb2' ),
-    'object_types'  => array( 'page', 'program', 'commission' ),
+    'object_types'  => array( 'page', 'program', 'commission', 'event' ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,

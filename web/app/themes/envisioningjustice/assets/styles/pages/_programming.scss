@@ -1,40 +1,21 @@
 // Programming Page
 
-.page.programming {
+.page.programming,
+body.single-event {
   @include colorScheme($orange);
 }
 
 // Single event page
-.single-event {
-  .share {
-    display: block;
-  }
-  #map {
-    width: 100%;
-    height: 150px;
-  }
-  .event-details {
-    @include clearfix;
-    background: $white;
-    padding: 25px 25px 5px;
-    margin-bottom: 60px;
+body.single-event {
 
-    h3 {
-      margin-bottom: 4px;
-    }
-    p { 
-      margin-bottom:20px;
-    }
-    .sponsors {
-      margin-bottom: 20px;
-      p {
-        margin-bottom: 0;
+  .page-header-details {
+    .actions {
+      .button {
+        width: 100%;
       }
     }
-    .actions {
-      margin-bottom: 20px;
-    }
   }
+
 }
 
 // .filters {

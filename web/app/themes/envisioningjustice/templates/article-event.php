@@ -4,7 +4,7 @@ $article_tags = \Firebelly\Utils\get_article_tags($event_post);
 $has_image_class = !empty($show_images) && has_post_thumbnail($event_post->ID) ? 'has-image' : '';
 $event_url = get_permalink($event_post);
 ?>
-<article class="event map-point <?= $has_image_class ?>"  data-url="<?= $event_url ?>" data-lat="<?= $event->lat ?>" data-lng="<?= $event->lng ?>" data-title="<?= $event->title ?>" data-desc="<?= $event->desc ?>" data-id="<?= $event->ID ?>">
+<article class="event map-point <?= $has_image_class ?>" data-url="<?= $event_url ?>" data-lat="<?= $event->lat ?>" data-lng="<?= $event->lng ?>" data-title="<?= $event->title ?>" data-desc="<?= $event->desc ?>" data-id="<?= $event->ID ?>">
   <div class="article-content">
     <?php if (!empty($show_images) && $thumb = \Firebelly\Media\get_post_thumbnail($event_post->ID)): ?>
       <a href="<?= get_the_permalink($event_post) ?>" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></a>
