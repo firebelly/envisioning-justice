@@ -19,7 +19,7 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
           <h3 class="type-h2"><?= $header_text ?></h3>
         </div>
       </div>
-      <div class="page-header-details md-one-half -right section">
+      <div class="page-header-details md-one-half -right section color-bg-black color-orange">
         <div class="-inner">
           <div class="grid sm-spaced">
             <div class="event-time grid-item sm-one-half">

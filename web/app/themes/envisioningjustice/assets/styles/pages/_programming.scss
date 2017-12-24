@@ -9,6 +9,7 @@ body.single-event {
 body.single-event {
 
   .page-header-details {
+    @include type-h3;
     .actions {
       .button {
         width: 100%;
