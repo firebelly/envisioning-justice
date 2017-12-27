@@ -56,10 +56,15 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
       </div>
 
       <div class="events-section section md-one-half color-bg-gray">
+        <?php 
+          $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 4, 'hub' => $post->ID]);
+
+          if ($related_events) { ?>
         <h2 class="type-h2">Upcoming Events at <?= get_the_title(); ?></h2>
         <div class="events-list article-list grid">
-          <?php echo \Firebelly\PostTypes\Event\get_events(['num_posts' => 4]); ?>
+          <?= $related_events ?>
         </div>
+        <?php } ?>
       </div>
 
   </div>
