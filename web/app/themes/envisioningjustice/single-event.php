@@ -17,7 +17,6 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
     <div class="page-header-bottom grid">
       <div class="page-header-text md-one-half -left section">
         <div class="-inner">
-          <?= $related_hub ?>
           <h3 class="type-h2"><?= $header_text ?></h3>
         </div>
       </div>
