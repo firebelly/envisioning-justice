@@ -9,16 +9,13 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
 <header class="page-header container">
   <div class="-inner">
     <div class="page-header-top">
-      <div class="slashfield" data-rows="5"></div>
-      <?php if ($category = \Firebelly\Utils\get_first_term($post)): ?>
-        <h2 class="type-h2"><a href="<?= get_term_link($category); ?>"><?php echo $category->name; ?></a></h2>
-      <?php endif; ?>
-      <h2 class="page-title"><?= get_the_title(); ?></h2>
+      <div class="slashfield" data-rows="7"></div>
+      <h2 class="page-title"><span class="color-black">Your Stories</span><br> <?= get_the_title(); ?></h2>
     </div>
     <div class="page-header-bottom grid">
       <div class="page-header-text no-image sm-full section">
-        <div class="-inner">
-
+        <div class="-inner type-h2">
+          <?= $header_text ?>
         </div>
       </div>
     </div>
@@ -31,18 +28,10 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
       <div class="section md-one-half color-bg-gray-light">
 
         <article <?php post_class(); ?>>
-          <time class="article-date" datetime="<?php echo date('c', $post_date_timestamp); ?>"><?php echo date('n/j', $post_date_timestamp); ?><?= (date('Y', $post_date_timestamp) != date('Y') ? '<span class="year">'.date('/Y', $post_date_timestamp).'</span>' : '') ?></time>
-          <?php if ($thumb = \Firebelly\Media\get_post_thumbnail($post->ID, 'large')): ?>
-            <div class="article-thumb" style="background-image:url(<?= $thumb ?>);"></div>
-          <?php endif; ?>
           <div class="post-inner">
             <div class="entry-content user-content">
               <?php echo apply_filters('the_content', $post->post_content); ?>
             </div>
-            <footer>
-              <?php if ($article_tags): ?><div class="article-tags"><?= $article_tags ?></div><?php endif; ?>
-              <!-- <?php get_template_part('templates/share'); ?> -->
-            </footer>
           </div>
         </article>
 

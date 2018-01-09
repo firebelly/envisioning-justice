@@ -19,11 +19,16 @@ $serif: "ff-meta-serif-web-pro";
 }
 
 @mixin type-h2 {
-  font-size: 24px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 30px;
+  line-height: 20px;
   font-family: $sans;
-  letter-spacing: 0.24px;
+  letter-spacing: 0.7px;
+  @include media-sm {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.24px;
+  }
 }
 
 @mixin type-h3 {

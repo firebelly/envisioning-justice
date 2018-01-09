@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['page_metabox'] = array(
     'id'            => 'page_metabox',
     'title'         => __( 'Header Text', 'cmb2' ),
-    'object_types'  => array( 'page', 'program', 'commission', 'event' ),
+    'object_types'  => array( 'page', 'program', 'commission', 'event', 'story' ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -28,10 +28,24 @@ function metaboxes( array $meta_boxes ) {
           'textarea_rows' => 6,
         ),
       ),
+    ),
+  );
+
+  $meta_boxes['frontpage_metabox'] = array(
+    'id'            => 'frontpage_metabox',
+    'title'         => __( 'Secondary Header Text', 'cmb2' ),
+    'object_types'  => array( 'page' ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['front-page.php'] ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      
+      // Secondary Header field
       array(
         'name' => 'Secondary Header Text',
         'desc' => 'Shows below Header Text (as image caption on homepage)',
-        'id'   => $prefix . 'secondary_header_text',
+        'id'   => $prefix . 'frontpage_secondary_header_text',
         'type' => 'wysiwyg',
         'options' => array(
           'textarea_rows' => 4,

@@ -8,7 +8,7 @@ $total_news = wp_count_posts('post')->publish;
 $header_bg = \Firebelly\Media\get_header_bg($post);
 $header_text = get_post_meta($post->ID, '_cmb2_header_text', true);
 $header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'));
-$secondary_header_text = get_post_meta($post->ID, '_cmb2_secondary_header_text', true);
+$secondary_header_text = get_post_meta($post->ID, '_cmb2_frontpage_secondary_header_text', true);
 $secondary_header_text = strip_tags($secondary_header_text, '<u><strong><em><a><br><br/>');
 $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 ?>
