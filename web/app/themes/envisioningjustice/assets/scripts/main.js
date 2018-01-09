@@ -14,7 +14,8 @@ var EJ = (function($) {
       $tod,
       no_header_text,
       map,
-      mapFeatureLayer,
+      pointsLayer,
+      mapPointsData,
       mapGeoJSON = [],
       mapIconRed,
       mapIconBlue,
@@ -38,15 +39,6 @@ var EJ = (function($) {
 
     // Fit them vids!
     $('main').fitVids();
-
-    // Homepage (pre _initMasonry)
-    if ($('.home.page').length) {
-      page_at = 'homepage';
-      // Homepage has a funky load-more in events that is part of masonry until clicked
-      if (breakpoint_medium) {
-        $('.event-cal .events-buttons').clone().addClass('masonry-me').appendTo('.event-cal .events');
-      }
-    }
 
     // Disclaimer mobile link that reveals hidden disclaimer block
     $('<li class="hide-for-medium-up"><a href="#">Disclaimer</a></li>').prependTo('#menu-footer-links').on('click', function(e) {
@@ -323,6 +315,7 @@ var EJ = (function($) {
       mapPoints = [];
       $mapPoint.each(function(){
         var $this = $(this);
+        $this.addClass('mapped');
         mapPoints.push({
           'type': 'Feature',
           'geometry': {
@@ -337,13 +330,15 @@ var EJ = (function($) {
         });
       });
 
+      mapPointsData = {
+        'type': 'FeatureCollection',
+        'features': mapPoints
+      };
+
       map.on('load', function () {
         map.addSource('points', {
           'type': 'geojson',
-          'data': {
-            'type': 'FeatureCollection',
-            'features': mapPoints
-          }
+          'data': mapPointsData
         });
 
         // Add points as a layer
@@ -440,6 +435,7 @@ var EJ = (function($) {
       mapPoints = [];
       $mapPoint.each(function(){
         var $this = $(this);
+        $this.addClass('mapped');
         mapPoints.push({
           'type': 'Feature',
           'geometry': {
@@ -459,7 +455,7 @@ var EJ = (function($) {
         });
       });
 
-      var pointsLayer = L.mapbox.featureLayer(null, {id: 'points', 'type': 'symbol'}).addTo(map);
+      pointsLayer = L.mapbox.featureLayer(null, {id: 'points', 'type': 'symbol'}).addTo(map);
 
       // Give layers proper icons
       pointsLayer.on('layeradd', function(e) {
@@ -500,125 +496,36 @@ var EJ = (function($) {
       map.off('render', _isMapLoaded);
     }
 
-    // Only init Mapbox if > breakpoint_medium, or on a body.single page (small sidebar maps)
-    // if ($('#map').length && (breakpoint_medium || $('body.single').length)) {
-    //   L.mapbox.accessToken = 'pk.eyJ1IjoidHNxdWFyZWQxMDE3IiwiYSI6ImNpdG5hdXJnYTAzcmsyb24waW42MTlsY24ifQ.8hBEeKstyMlXhbK8mSxJoA';
-    //   map = L.mapbox.map('map', 'firebellydesign.0238ce0b', { zoomControl: false, attributionControl: false }).setView([41.843, -88.075], 11);
-
-    //   mapFeatureLayer = L.mapbox.featureLayer().addTo(map);
-
-    //   mapIconRed = L.icon({
-    //     iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-red.png",
-    //     iconSize: [25, 42],
-    //     iconAnchor: [12, 40],
-    //     popupAnchor: [0, -40],
-    //     className: "marker-red"
-    //   });
-    //   mapIconBlue = L.icon({
-    //     iconUrl: "/app/themes/envisioningjustice/dist/images/mapbox/marker-blue.png",
-    //     iconSize: [25, 42],
-    //     iconAnchor: [12, 40],
-    //     popupAnchor: [0, -40],
-    //     className: "marker-blue"
-    //   });
-
-    //   // Set custom icons
-    //   mapFeatureLayer.on('layeradd', function(e) {
-    //     var marker = e.layer,
-    //       feature = marker.feature;
-    //     marker.setIcon(feature.properties.icon);
-    //   });
-
-    //   // Larger map behavior
-    //   if ($('#map').hasClass('large')) {
-    //     // Disable zoom/scroll
-    //     map.dragging.disable();
-    //     map.touchZoom.disable();
-    //     map.doubleClickZoom.disable();
-    //     map.scrollWheelZoom.disable();
-
-    //     // Prevent the listeners from disabling default
-    //     // actions (http://bingbots.com/questions/1428306/mapbox-scroll-page-on-touch)
-    //     L.DomEvent.preventDefault = function(e) {return;};
-
-    //     // Click to open event
-    //     mapFeatureLayer.on('click', function(e) {
-    //       e.layer.closePopup();
-    //       var event_url = e.layer.feature.properties.event_url;
-    //       location.href = event_url;
-    //     });
-
-    //     // Hover events to highlight listings
-    //     mapFeatureLayer.on('mouseover', function(e) {
-    //       // e.layer.openPopup();
-    //       var event_id = e.layer.feature.properties.event_id;
-    //       var article = $('.events article[data-id='+event_id+']');
-    //       if (article.length) {
-    //         article.addClass('hover');
-    //       }
-    //       _highlightMapPoint(event_id);
-    //     });
-    //     mapFeatureLayer.on('mouseout', function(e) {
-    //       e.layer.closePopup();
-    //       var event_id = e.layer.feature.properties.event_id;
-    //       var article = $('.events article[data-id='+event_id+']');
-    //       if (article.length) {
-    //         article.removeClass('hover');
-    //       }
-    //       _unHighlightMapPoints();
-    //     });
-    //   } else {
-    //     // Smaller maps need no tooltip
-    //     mapFeatureLayer.on('click', function(e) {
-    //       e.layer.closePopup();
-    //     });
-    //   }
-
-    //   _getMapPoints();
-    // }
   }
 
   function _getMapPoints() {
     var $mapPoints = $('.map-point:not(.mapped)');
     if ($mapPoints.length) {
-      // Any map-points on page? add to map
-      $mapPoints.each(function() {
-        var event_id = $(this).data('id');
-        var $point = $(this).addClass('mapped').hover(function() {
-          _highlightMapPoint(event_id);
-        }, _unHighlightMapPoints);
-        if ($point.data('lng')) {
-          mapGeoJSON.push({
-              type: 'Feature',
-              geometry: {
-                  type: 'Point',
-                  coordinates: [ $point.data('lng'), $point.data('lat') ]
-              },
-              properties: {
-                  title: $point.data('title'),
-                  event_id: $point.data('id'),
-                  event_url: $point.data('url'),
-                  description: $point.data('desc'),
-                  icon: mapIconRed
-              }
-          });
-        }
-      });
-      // Add the array of point objects
-      mapFeatureLayer.setGeoJSON(mapGeoJSON);
 
-      if ($('#map').hasClass('large')) {
-        // Larger map centers on IL
-        map.setView([39.9, -90.5], 7);
-      } else {
-        // Smaller map zooms in on single point
-        map.setView([$mapPoints.first().data('lat'), $mapPoints.first().data('lng')], 13);
-      }
+      // Cull map points from DOM
+      $mapPoints.each(function(){
+        var $this = $(this);
+        $this.addClass('mapped');
+        mapPointsData.features.push({
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+          },
+          'properties': {
+            'title': $this.attr('data-title'),
+            'url': $this.attr('data-url'),
+            'enabled': !$this.hasClass('disabled')
+          }
+        });
+      });
+
+      map.getSource('points').setData(mapPointsData);
     }
   }
 
   function _highlightMapPoint(event_id) {
-    mapFeatureLayer.eachLayer(function(marker) {
+    pointsLayer.eachLayer(function(marker) {
       if (marker.feature.properties.event_id === event_id) {
         marker.setIcon(mapIconRed);
         marker.setZIndexOffset(1000);
@@ -627,14 +534,14 @@ var EJ = (function($) {
         marker.setZIndexOffset(0);
       }
     });
-    // mapFeatureLayer.setGeoJSON(mapGeoJSON);
+    // pointsLayer.setGeoJSON(mapGeoJSON);
   }
   function _unHighlightMapPoints() {
-    mapFeatureLayer.eachLayer(function(marker) {
+    pointsLayer.eachLayer(function(marker) {
       marker.setIcon(mapIconRed);
       marker.setZIndexOffset(0);
     });
-    // mapFeatureLayer.setGeoJSON(mapGeoJSON);
+    // pointsLayer.setGeoJSON(mapGeoJSON);
   }
 
   // Handles main nav
@@ -694,22 +601,18 @@ var EJ = (function($) {
       var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
       var page = parseInt($load_more.attr('data-page-at'));
       var per_page = parseInt($load_more.attr('data-per-page'));
-      var past_events = (post_type==='event') ? parseInt($load_more.attr('data-past-events')) : 0;
       var prox_zip = (post_type==='event') ? parseInt($load_more.attr('data-prox-zip')) : '';
       var prox_miles = (post_type==='event') ? parseInt($load_more.attr('data-prox-miles')) : '';
-      var focus_area = $load_more.attr('data-focus-area');
-      var program = $load_more.attr('data-program');
-      var exhibitions = $load_more.attr('data-exhibitions');
-      var more_container = $load_more.parents('section,main').find('.load-more-container');
+      var more_container = $load_more.parents('.section').find('.load-more-container');
       loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
 
       // Homepage has a funky load-more div in events that is part of masonry until clicked
-      if (breakpoint_medium && $('.home.page').length && $(e.target).parents('.events-buttons').length) {
-        var lm = $('.event-cal').addClass('loaded-more').find('.events .events-buttons');
-        // Remove load-more from masonry and relayout
-        $('.events').masonry('remove', lm);
-        $('.events').masonry();
-      }
+      // if (breakpoint_medium && $('.home.page').length && $(e.target).parents('.events-buttons').length) {
+      //   var lm = $('.event-cal').addClass('loaded-more').find('.events .events-buttons');
+      //   // Remove load-more from masonry and relayout
+      //   // $('.events').masonry('remove', lm);
+      //   // $('.events').masonry();
+      // }
 
       $.ajax({
           url: wp_ajax_url,
@@ -719,10 +622,6 @@ var EJ = (function($) {
               post_type: post_type,
               page: page+1,
               per_page: per_page,
-              past_events: past_events,
-              focus_area: focus_area,
-              exhibitions: exhibitions,
-              program: program,
               prox_zip: prox_zip,
               prox_miles: prox_miles
           },
@@ -730,9 +629,9 @@ var EJ = (function($) {
             var $data = $(data);
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
-            if (breakpoint_medium) {
-              more_container.masonry('appended', $data, true);
-            }
+            // if (breakpoint_medium) {
+            //   more_container.masonry('appended', $data, true);
+            // }
             $load_more.attr('data-page-at', page+1);
             if (post_type==='event') {
               _getMapPoints();
