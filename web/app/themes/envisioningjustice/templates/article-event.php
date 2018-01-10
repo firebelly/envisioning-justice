@@ -2,9 +2,10 @@
 $event = \Firebelly\PostTypes\Event\get_event_details($event_post);
 $article_tags = \Firebelly\Utils\get_article_tags($event_post);
 $has_image_class = !empty($show_images) && has_post_thumbnail($event_post->ID) ? 'has-image' : '';
+$map_class = empty($exclude_from_map) ? 'map-point' : '';
 $event_url = get_permalink($event_post);
 ?>
-<article class="event map-point <?= $has_image_class ?>" data-url="<?= $event_url ?>" data-lat="<?= $event->lat ?>" data-lng="<?= $event->lng ?>" data-title="<?= $event->title ?>" data-desc="<?= $event->desc ?>" data-id="<?= $event->ID ?>">
+<article class="event <?= $map_class ?> <?= $has_image_class ?>" data-url="<?= $event_url ?>" data-lat="<?= $event->lat ?>" data-lng="<?= $event->lng ?>" data-title="<?= $event->title ?>" data-desc="<?= $event->desc ?>" data-id="<?= $event->ID ?>">
   <div class="article-content">
     <?php if (!empty($show_images) && $thumb = \Firebelly\Media\get_post_thumbnail($event_post->ID)): ?>
       <a href="<?= get_the_permalink($event_post) ?>" class="article-thumb" style="background-image:url(<?= $thumb ?>);"></a>
@@ -28,14 +29,8 @@ $event_url = get_permalink($event_post);
         <?php if ($article_tags): ?><div class="article-tags"><?= $article_tags ?></div><?php endif; ?>
       </div>
       <ul class="actions">
-        <?php if (!empty($event->registration_url)): ?>
-          <a target="_blank" class="register" href="<?= $event->registration_url ?>">Register</a>
-        <?php elseif (!empty($event->registration_embed)): ?>
-          <a class="register" href="<?= get_the_permalink($event_post) ?>#register">Register</a>
-        <?php endif; ?>
         <li><a class="more" href="<?= $event_url ?>">More Details</a></li>
       </ul>
-      <?php if (!empty($show_view_all_button)): ?><p class="view-all"><a class="button" href="/events/">View All Events</a></p><?php endif; ?>
     </div>
   </div>
 </article>

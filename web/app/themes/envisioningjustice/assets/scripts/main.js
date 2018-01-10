@@ -15,6 +15,7 @@ var EJ = (function($) {
       no_header_text,
       map,
       pointsLayer,
+      pointArea,
       mapPointsData,
       mapGeoJSON = [],
       mapIconRed,
@@ -336,6 +337,17 @@ var EJ = (function($) {
         'features': mapPoints
       };
 
+      // Center map
+      if (mapPoints.length > 1) {      
+        var bounds = new mapboxgl.LngLatBounds();
+        mapPointsData.features.forEach(function(feature) {
+          bounds.extend(feature.geometry.coordinates);
+        });
+        map.fitBounds(bounds, {padding: 100});
+      } else {
+        map.setCenter(mapPoints[0].geometry.coordinates);
+      }
+
       map.on('load', function () {
         map.addSource('points', {
           'type': 'geojson',
@@ -476,6 +488,8 @@ var EJ = (function($) {
         }
       });
 
+      map.setView(pointsLayer.getBounds().getCenter());
+  
     }
 
     // After render and titles loaded hide the

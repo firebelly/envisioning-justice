@@ -57,7 +57,7 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
 
       <div class="events-section section md-one-half color-bg-gray">
         <?php 
-          $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 4, 'hub' => $post->ID]);
+          $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 4, 'hub' => $post->ID, 'exclude_from_map' =>true]);
 
           if ($related_events) { ?>
         <h2 class="type-h2">Upcoming Events at <?= get_the_title(); ?></h2>

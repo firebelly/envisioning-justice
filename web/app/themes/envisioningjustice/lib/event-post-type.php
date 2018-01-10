@@ -266,6 +266,7 @@ function get_events($options=[]) {
       else:
         ob_start();
         $show_images = !empty($options['show_images']);
+        $exclude_from_map = !empty($options['exclude_from_map']);
         include(locate_template('templates/article-event.php'));
         $output .= ob_get_clean();
       endif;
