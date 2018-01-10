@@ -23,7 +23,13 @@ footer.site-footer {
 
 
   .content-container {
+    padding-left: 0;
+    padding-right: 0;
     padding-top: 60px;
+    .section {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
     > .grid > .grid-item.-first {
       margin-bottom: 50px;
       @include media-md {

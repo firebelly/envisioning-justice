@@ -219,19 +219,20 @@ var EJ = (function($) {
   function _initFormActions() {
     function checkInputVal($input) {
       if($input.val()) {
-        $input.parents('.input-wrap').addClass('filled');
+        $input.parents('.input-wrap, .BBFormFieldContainer').addClass('filled');
       } else {
-        $input.parents('.input-wrap').removeClass('filled');
+        $input.parents('.input-wrap, .BBFormFieldContainer').removeClass('filled');
       }
     }
 
-    $('form input, form textarea').on('focus', function() {
-      $(this).parents('.input-wrap').addClass('-focus');
-    }).on('blur', function() {
+    $document.on('focus', 'form input, form textarea', function() {
+      console.log('test');
+      $(this).parents('.input-wrap, .BBFormFieldContainer').addClass('-focus');
+    }).on('blur', 'form input, form textarea', function() {
       checkInputVal($(this));
-      $(this).parents('.input-wrap').removeClass('-focus');
-    }).on('keypress', function(e) {
-      $(this).parents('.input-wrap').addClass('filled');
+      $(this).parents('.input-wrap, .BBFormFieldContainer').removeClass('-focus');
+    }).on('keypress', 'form input, form textarea', function(e) {
+      $(this).parents('.input-wrap, .BBFormFieldContainer').addClass('filled');
     });
   }
 

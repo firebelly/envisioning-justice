@@ -160,7 +160,6 @@ form {
   padding: 0;
   position: relative;
   select {
-    // color: $dk-blue;
     box-shadow: none;
     border-radius: 0;
     border: none;
@@ -197,7 +196,7 @@ form {
   display: inline-block;
   border-bottom: 1px solid $yellow;
   select {
-    // @include font-style1;
+    // @include type-h3;
     max-width: 200px;
     text-transform: uppercase;
   }
@@ -212,5 +211,130 @@ form {
 @-moz-document url-prefix() {
   .filters .select-wrapper select {
     -moz-appearance: none;
+  }
+}
+
+// Overrides for Blackbaud embedded forms
+.BBFormFieldContainer {
+  position: relative;
+  &::after {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    content: '';
+    position: absolute;
+    background-color: $white-dark;
+    transition: height .1s ease-out, background-color .1s ease-out;
+  }
+  &.-focus {
+    &::after {
+      height: 5px;
+    }
+  }
+}
+.bb-form {
+  form {
+    padding: 0!important;
+    border: none!important;
+  }
+}
+#mongo-form,
+#mongo-form-38ced2e2-cad0-4cec-baa5-4e97cce64789 {
+  @include type-h3;
+
+  .BBFormTextbox,
+  .BBFormTextArea {
+    opacity: 1;
+    width: 100%;
+    display: block;
+    appearance: none;
+    border-radius: 0;
+    background: none;
+    @include type-h3;
+    font-size: 10px;
+    color: $white-dark;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    &::placeholder {
+      color: $white-dark;
+      text-transform: capitalize;
+    }
+  }
+
+  .BBFormTextbox {
+    border: none;
+    padding: 14px 0;
+    border-bottom: 1px solid;
+  }
+
+  .BBFormTextArea {
+    padding: $padding;
+    border: 1px solid;
+  }
+
+  .BBFormContainer {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    .BBFormFieldContainer {
+      margin-left: 0;
+      margin-right: 0;
+      color: $white-dark;
+    }
+  }
+
+  .BBFormSection {
+    legend + .BBFormFieldContainer {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  fieldset {
+    padding: 0!important;
+    border: none!important;
+  }
+
+  .BBFormSubSectionHeading {
+    width: 100%;
+    margin-bottom: 20px;
+    @include type-h3;
+    &:empty {
+      display: none;
+    }
+  }
+
+  .BBFormSection {
+    margin: 0;
+    padding-bottom: 60px;
+  }
+
+  .BBFormSubmitbutton,
+  .BBFormRadioLabel {
+    @extend .button;
+    margin-top: 20px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  // Table style
+  .BBFormTable {
+    background: none;
+    border-radius: 0;
+  }
+
+  // Email signup sepcific
+  .BBFormSectionHeading {
+    display: none;
+  }
+}
+// Messaging/loading
+#bbox-msg-wrapper {
+  img {
+    display: none;
   }
 }

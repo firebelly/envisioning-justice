@@ -28,7 +28,8 @@ $colors: (
   
   // forms
   form {
-    .input-wrap {
+    .input-wrap,
+    .BBFormFieldContainer {
       &.-focus::after {
         background-color: $color;
       }

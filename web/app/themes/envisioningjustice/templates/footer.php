@@ -7,9 +7,9 @@
   </div>
 
   <div class="content-container container">
-    <div class="grid md-col-spaced">
+    <div class="grid">
 
-      <div class="grid-item md-one-half -first">
+      <div class="section grid-item md-one-half -first">
 
         <ul class="social-media-links">
           <?php if (!empty(\Firebelly\SiteOptions\get_option('facebook_url'))) { ?>
@@ -25,24 +25,13 @@
         
       </div>
 
-      <div class="site-contact grid-item md-one-half -second">
+      <div class="section site-contact grid-item md-one-half -second">
 
-        <form id="newsletter" class="newsletter-form">
-          <h3 class="type-h3">Subscribe to our Newsletter</h3>
-          <div class="-bottom">
-            <div class="form-group">          
-              <div class="input-wrap">
-                <label for="newsletterName">Full Name</label>
-                <input type="text" id="newsletterName" name="newsletterName">
-              </div>
-              <div class="input-wrap">
-                <label for="newsletterEmail">Email Address</label>
-                <input type="email" id="newsletterEmail" name="newsletterEmail">
-              </div>
-            </div>
-            <button type="submit" class="button button-circular submit -white-dark theme-exception"><span class="sr-only">Submit</span><svg class="icon icon-arrow" aria-hidden="true" role="presentation"><use xlink:href="#icon-arrow"/></svg></button>
-          </div>
-        </form>
+        <h3 class="type-h3">Subscribe to our Newsletter</h3>
+        <div id="bbox-root-38ced2e2-cad0-4cec-baa5-4e97cce64789" class="bb-form"></div>
+        <script type="text/javascript">// <![CDATA[
+        var bboxInit2 = bboxInit2 || [];     bboxInit2.push(function () {         bboxApi.showForm('38ced2e2-cad0-4cec-baa5-4e97cce64789');     });     (function () {         var e = document.createElement('script'); e.async = true;         e.src = 'https://bbox.blackbaudhosting.com/webforms/bbox-2.0-min.js';         document.getElementsByTagName('head')[0].appendChild(e);     } ());
+        // ]]></script>
 
         <div class="logos">
           <a href="http://ilhumanities.org"><span class="sr-only">Illinois Humanities</span><svg class="il-humanities-logo" aria-hidden="true" role="presentation"><use xlink:href="#ih-logo-color"/></svg></a>
