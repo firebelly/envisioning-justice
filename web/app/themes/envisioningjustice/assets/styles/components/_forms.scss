@@ -311,6 +311,9 @@ form {
   .BBFormSection {
     margin: 0;
     padding-bottom: 60px;
+    p {
+      @include type-h3;
+    }
   }
 
   .BBFormSubmitbutton,

@@ -36,6 +36,13 @@ $colors: (
     }
   }
 
+  // Blackbaud form
+  .bb-form {
+    p {
+      color: $color; 
+    }
+  }
+
   // Header
   .site-header {
     .container::before {
