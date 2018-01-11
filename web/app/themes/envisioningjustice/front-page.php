@@ -37,10 +37,6 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
         <div class="map-container">
           <div id="map" data-color="yellow"></div>
         </div>
-        <?php 
-        // homepage shows all current events on map
-        echo \Firebelly\PostTypes\Event\get_events(['num_posts' => -1, 'map-points' => true]);
-        ?>
       </div>
 
       <section class="events-section section grid-item md-one-half">
@@ -50,7 +46,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
-            echo '<p>There are currently no upcoming events.</p>';
+            echo '<p class="empty-message">There are currently no upcoming events.</p>';
           }
         ?>
         <?php if ($total_events > 4) { ?>
