@@ -32,6 +32,11 @@
     }
     a {
       color: $yellow;
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: underline;
+      }
     }
   }
 }

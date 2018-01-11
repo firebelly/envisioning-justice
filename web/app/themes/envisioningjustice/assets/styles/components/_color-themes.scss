@@ -150,6 +150,11 @@ $colors: (
   .empty-message {
     color: $color;
   }
+  .user-content {
+    a {
+      color: $color;
+    }
+  }
 
   // Color-specific changes
   // Purple

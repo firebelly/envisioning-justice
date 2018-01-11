@@ -37,7 +37,13 @@ function metaboxes() {
     'name'      => 'Website URL',
     'id'        => $prefix . 'commission_url',
     'type'      => 'text_url',
-    'desc'      => 'make sure to include http://',
+    'desc'      => 'Link to artist\'s website',
+  ]);
+  $commission_info->add_field([
+    'name'      => 'Link Text',
+    'id'        => $prefix . 'commission_link_text',
+    'type'      => 'text',
+    'desc'      => 'The text that links to the website. If left blank, "artist\'s portfolio" will be used.',
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );

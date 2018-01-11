@@ -18,4 +18,12 @@
   u {
     text-decoration: underline;
   }
+
+  a {
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
 } // END .user-content
