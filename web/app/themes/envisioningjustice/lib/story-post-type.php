@@ -304,7 +304,7 @@ function get_stories($options=[]) {
   $stories_posts = get_posts($args);
   $output = '';
   if (!$stories_posts) {
-    $output .= '<h3 class="empty-message type-h3">No stories to share yet. Please submit yours now!</h3>';
+    $output .= '<p class="empty-message">No stories to share yet. Please submit yours now!</p>';
   } else {  
     foreach ($stories_posts as $story_post):
       ob_start();

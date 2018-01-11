@@ -146,6 +146,11 @@ $colors: (
     }
   }
 
+  // General Content
+  .empty-message {
+    color: $color;
+  }
+
   // Color-specific changes
   // Purple
   @if $color == $purple {

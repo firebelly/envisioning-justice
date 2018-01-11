@@ -125,6 +125,10 @@ p {
   padding: $padding;
   @include media-md {
     padding: $padding-medium;
+    // When Empty
+    &.-empty {
+      min-height: 400px;
+    }
   }
 
   .section-title {
@@ -139,4 +143,10 @@ p {
     background: $gray;
     @include angledEdge(after, $color: $black);
   }
+}
+
+// General Global Content Classes
+.empty-message {
+  margin: 0;
+  @include type-h2;
 }

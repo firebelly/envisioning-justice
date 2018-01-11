@@ -4,6 +4,7 @@
  */
 $total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
 $startNum = 4;
+$events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $startNum]);
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -11,15 +12,13 @@ $startNum = 4;
 <div id="page-content">
   <div class="container grid">
 
-      <div class="section md-one-half color-bg-gray-light">
-        
-        <?php $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $startNum]); ?>
+      <div class="section md-one-half color-bg-gray-light<?= (empty($events) ? ' -empty' : '') ?>">
 
         <?php
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
-            echo '<p>There are currently no upcoming events.</p>';
+            echo '<p class="empty-message">There are currently no upcoming events.</p>';
           }
         ?>
 
