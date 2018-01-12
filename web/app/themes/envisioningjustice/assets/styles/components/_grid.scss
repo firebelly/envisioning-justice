@@ -74,6 +74,14 @@
     flex-basis: 66.6666667%;
     max-width: 66.6666667%;
   }
+
+  // Medium breakpoint grid items get 100% until the medium breakpoint
+  .md-one-fourth,
+  .md-one-third,
+  .md-one-half,
+  .md-two-thirds {
+    width: 100%;
+  }
 }
 
 @include media-md {
