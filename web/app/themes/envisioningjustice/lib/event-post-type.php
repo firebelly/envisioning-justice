@@ -9,7 +9,7 @@ use PostTypes\Taxonomy;
 
 $options = [
   'supports'   => ['editor', 'title', 'thumbnail'],
-  'rewrite'    => ['with_front' => false],
+  'rewrite'    => ['slug' => 'programming'],
 ];
 $events = new PostType('event', $options);
 $events->taxonomy('program type');
