@@ -73,6 +73,7 @@ form {
     width: 100%;
     color: inherit;
     display: block;
+    border-radius: 0;
     appearance: none;
     background: none;
     &:focus {
@@ -118,8 +119,9 @@ form {
     input[type=file] {    
       border: none;
       cursor: pointer;
-      padding: 0 $padding $padding;
+      border-radius: 0;
       color: transparent;
+      padding: 0 $padding $padding;
       border-left: 1px solid $black;
       border-right: 1px solid $black;
     }
