@@ -21,11 +21,9 @@ function is_ajax() {
  */
 function load_more_posts() {
   // What type of post?
-  if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='event') {
-    $post_type = 'event';
-  } else if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='commission') {
-    $post_type = 'commission';
-  } else if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='news') {
+  if (!empty($_REQUEST['post_type'])) {
+    $post_type = $_REQUEST['post_type'];
+  } else {
     $post_type = 'news';
   }
   // get page offsets
@@ -101,6 +99,8 @@ function load_more_posts() {
         $event_post = $post;
       else if ($post_type == 'commission')
         $commission_post = $post;
+      else if ($post_type == 'story')
+        $story_post = $post;
       else
         $news_post = $post;
       include(locate_template('templates/article-'.$post_type.'.php'));

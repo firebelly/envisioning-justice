@@ -300,17 +300,27 @@ function get_stories($options=[]) {
     ];
   }
 
-  // Display all matching posts using article-{$post_type}.php
-  $stories_posts = get_posts($args);
-  $output = '';
-  if (!$stories_posts) {
-    $output .= '<p class="empty-message">No stories to share yet. Please submit yours now!</p>';
-  } else {  
-    foreach ($stories_posts as $story_post):
-      ob_start();
-      include(locate_template('templates/article-story.php'));
-      $output .= ob_get_clean();
-    endforeach;
+  if (!empty($options['countposts'])) {
+
+    // Just count posts (used for load-more buttons)
+    $args ['posts_per_page'] = -1;
+    $args ['fields'] = 'ids';
+    $count_query = new \WP_Query($args);
+    return $count_query->found_posts;
+
+  } else {
+    // Display all matching posts using article-{$post_type}.php
+    $stories_posts = get_posts($args);
+    $output = '';
+    if (!$stories_posts) {
+      $output .= '<p class="empty-message">No stories to share yet. Please submit yours now!</p>';
+    } else {  
+      foreach ($stories_posts as $story_post):
+        ob_start();
+        include(locate_template('templates/article-story.php'));
+        $output .= ob_get_clean();
+      endforeach;
+    }
+    return $output;
   }
-  return $output;
 }

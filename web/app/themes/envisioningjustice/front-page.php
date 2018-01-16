@@ -5,6 +5,8 @@
 
 $total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
 $total_news = wp_count_posts('post')->publish;
+$events_to_show = 4;
+$events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $events_to_show]);
 $header_bg = \Firebelly\Media\get_header_bg($post);
 $header_text = get_post_meta($post->ID, '_cmb2_header_text', true);
 $header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'));
@@ -41,7 +43,6 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 
       <section class="events-section section grid-item md-one-half">
         <h2 class="section-title type-h3">Events</h2>
-        <?php $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 4]); ?>
         <?php
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
@@ -49,9 +50,9 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
             echo '<p class="empty-message">There are currently no upcoming events.</p>';
           }
         ?>
-        <?php if ($total_events > 4) { ?>
+        <?php if ($total_events > $events_to_show) { ?>
         <div class="events-buttons grid sm-spaced">
-          <div class="load-more grid-item sm-one-half" data-post-type="event" data-page-at="1" data-past-events="0" data-per-page="4" data-total-pages="<?= ceil($total_events/4) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
+          <div class="load-more grid-item sm-one-half" data-post-type="event" data-page-at="1" data-per-page="<?= $events_to_show ?>" data-total-pages="<?= ceil($total_events/$events_to_show) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
           <div class="view-all grid-item sm-one-half"><a href="/events/" class="button">All Events</a></div>
         </div>
         <?php } ?>

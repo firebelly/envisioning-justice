@@ -5,6 +5,13 @@
 
 $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+// $per_page = get_option('posts_per_page');
+$per_page = 1;
+$total_stories = \Firebelly\PostTypes\Story\get_stories(['countposts' => 1]);
+$total_pages = ($total_stories > 0) ? ceil($total_stories / $per_page) : 1;
+$stories = \Firebelly\PostTypes\Story\get_stories(['num_posts' => $per_page]);
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -16,9 +23,14 @@ $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 
         <div class="user-content">
           <?= $primary_content ?>
-          <div class="story-list article-list grid">
-            <?= Firebelly\PostTypes\Story\get_stories() ?>
+          <div class="story-list article-list load-more-container grid">
+            <?= $stories ?>
           </div>
+          <?php if ($total_stories > $per_page) { ?>
+            <div class="commissions-buttons">
+              <div class="load-more" data-post-type="story" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
+            </div>
+          <?php } ?>
         </div>
 
       </div>
