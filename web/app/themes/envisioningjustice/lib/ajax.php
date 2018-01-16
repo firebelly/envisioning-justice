@@ -20,8 +20,14 @@ function is_ajax() {
  * AJAX load more posts (news or events)
  */
 function load_more_posts() {
-  // news or events?
-  $post_type = (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='event') ? 'event' : 'news';
+  // What type of post?
+  if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='event') {
+    $post_type = 'event';
+  } else if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='commission') {
+    $post_type = 'commission';
+  } else if (!empty($_REQUEST['post_type']) && $_REQUEST['post_type']=='news') {
+    $post_type = 'news';
+  }
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
@@ -29,13 +35,13 @@ function load_more_posts() {
   $args = [
     'offset' => $offset,
     'posts_per_page' => $per_page,
+    'post_type' => $post_type
   ];
   if ($post_type == 'event') {
     // if post type is event, make sure we're only pulling upcoming or past events
     $args['orderby'] = 'meta_value_num';
     $args['meta_key'] = '_cmb2_event_start';
     $args['order'] = !empty($_REQUEST['past_events']) ? 'DESC' : 'ASC';
-    $args['post_type'] = 'event';
     $args['meta_query'] = [
       [
         'key' => '_cmb2_event_end',
@@ -88,11 +94,13 @@ function load_more_posts() {
 
   $posts = get_posts($args);
 
-  if ($posts): 
+  if ($posts):
     foreach ($posts as $post) {
       // set local var for post type — avoiding using $post in global namespace
-      if ($post_type == 'event')
+      if ($post_type == 'event') 
         $event_post = $post;
+      else if ($post_type == 'commission')
+        $commission_post = $post;
       else
         $news_post = $post;
       include(locate_template('templates/article-'.$post_type.'.php'));

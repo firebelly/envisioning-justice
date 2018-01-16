@@ -2,9 +2,12 @@
 /**
  * Template Name: Programming
  */
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$per_page = get_option('posts_per_page');
+// $per_page = 1;
 $total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
-$startNum = 4;
-$events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $startNum]);
+$total_pages = ($total_events > 0) ? ceil($total_events / $per_page) : 1;
+$events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -18,13 +21,13 @@ $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $startNum]);
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
-            echo '<p class="empty-message">There are currently no upcoming events.</p>';
-          }
+            // echo '<p class="empty-message">There are currently no upcoming events.</p>';
+          // }
         ?>
 
-        <?php if ($total_events > $startNum) { ?>
+        <?php if ($total_events > $per_page) { ?>
           <div class="events-buttons">
-            <div class="load-more" data-post-type="event" data-page-at="1" data-past-events="0" data-per-page="<?= $startNum ?>" data-total-pages="<?= ceil($total_events/$startNum) ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
+            <div class="load-more" data-post-type="event" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
           </div>
         <?php } ?>
 

@@ -52,7 +52,7 @@ add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
  * Get Commissions
  */
 function get_commissions($options=[]) {
-  if (empty($options['num_posts'])) $options['num_posts'] = -1;
+  if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type'   => 'commission',
@@ -67,16 +67,28 @@ function get_commissions($options=[]) {
     ];
   }
 
-  // Display all matching posts using article-{$post_type}.php
-  $commissions_posts = get_posts($args);
-  if (!$commissions_posts) return false;
-  $output = '';
-  $output .= '<ul class="commissions-list grid">';
-  foreach ($commissions_posts as $commission_post):
-    ob_start();
-    include(locate_template('templates/article-commission.php'));
-    $output .= ob_get_clean();
-  endforeach;
-  $output .= '</ul>';
-  return $output;
+  if (!empty($options['countposts'])) {
+
+    // Just count posts (used for load-more buttons)
+    $args ['posts_per_page'] = -1;
+    $args ['fields'] = 'ids';
+    $count_query = new \WP_Query($args);
+    return $count_query->found_posts;
+
+  } else {
+
+    // Display all matching posts using article-{$post_type}.php
+    $commissions_posts = get_posts($args);
+    if (!$commissions_posts) return false;
+    $output = '';
+    $output .= '<ul class="commissions-list grid">';
+    foreach ($commissions_posts as $commission_post):
+      ob_start();
+      include(locate_template('templates/article-commission.php'));
+      $output .= ob_get_clean();
+    endforeach;
+    $output .= '</ul>';
+    return $output;
+
+  }
 }

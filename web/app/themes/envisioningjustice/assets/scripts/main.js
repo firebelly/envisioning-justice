@@ -536,6 +536,15 @@ var EJ = (function($) {
       });
 
       map.getSource('points').setData(mapPointsData);
+      // Center
+      var bounds = new mapboxgl.LngLatBounds();
+      mapPointsData.features.forEach(function(feature) {
+        bounds.extend(feature.geometry.coordinates);
+      });
+      map.fitBounds(bounds, {padding: 100});
+      // Resize map
+      map.resize();
+
     }
   }
 
@@ -621,14 +630,6 @@ var EJ = (function($) {
       var more_container = $load_more.parents('.section').find('.load-more-container');
       loadingTimer = setTimeout(function() { more_container.addClass('loading'); }, 500);
 
-      // Homepage has a funky load-more div in events that is part of masonry until clicked
-      // if (breakpoint_medium && $('.home.page').length && $(e.target).parents('.events-buttons').length) {
-      //   var lm = $('.event-cal').addClass('loaded-more').find('.events .events-buttons');
-      //   // Remove load-more from masonry and relayout
-      //   // $('.events').masonry('remove', lm);
-      //   // $('.events').masonry();
-      // }
-
       $.ajax({
           url: wp_ajax_url,
           method: 'post',
@@ -642,11 +643,10 @@ var EJ = (function($) {
           },
           success: function(data) {
             var $data = $(data);
+
             if (loadingTimer) { clearTimeout(loadingTimer); }
             more_container.append($data).removeClass('loading');
-            // if (breakpoint_medium) {
-            //   more_container.masonry('appended', $data, true);
-            // }
+
             $load_more.attr('data-page-at', page+1);
             if (post_type==='event') {
               _getMapPoints();
