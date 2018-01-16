@@ -81,7 +81,7 @@ function get_commissions($options=[]) {
     $commissions_posts = get_posts($args);
     if (!$commissions_posts) return false;
     $output = '';
-    $output .= '<ul class="commissions-list grid">';
+    $output .= '<ul class="commissions-list load-more-container grid">';
     foreach ($commissions_posts as $commission_post):
       ob_start();
       include(locate_template('templates/article-commission.php'));

@@ -4,7 +4,6 @@
  */
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
-// $per_page = 1;
 $total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
 $total_pages = ($total_events > 0) ? ceil($total_events / $per_page) : 1;
 $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
@@ -22,7 +21,6 @@ $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
             // echo '<p class="empty-message">There are currently no upcoming events.</p>';
-          // }
         ?>
 
         <?php if ($total_events > $per_page) { ?>
