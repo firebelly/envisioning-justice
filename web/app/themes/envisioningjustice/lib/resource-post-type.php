@@ -26,157 +26,126 @@ function metaboxes( array $meta_boxes ) {
 
   $meta_boxes['resource_metabox'] = array(
     'id'            => 'resource_metabox',
-    'title'         => __( 'Resource Sidebar Blocks', 'cmb2' ),
+    'title'         => __( 'Resource Info', 'cmb2' ),
     'object_types'  => array( 'resource', ),
     'context'       => 'normal',
     'priority'      => 'low',
     'show_names'    => true,
     'fields'        => array(
       array(
-        'name' => 'Resources',
-        'desc' => 'Downloadable files e.g. PDFs',
-        'id'   => $prefix . 'resources',
-        'type' => 'file_list',
+        'name'      => 'Resource Description',
+        'id'        => $prefix . 'resource_description',
+        'type'      => 'textarea_small',
+        'desc'      => 'Displays on resources landing page'
       ),
       array(
-        'name' => 'Resource Links',
-        'desc' => 'Shows below list of Resources',
-        'id'   => $prefix . 'resource_links',
-        'type' => 'wysiwyg',
-        'options' => array(
-          'textarea_rows' => 4,
-        ),
+        'name'      => 'Resource Address',
+        'id'        => $prefix . 'resource_address',
+        'type'      => 'address',
       ),
       array(
-        'name' => 'Additional Info',
-        'desc' => 'Partners, Resource Directors, etc',
-        'id'   => $prefix . 'addl_info',
-        'type' => 'wysiwyg',
+        'name'      => 'Resource Website',
+        'id'        => $prefix . 'resource_website',
+        'type'      => 'text_url',
       ),
     ),
   );
-
-  /**
-   * Repeating blocks
-   */
-  // $cmb_group = new_cmb2_box( array(
-  //     'id'           => $prefix . 'metabox',
-  //     'title'        => __( 'Page Blocks', 'cmb2' ),
-  //     'priority'      => 'low',
-  //     'object_types' => array( 'resource', 'page', ),
-  //   ) 
-  // );
-
-  // $group_field_id = $cmb_group->add_field( array(
-  //     'id'          => $prefix . 'page_blocks',
-  //     'type'        => 'group',
-  //     'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
-  //     'options'     => array(
-  //         'group_title'   => __( 'Block {#}', 'cmb' ),
-  //         'add_button'    => __( 'Add Another Block', 'cmb' ),
-  //         'remove_button' => __( 'Remove Block', 'cmb' ),
-  //         'sortable'      => true, // beta
-  //     ),
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Block Title',
-  //     'id'   => 'title',
-  //     'type' => 'text',
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Body',
-  //     'id'   => 'body',
-  //     'type' => 'wysiwyg',
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Hide Block',
-  //     // 'desc' => 'Check this to hide Page Block from the front end',
-  //     'id'   => 'hide_block',
-  //     'type' => 'checkbox',
-  // ) );
 
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
- * Get Resources matching focus_area
+ * Update lookup table for events geodata, if post_id isn't sent, all posts are updates/inserted into wp_events_lat_lng
  */
-function get_resources($focus_area='') {
-  $output = '';
-  $args = array(
-    'numberposts' => -1,
-    'post_type' => 'resource',
-    'orderby' => ['title' => 'ASC'],
-    );
-  if ($focus_area != '') {
-    $args['tax_query'] = array(
-      array(
-        'taxonomy' => 'focus_area',
-        'field' => 'slug',
-        'terms' => $focus_area
-      )
-    );
-  }
-  // if ($year != '') {
-  //   $args['meta_query'] = array(
-  //     array(
-  //       'key' => '_cmb2_resource_year',
-  //       'value' => $year,
-  //       'compare' => '=',
-  //     )
-  //   );
-  // }
-
-  $resource_posts = get_posts($args);
-  // if (!$resource_posts) return false;
-  return $resource_posts;
-}
-
-// Shortcode [resources_filters]
-add_shortcode('resources_filters', __NAMESPACE__ . '\shortcode_filters');
-function shortcode_filters($atts) {
+function update_resource_lat_lng($post_id='') {
   global $wpdb;
-  $output = '<form class="resource-filters" method="get"><label>Sort By</label> ';
-  $args = array(
-    'numberposts' => -1,
-    'post_type' => 'resource',
-    'orderby' => 'menu_order',
-    );
-
-  $years = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_cmb2_resource_year' GROUP BY meta_value ORDER BY meta_value DESC" );
-  $output .= '<div class="select-wrapper"><label>Year:</label><select class="year">';
-  $output .= '<option value="">All</option>';
-  foreach ($years as $year)
-    $output .= '<option value="' . $year . '"' . ($year==$years[0] ? ' selected' : '') . '>' . $year . '</option>';
-  $output .= '</select></div> ';
-
-  $sectors = get_terms('focus_area');
-  $output .= '<div class="select-wrapper"><label>Sector:</label><select class="sector">';
-  $output .= '<option value="">All</option>';
-  foreach ($sectors as $sector)
-    $output .= '<option value="' . $sector->slug . '">' . $sector->name . '</option>';
-  $output .= '</select></div> ';
-  $output .= '</form> ';
-
-  return $output;
+  $resource_cache = [];
+  $post_id_sql = empty($post_id) ? '' : ' AND post_id='.(int)$post_id;
+  $resource_posts = $wpdb->get_results("SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta WHERE meta_key IN ('_cmb2_lat','_cmb2_lng') AND meta_value != '' {$post_id_sql} ORDER BY post_id");
+  if ($resource_posts) {
+    foreach ($resource_posts as $resource) {
+      $resource_cache[$resource->post_id][$resource->meta_key] = $resource->meta_value;
+    }
+    foreach ($resource_cache as $resource_id=>$arr) {
+      $cnt = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM wp_resource_lat_lng WHERE post_id=%d", $resource_id) );
+      if ($cnt>0) {
+        $wpdb->query( $wpdb->prepare("UPDATE wp_resource_lat_lng SET lat=%s, lng=%s WHERE post_id=%d", $arr['_cmb2_lat'], $arr['_cmb2_lng'], $resource_id) );
+      } else {
+        $wpdb->query( $wpdb->prepare("INSERT INTO wp_resource_lat_lng (post_id,lat,lng) VALUES (%d,%s,%s)", $resource_id, $arr['_cmb2_lat'], $arr['_cmb2_lng']) );
+      }
+    }
+  }
 }
+
 
 /**
- * Redirect 404s for Resources to Archive page 
+ * Geocode address for resource and save in custom fields
  */
-add_filter('404_template', __NAMESPACE__ . '\redirect_archived_resources');
-function redirect_archived_resources($template) {
-  global $wp_query;
-  
-  if (!is_404() || empty($wp_query->query_vars['resource']))
-    return $template;
+function geocode_address($post_id, $post='') {
+  $address = get_post_meta($post_id, '_cmb2_resource_address', 1);
+  $address = wp_parse_args($address, array(
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+   ));
 
-  $permalink = get_option('home') . '/archived-resources/';
+  if (!empty($address['address-1'])):
+    $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
+    $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
 
-  wp_redirect($permalink, 301);
-  exit;
+    $xml = simplexml_load_file($request_url);
+    $status = $xml->status;
+    if(strcmp($status, 'OK')===0):
+        $lat = $xml->result->geometry->location->lat;
+        $lng = $xml->result->geometry->location->lng;
+        update_post_meta($post_id, '_cmb2_lat', (string)$lat);
+        update_post_meta($post_id, '_cmb2_lng', (string)$lng);
+        update_resource_lat_lng($post_id);
+    endif;
+  endif;
+}
+add_action('save_post_resource', __NAMESPACE__ . '\\geocode_address', 20, 2);
+
+/**
+ * Get Resources
+ */
+function get_resources($options=[]) {
+  if (empty($options['num_posts'])) $options['num_posts'] = -1;
+  $args = [
+    'numberposts' => $options['num_posts'],
+    'post_type'   => 'resource',
+  ];
+  if (!empty($options['type'])) {
+    $args['tax_query'] = [
+      [
+        'taxonomy' => 'resource type',
+        'field' => 'slug',
+        'terms' => $options['type']
+      ]
+    ];
+  }
+
+  if (!empty($options['countposts'])) {
+
+    // Just count posts (used for load-more buttons)
+    $args ['posts_per_page'] = -1;
+    $args ['fields'] = 'ids';
+    $count_query = new \WP_Query($args);
+    return $count_query->found_posts;
+
+  } else {
+    // Display all matching posts using article-{$post_type}.php
+    $resource_posts = get_posts($args);
+    if (!$resource_posts) return false;
+    $output = '';
+    foreach ($resource_posts as $resource_post):
+      ob_start();
+      include(locate_template('templates/article-resource.php'));
+      $output .= ob_get_clean();
+    endforeach;
+    return $output;
+  }
 }

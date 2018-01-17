@@ -20,7 +20,8 @@ $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
-            // echo '<p class="empty-message">There are currently no upcoming events.</p>';
+            echo '<p class="empty-message">There are currently no upcoming events.</p>';
+          }
         ?>
 
         <?php if ($total_events > $per_page) { ?>
