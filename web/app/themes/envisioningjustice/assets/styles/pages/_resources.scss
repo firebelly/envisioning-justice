@@ -1,5 +1,36 @@
 // Resources 
 
-.page.resources {
+.page.resources,
+body.single-resource {
   @include colorScheme($green);
+}
+
+// Single Resource
+body.single-resource {
+  .page-header .page-header-text {
+    background: none;
+  }
+
+  .resource-meta {
+    z-index: 1;
+    @include angledEdge(after, $afterOrientation: rtl, $color: $black);
+    margin-bottom: -4vw;
+
+    @include max-screen($breakpoint-medium) {
+      &::after {
+        display: none;
+      }
+    }
+  }
+  .address {
+    p {
+      margin: 0;
+    }
+  }
+
+  .map-container {
+    @include media-md {
+      min-height: 600px;
+    }
+  }
 }

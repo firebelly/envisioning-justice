@@ -4,23 +4,12 @@ $header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'))
 $post_date_timestamp = strtotime($post->post_date);
 $with_image_class = (has_post_thumbnail($post->ID)) ? 'with-image' : '';
 $article_tags = \Firebelly\Utils\get_article_tags($post);
+$slash_rows = 7;
+$no_image_in_header = true;
+$secondary_title = 'Your Stories';
 ?>
 
-<header class="page-header container">
-  <div class="-inner">
-    <div class="page-header-top">
-      <div class="slashfield" data-rows="7"></div>
-      <h2 class="page-title"><span class="color-black">Your Stories</span><br> <?= get_the_title(); ?></h2>
-    </div>
-    <div class="page-header-bottom grid">
-      <div class="page-header-text no-image sm-full section">
-        <div class="-inner type-h2">
-          <?= $header_text ?>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<?php include(locate_template('templates/page-header.php')); ?>
 
 <div id="page-content">
   <div class="container grid">

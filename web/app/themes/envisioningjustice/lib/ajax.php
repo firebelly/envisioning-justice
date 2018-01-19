@@ -95,14 +95,7 @@ function load_more_posts() {
   if ($posts):
     foreach ($posts as $post) {
       // set local var for post type — avoiding using $post in global namespace
-      if ($post_type == 'event') 
-        $event_post = $post;
-      else if ($post_type == 'commission')
-        $commission_post = $post;
-      else if ($post_type == 'story')
-        $story_post = $post;
-      else
-        $news_post = $post;
+      ${$post_type . "_post"} = $post;
       include(locate_template('templates/article-'.$post_type.'.php'));
     }
   endif;

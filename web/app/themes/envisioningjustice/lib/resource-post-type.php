@@ -13,11 +13,11 @@ $options = [
   'menu_icon'  => 'dashicons-sos',
 ];
 $resources = new PostType('resource', $options);
-$resources->taxonomy('resource type');
+$resources->taxonomy('resource-type');
 $resources->register();
 
 // Taxonomies
-$resource_types = new Taxonomy('resource type');
+$resource_types = new Taxonomy('resource-type');
 $resource_types->register();
 
 // Custom CMB2 fields for post type
@@ -77,7 +77,6 @@ function update_resource_lat_lng($post_id='') {
     }
   }
 }
-
 
 /**
  * Geocode address for resource and save in custom fields

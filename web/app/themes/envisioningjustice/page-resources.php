@@ -29,17 +29,17 @@ $resources = \Firebelly\PostTypes\Resource\get_resources(['num_posts' => $per_pa
 
       <?php if ($total_resources > $per_page) { ?>
         <div class="resources-buttons">
-          <div class="load-more" data-post-type="event" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
+          <div class="load-more" data-post-type="resource" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
         </div>
       <?php } ?>
 
     </div>
 
-      <div class="md-one-half color-bg-gray">
-        <div class="map-container">
-          <div id="map" data-color="green"></div>
-        </div>
+    <div class="md-one-half color-bg-gray">
+      <div class="map-container">
+        <div id="map" data-color="green"></div>
       </div>
+    </div>
 
   </div>
 </div>

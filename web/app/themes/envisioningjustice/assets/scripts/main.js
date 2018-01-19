@@ -541,7 +541,7 @@ var EJ = (function($) {
       mapPointsData.features.forEach(function(feature) {
         bounds.extend(feature.geometry.coordinates);
       });
-      map.fitBounds(bounds, {padding: 100});
+      map.fitBounds(bounds, {padding: 150});
       // Resize map
       map.resize();
 
@@ -648,13 +648,13 @@ var EJ = (function($) {
             more_container.append($data).removeClass('loading');
 
             $load_more.attr('data-page-at', page+1);
-            if (post_type==='event') {
+            if (post_type==='event' || post_type==='resource') {
               _getMapPoints();
             }
 
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
-                $load_more.addClass('hide');
+              $load_more.addClass('hide');
             }
           }
       });

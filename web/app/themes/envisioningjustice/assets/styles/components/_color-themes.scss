@@ -120,6 +120,13 @@ $colors: (
       background: $color;
     }
   }
+  @at-root {
+    &.single {
+      .page-header.no-image .page-header-text {
+        background: none;
+      }
+    }
+  }
 
   // Buttons
   .button:not(.theme-exception) {

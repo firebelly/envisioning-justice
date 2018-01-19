@@ -9,6 +9,7 @@ $total_pages = ($total_commissions > 0) ? ceil($total_commissions / $per_page) :
 $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 $commissions = Firebelly\PostTypes\Commission\get_commissions(['num_posts' => $per_page]);
+$no_image_in_header = true;
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>

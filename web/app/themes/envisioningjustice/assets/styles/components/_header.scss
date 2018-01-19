@@ -314,6 +314,12 @@
       }
     }
 
+    .page-header-details {
+      .actions {
+        margin-bottom: 0;
+      }
+    }
+
     .page-header-background {
       height: 200px;
       background-size: cover;
@@ -369,6 +375,48 @@
     transform: translate(50%, 50%) rotate(90deg);
     @include media-md {
       right: 25%;
+    }
+  }
+
+  // No header-image format
+  &.no-image {
+    .page-header-top {
+      margin-bottom: 20px;
+      @include media-md {
+        margin-bottom: 40px;
+      }
+    }
+    .page-header-bottom {
+      margin-top: 0;
+    }
+    .page-header-text {
+      padding-bottom: 60px;
+      .-inner {
+        max-width: 820px;
+      }
+    }
+  }
+}
+// Single page-header variations
+body.single {
+  .page-header {
+    // No header-image format
+    &.no-image {
+      .page-header-top {
+        @include killAngle(after);
+        @include media-md {
+          margin-bottom: 40px;
+        }
+      }
+      .page-header-bottom {
+        z-index: 2;
+        @include killAngle(before);
+      }
+      .page-header-text {
+        padding-top: 0;
+        background: none;
+        @include killAngle(before);
+      }
     }
   }
 }
