@@ -7,6 +7,13 @@ body.single-post {
       color: $purple;
     }
   }
+
+  .post-featured-image {
+    height: 0;
+    width: 100%;
+    background-size: cover;
+    padding-bottom: 85.7142857%;
+  }
 }
 
 // Common Single Post styles

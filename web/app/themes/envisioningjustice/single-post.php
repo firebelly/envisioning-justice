@@ -6,6 +6,7 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
 $slash_rows = 7;
 $no_image_in_header = true;
 $secondary_title = 'Blog Post';
+$post_slideshow = \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -42,7 +43,12 @@ $secondary_title = 'Blog Post';
       </div>
 
       <div class="images-section md-one-half color-bg-purple">
-        <?= \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID); ?>
+        <?php if (!empty($post_slideshow)) {
+            echo $post_slideshow;
+          } else {
+            echo '<div class="post-featured-image" '.\Firebelly\Media\get_header_bg($post).'></div>';
+          }
+        ?>
       </div>
 
   </div>
