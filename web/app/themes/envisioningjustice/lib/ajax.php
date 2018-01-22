@@ -30,11 +30,21 @@ function load_more_posts() {
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
   $offset = ($page-1) * $per_page;
-  $args = [
-    'offset' => $offset,
-    'posts_per_page' => $per_page,
-    'post_type' => $post_type
-  ];
+
+  if ($post_type === 'news') {
+    $args = [
+      'offset' => $offset,
+      'posts_per_page' => $per_page,
+      'post_type' => 'post'
+    ];
+  } else {  
+    $args = [
+      'offset' => $offset,
+      'posts_per_page' => $per_page,
+      'post_type' => $post_type
+    ];
+  }
+
   if ($post_type == 'event') {
     // if post type is event, make sure we're only pulling upcoming or past events
     $args['orderby'] = 'meta_value_num';

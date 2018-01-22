@@ -4,3 +4,14 @@ body.blog,
 body.single-post {
   @include colorScheme($purple);
 }
+
+body.blog {
+  .news-list {
+    @include media-md {
+      .article {
+        width: 25%;
+        padding-right: 40px;
+      }
+    }
+  }
+}

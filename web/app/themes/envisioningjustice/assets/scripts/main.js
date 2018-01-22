@@ -652,6 +652,12 @@ var EJ = (function($) {
               _getMapPoints();
             }
 
+            if (more_container.is('.masonry')) {
+              if (breakpoint_medium) {
+                more_container.masonry('appended', $data, true);
+              }
+            }
+
             // Hide load more if last page
             if ($load_more.attr('data-total-pages') <= page + 1) {
               $load_more.addClass('hide');

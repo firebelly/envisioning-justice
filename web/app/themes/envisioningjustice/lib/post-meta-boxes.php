@@ -17,20 +17,12 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
-      // array(
-      //   'name' => 'External Link URL',
-      //   'desc' => 'Opens in new window when clicking In The News posts',
-      //   'id'   => $prefix . 'url',
-      //   'type' => 'text_url',
-      // ),
       array(
-        'name' => 'Byline area',
-        'desc' => 'Shows above main post content',
-        'id'   => $prefix . 'post_byline',
-        'type' => 'wysiwyg',
-        'options' => array(
-          'textarea_rows' => 4,
-        ),
+          'name'    => 'Slideshow Images',
+          'desc'    => 'Images will be displayed in the post as a slideshow',
+          'id'      => $prefix . 'slideshow-images',
+          'type'    => 'file_list',
+
       ),
     ),
   );

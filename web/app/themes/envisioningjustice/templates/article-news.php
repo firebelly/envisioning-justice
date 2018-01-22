@@ -3,9 +3,8 @@ use Firebelly\Utils;
 $category = Utils\get_category($news_post);
 $article_tags = Utils\get_article_tags($news_post);
 $post_date_timestamp = strtotime($news_post->post_date);
-$has_image_class = !empty($show_images) && has_post_thumbnail($news_post->ID) ? 'has-image' : '';
 ?>
-<article class="news-article article <?= $has_image_class ?>">
+<article class="news-article article">
   <div class="article-content">
     <div class="article-content-wrap">
       <header class="article-header">
