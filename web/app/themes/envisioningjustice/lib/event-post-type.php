@@ -12,11 +12,11 @@ $options = [
   'rewrite'    => ['slug' => 'programming'],
 ];
 $events = new PostType('event', $options);
-$events->taxonomy('program type');
+$events->taxonomy('program-type');
 $events->register();
 
 // Taxonomies
-$event_types = new Taxonomy('program type');
+$event_types = new Taxonomy('program-type');
 $event_types->register();
 
 /**
@@ -327,7 +327,7 @@ function update_events_lat_lng($post_id='') {
  * Geocode address for event and save in custom fields
  */
 function geocode_address($post_id, $post='') {
-  $address = get_post_meta($post_id, '_cmb2_address', 1);
+  $address = !empty($_POST['_cmb2_address']) ? $_POST['_cmb2_address'] : '';
   $address = wp_parse_args($address, array(
       'address-1' => '',
       'address-2' => '',

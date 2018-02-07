@@ -82,7 +82,7 @@ function update_resource_lat_lng($post_id='') {
  * Geocode address for resource and save in custom fields
  */
 function geocode_address($post_id, $post='') {
-  $address = get_post_meta($post_id, '_cmb2_resource_address', 1);
+  $address = !empty($_POST['_cmb2_address']) ? $_POST['_cmb2_address'] : '';
   $address = wp_parse_args($address, array(
       'address-1' => '',
       'address-2' => '',

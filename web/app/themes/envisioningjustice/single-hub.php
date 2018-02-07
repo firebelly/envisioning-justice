@@ -7,7 +7,7 @@ $primary_org_address = get_post_meta($post->ID, '_cmb2_primary_org_address', tru
 $hub_lat = get_post_meta($post->ID, '_cmb2_lat', true);
 $hub_lng = get_post_meta($post->ID, '_cmb2_lng', true);
 $body_content = apply_filters('the_content', $post->post_content);
-$category = \Firebelly\Utils\get_first_term($post, 'hub area');
+// $category = \Firebelly\Utils\get_first_term($post, 'hub-area');
 ?>
 
 <header class="page-header container map-point" data-url="<?= $hub_url ?>" data-lat="<?= $hub_lat ?>" data-lng="<?= $hub_lng ?>" data-title="<?= $post->title ?>">
@@ -27,7 +27,7 @@ $category = \Firebelly\Utils\get_first_term($post, 'hub area');
               }
             ?>
             <br>
-            <?= $primary_org_address['address-1'].'<br> '.$category->name.', '.$primary_org_address['zip'] ?>
+            <?= $primary_org_address['address-1'].'<br> '.get_the_title().', '.$primary_org_address['zip'] ?>
           </h3>
         </div>
       </div>

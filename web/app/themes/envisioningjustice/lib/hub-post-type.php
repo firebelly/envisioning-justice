@@ -13,12 +13,12 @@ $options = [
   'menu_icon'  => 'dashicons-location-alt',
 ];
 $hubs = new PostType('hub', $options, $labels);
-$hubs->taxonomy('hub area');
+// $hubs->taxonomy('hub-area');
 $hubs->register();
 
 // Taxonomies
-$hub_area = new Taxonomy('hub area');
-$hub_area->register();
+// $hub_area = new Taxonomy('hub-area');
+// $hub_area->register();
 
 /**
  * CMB2 custom fields
@@ -169,7 +169,7 @@ function update_hubs_lat_lng($post_id='') {
  * Geocode address for hub and save in custom fields
  */
 function geocode_address($post_id, $post='') {
-  $address = get_post_meta($post_id, '_cmb2_primary_org_address', 1);
+  $address = !empty($_POST['_cmb2_primary_org_address']) ? $_POST['_cmb2_primary_org_address'] : '';
   $address = wp_parse_args($address, array(
       'address-1' => '',
       'address-2' => '',
@@ -207,7 +207,7 @@ function get_hubs($options=[]) {
   if (!empty($options['area'])) {
     $args['tax_query'] = [
       [
-        'taxonomy' => 'hub area',
+        'taxonomy' => 'hub-area',
         'field' => 'slug',
         'terms' => $options['area']
       ]
