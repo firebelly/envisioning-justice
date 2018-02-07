@@ -108,30 +108,30 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'address',
           'type'    => 'address',
       ),
-      array(
-          'name'    => 'Sponsor Organization(s)',
-          'id'      => $prefix . 'sponsor',
-          'type'    => 'wysiwyg',
-          'options' => array(
-            'textarea_rows' => 4,
-          ),
-      ),
-      array(
-          'name'    => 'Partner(s)',
-          'id'      => $prefix . 'partner',
-          'type'    => 'wysiwyg',
-          'options' => array(
-            'textarea_rows' => 4,
-          ),
-      ),
-      array(
-          'name'    => 'Funder(s)',
-          'id'      => $prefix . 'funder',
-          'type'    => 'wysiwyg',
-          'options' => array(
-            'textarea_rows' => 4,
-          ),
-      ),
+      // array(
+      //     'name'    => 'Sponsor Organization(s)',
+      //     'id'      => $prefix . 'sponsor',
+      //     'type'    => 'wysiwyg',
+      //     'options' => array(
+      //       'textarea_rows' => 4,
+      //     ),
+      // ),
+      // array(
+      //     'name'    => 'Partner(s)',
+      //     'id'      => $prefix . 'partner',
+      //     'type'    => 'wysiwyg',
+      //     'options' => array(
+      //       'textarea_rows' => 4,
+      //     ),
+      // ),
+      // array(
+      //     'name'    => 'Funder(s)',
+      //     'id'      => $prefix . 'funder',
+      //     'type'    => 'wysiwyg',
+      //     'options' => array(
+      //       'textarea_rows' => 4,
+      //     ),
+      // ),
       // array(
       //     'name'    => 'Lat',
       //     'id'      => $prefix . 'lat',
