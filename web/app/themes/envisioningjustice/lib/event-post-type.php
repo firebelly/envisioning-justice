@@ -81,12 +81,12 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'event_end',
           'type'    => 'text_datetime_timestamp',
       ),
-      array(
-          'name'    => 'Exhibition',
-          'desc'    => 'If checked, only shows in Ongoing Exhibitions and Past Events',
-          'id'      => $prefix . 'exhibition',
-          'type'    => 'checkbox',
-      ),
+      // array(
+      //     'name'    => 'Exhibition',
+      //     'desc'    => 'If checked, only shows in Ongoing Exhibitions and Past Events',
+      //     'id'      => $prefix . 'exhibition',
+      //     'type'    => 'checkbox',
+      // ),
     ),
   );
 
@@ -194,7 +194,7 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 function get_events($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
   if (!empty($_REQUEST['past_events'])) $options['past_events'] = 1;
-  if (!empty($_REQUEST['exhibitions'])) $options['exhibitions'] = 1;
+  // if (!empty($_REQUEST['exhibitions'])) $options['exhibitions'] = 1;
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type' => 'event',
@@ -211,13 +211,13 @@ function get_events($options=[]) {
     ]
   ];
   // If not Past Events, either make sure Exhibition is or isn't checked
-  if (empty($options['past_events'])) {
-    $args['meta_query'][] = array(
-      'key' => '_cmb2_exhibition',
-      'value' => 'on',
-      'compare' => !empty($options['exhibitions']) ? '=' : 'NOT EXISTS',
-    );
-  }
+  // if (empty($options['past_events'])) {
+  //   $args['meta_query'][] = array(
+  //     'key' => '_cmb2_exhibition',
+  //     'value' => 'on',
+  //     'compare' => !empty($options['exhibitions']) ? '=' : 'NOT EXISTS',
+  //   );
+  // }
   if (!empty($options['hub'])) {
     $args['meta_query'][] = array(
       'key' => '_cmb2_related_hub',
@@ -451,7 +451,7 @@ function get_ical_date($time, $incl_time=true){
  */
 function add_query_vars_filter($vars){
   $vars[] = "past_events";
-  $vars[] = "exhibitions";
+  // $vars[] = "exhibitions";
   $vars[] = "filter_hub";
   $vars[] = "prox_miles";
   $vars[] = "prox_zip";
@@ -596,7 +596,6 @@ Ev_Start_Date
 Ev_End_Date                    
 Ev_Start_Time                  
 Ev_End_Time                    
-Exhibition                      (yes/no)
 Ev_Event_ID                    
 Ev_Import_ID                   
 Attendee Cost                   (Cost)
@@ -613,19 +612,7 @@ Ev_Prt_1_01_CnAdrPrf_Addrline2
 Ev_Prt_1_01_CnAdrPrf_City      
 Ev_Prt_1_01_CnAdrPrf_State     
 Ev_Prt_1_01_CnAdrPrf_ZIP       
-Ev_Prt_1_01_CnAdrPrf_County    
-Sponsoring Organization1        
-Sponsoring Organization2       
-Sponsoring Organization3       
-Sponsoring Organization4       
-Partner1                       
-Partner2                       
-Partner3                       
-Partner4                       
-Funder1                        
-Funder2                        
-Funder3                        
-Funder4                        
+Ev_Prt_1_01_CnAdrPrf_County                           
 </pre>
   </div>
 <?php
