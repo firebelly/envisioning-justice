@@ -153,6 +153,14 @@ $colors: (
     }
   }
 
+  // Map Controls
+  #map .mapboxgl-ctrl.mapboxgl-ctrl-group button {
+    border-color: $color;
+    svg {
+      fill: $color;
+    }
+  }
+
   // General Content
   .empty-message {
     color: $color;

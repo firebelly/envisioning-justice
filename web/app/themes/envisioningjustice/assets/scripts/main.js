@@ -310,6 +310,13 @@ var EJ = (function($) {
         style: 'mapbox://styles/tsquared1017/cj8c5fqt57w1q2slaz7ca5t7a'
       });
 
+      var nav = new mapboxgl.NavigationControl();
+      map.addControl(nav, 'top-right');
+
+      // Inject svg icons
+      $('#map .mapboxgl-ctrl-zoom-in').html('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+      $('#map .mapboxgl-ctrl-zoom-out').html('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
+
       // Just init single map?
       if ($mapPoint.length === 0) { return; }
 
