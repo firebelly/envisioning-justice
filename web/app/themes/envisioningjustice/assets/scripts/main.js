@@ -407,10 +407,10 @@ var EJ = (function($) {
         });
 
         // Highlight related pins on map when hovering over communities
-        $mapPoint.on('mouseenter', function() {
+        $('body').on('mouseenter', '.map-point', function() {
           var url = $(this).find('a').attr('href');
           map.setFilter('points-hover', ['!=', 'url', url]);
-        }).on('mouseleave', function() {
+        }).on('mouseleave', '.map-point', function() {
           map.setFilter('points-hover', ['==', 'url', '']);
         });
       });
