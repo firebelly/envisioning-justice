@@ -143,7 +143,7 @@ function new_story() {
         }
       }
       if (!empty($attachments)) {
-        update_post_meta($post_id, '_cmb2_slidehow-images', $attachments);
+        update_post_meta($post_id, '_cmb2_slideshow-images', $attachments);
       }
     }
 
