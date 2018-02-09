@@ -5,8 +5,7 @@
 
 $no_image_in_header = true;
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-// $per_page = get_option('posts_per_page');
-$per_page = 1;
+$per_page = get_option('posts_per_page');
 $total_resources = \Firebelly\PostTypes\Resource\get_resources(['countposts' => 1]);
 $total_pages = ($total_resources > 0) ? ceil($total_resources / $per_page) : 1;
 $resources = \Firebelly\PostTypes\Resource\get_resources(['num_posts' => $per_page]);

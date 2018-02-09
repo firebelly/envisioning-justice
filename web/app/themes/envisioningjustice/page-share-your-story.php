@@ -7,8 +7,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 $secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-// $per_page = get_option('posts_per_page');
-$per_page = 1;
+$per_page = get_option('posts_per_page');
 $total_stories = \Firebelly\PostTypes\Story\get_stories(['countposts' => 1]);
 $total_pages = ($total_stories > 0) ? ceil($total_stories / $per_page) : 1;
 $stories = \Firebelly\PostTypes\Story\get_stories(['num_posts' => $per_page]);
