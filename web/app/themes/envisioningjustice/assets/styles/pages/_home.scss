@@ -75,9 +75,6 @@
   }
 
   .home-section.-second {
-    @include angledEdge(before, $beforeOrientation: rtl, $color: $yellow);
-    margin-top: 0;
-
     .slashfield-container {
       z-index: 1;
       width: 100%;
@@ -86,6 +83,7 @@
         position: relative;
       }
       .slashfield {
+        z-index: 1;
         margin-top: -5vw;
       }
       @include media-md {
@@ -95,14 +93,15 @@
   }
 
   .events-section {
+
+    article {
+      margin-bottom: 40px;
+    }
+
     .events-buttons {
       .button {
         width: 100%;
       }
-    }
-
-    @include media-md {
-      padding-bottom: 9vw;
     }
   }
 
@@ -117,17 +116,26 @@
 
   .events-section,
   .hub-section,
-  .announcements-section
-   {
+  .announcements-section {
+    padding-top: 9vw;
+    padding-bottom: 9vw;
+
     .section-title {
       @include angledRule(before, $gray-dark);
+    }
+
+    @include media-md {
+      padding-top: $padding-medium;
     }
   }
 
   .hub-section {
-    .section-title {
-      @include media-md {
-        width: 50%;
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $yellow);
+    margin-top: 0;
+
+    @include media-md {    
+      &::before {
+        transform-origin: right;
       }
     }
 
@@ -140,28 +148,17 @@
           color: $yellow;
         }
       }
-
-      @include media-md {
-        width: 50%;
-        padding-right: 20px;
-        a {
-          width: 100%;
-        }
-      }
     }
   }
 
   .hub-list {
     @include media-sm {    
-      margin-top: 30px;
       margin-left: -20px;
       width: calc(100% + 40px);
     }
     .hub {
       @include angledRule(before, $gray-dark);
       @include media-sm {
-        max-width: 50%;
-        flex-basis: 50%;
         padding-left: 20px;
         padding-right: 20px;
         margin-bottom: 40px;
@@ -181,6 +178,17 @@
     }
   }
 
+  .announcements-section {
+    @include angledEdge(before, $beforeOrientation: rtl, $color: $gray-light);
+    margin-top: 0;
+
+    @include media-md {    
+      &::before {
+        transform-origin: left;
+      }
+    }
+  }
+
   .news-list {
     .news-article {
       margin-bottom: 40px;
@@ -190,7 +198,13 @@
   .sponsors-section {
     @include angledEdge(before, $beforeOrientation: rtl, $color: $gray);
     margin-top: 0;
+    padding-bottom: 10vw;
     background-color: $gray;
+
+    .-inner {
+      z-index: 1;
+      position: relative;
+    }
 
     h2 {
       margin: 0 0 30px;
@@ -202,8 +216,8 @@
         margin-top: 0;
         max-width: 50%;
         flex-basis: 50%;
-        padding-left: #{$padding / 2};
-        padding-right: #{$padding / 2};
+        padding-left: #{$padding};
+        padding-right: #{$padding};
       }
       @include media-md {
         max-width: 25%;

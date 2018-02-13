@@ -51,7 +51,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
           }
         ?>
         <?php if ($total_events > $events_to_show) { ?>
-        <div class="events-buttons grid sm-spaced">
+        <div class="events-buttons section-actions grid sm-spaced">
           <div class="load-more grid-item sm-one-half" data-post-type="event" data-page-at="1" data-per-page="<?= $events_to_show ?>" data-total-pages="<?= ceil($total_events/$events_to_show) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
           <div class="view-all grid-item sm-one-half"><a href="/events/" class="button">All Events</a></div>
         </div>
@@ -68,23 +68,47 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
         </div>
       </div>
 
-      <section class="hub-section section color-bg-yellow">
-        <h2 class="section-title type-h3">Hubs</h2>
-        <div class="user-content">
-          <?= $primary_content ?>
-        </div>
-        <div class="hub-list grid">
-          <?= Firebelly\PostTypes\Hub\get_hubs() ?>
-        </div>
-        <p class="view-all"><a href="/hubs/" class="button theme-exception -black">All Hubs</a></p>
-      </section>
+      <div class="grid">
+        
+        <section class="hub-section section color-bg-yellow grid-item md-one-half">
+          <h2 class="section-title type-h3">Hubs</h2>
+          <div class="user-content">
+            <?= $primary_content ?>
+          </div>
+          <div class="hub-list">
+            <?= Firebelly\PostTypes\Hub\get_hubs() ?>
+          </div>
+          <p class="view-all"><a href="/hubs/" class="button theme-exception -black -full">All Hubs</a></p>
+        </section>
+
+        <section class="announcements-section section color-bg-gray-light grid-item md-one-half">
+          <h2 class="section-title type-h3">Announcements</h2>
+          <div class="news-list load-more-container article-list">
+            <?php 
+            // Recent Blog & News posts
+            $news_posts = get_posts(['numberposts' => 4, 'category__not_in' => [9]]);
+            if ($news_posts):
+              foreach ($news_posts as $news_post) {
+                include(locate_template('templates/article-news.php'));
+              }
+            endif;
+            ?>
+          </div>
+          <div class="news-buttons">
+            <p class="view-all"><a href="/news/" class="button -full">All Articles</a></p>
+          </div>
+        </section>
+      </div>
+
 
     </div>
 
     <section class="sponsors-section section">
-      <h2 class="type-h2">Sponsors</h2>
-      <div class="grid sm-spaced">
-        <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'sponsors']) ?>
+      <div class="-inner">
+        <h2 class="type-h2">Sponsors</h2>
+        <div class="grid sm-spaced">
+          <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'sponsors']) ?>
+        </div>
       </div>
     </section>
 
