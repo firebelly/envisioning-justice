@@ -276,7 +276,11 @@
   z-index: 1;
   background: $gray;
   position: relative;
-  padding-top: $padding-medium;
+  padding-top: $padding;
+
+  @include media-md {
+    padding-top: $padding-medium;
+  }
 
   .-inner {
     position: relative;
@@ -285,7 +289,10 @@
   .page-header-top {
     z-index: 2;
     position: relative;
-    @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
+    @include media-md {
+      @include angledEdge(after, $afterOrientation: rtl, $color: $gray);
+    }
+
     .slashfield {
       z-index: 1;
     }
@@ -306,6 +313,13 @@
 
     .page-header-text {
       @include angledEdge(before, $beforeOrientation: rtl, $color: inherit);
+      margin-top: 0;
+
+      @include max-screen($breakpoint-medium) {      
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
       a {
         text-decoration: underline;
         &:hover {
@@ -324,6 +338,7 @@
       height: 200px;
       background-size: cover;
       @include angledEdge(after, $afterOrientation: rtl, $color: inherit);
+      margin-bottom: 0;
     }
 
     @include media-md {
@@ -378,6 +393,17 @@
     }
   }
 
+  // (not) no-image
+  &:not(.no-image) {
+    .page-header-top {
+      .page-title {
+        @include max-screen($breakpoint-medium) {
+          margin-bottom: -9vw;
+        }
+      }
+    }
+  }
+
   // No header-image format
   &.no-image {
     .page-header-top {
@@ -390,9 +416,12 @@
       margin-top: 0;
     }
     .page-header-text {
-      padding-bottom: 60px;
+      padding-top: 9vw;
       .-inner {
         max-width: 820px;
+      }
+      @include media-md {
+        padding-bottom: 60px;
       }
     }
   }

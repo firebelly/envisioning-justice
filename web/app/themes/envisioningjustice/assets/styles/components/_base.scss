@@ -148,6 +148,10 @@ p {
     padding: 0;
     background: $gray;
     @include angledEdge(after, $color: $black);
+
+    .section {
+      padding-bottom: 9vw;
+    }
   }
 }
 
