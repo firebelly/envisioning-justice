@@ -5,7 +5,7 @@ $post_date_timestamp = strtotime($post->post_date);
 $article_tags = \Firebelly\Utils\get_article_tags($post);
 $slash_rows = 7;
 $no_image_in_header = true;
-$secondary_title = 'Blog Post';
+$secondary_title = 'News Post';
 $post_slideshow = \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
 ?>
 
