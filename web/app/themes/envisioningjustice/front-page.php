@@ -53,7 +53,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
         <?php if ($total_events > $events_to_show) { ?>
         <div class="events-buttons section-actions grid sm-spaced">
           <div class="load-more grid-item sm-one-half" data-post-type="event" data-page-at="1" data-per-page="<?= $events_to_show ?>" data-total-pages="<?= ceil($total_events/$events_to_show) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
-          <div class="view-all grid-item sm-one-half"><a href="/events/" class="button">All Events</a></div>
+          <div class="view-all grid-item sm-one-half"><a href="/programming/" class="button">All Events</a></div>
         </div>
         <?php } ?>
       </section>
