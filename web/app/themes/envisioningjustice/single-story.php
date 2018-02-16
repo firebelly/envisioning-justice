@@ -26,7 +26,7 @@ $secondary_title = 'Your Stories';
 
       </div>
 
-      <div class="images-section md-one-half color-bg-gray">
+      <div class="images-section md-one-half color-bg-gray-dark">
         <?= \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID); ?>
       </div>
 
