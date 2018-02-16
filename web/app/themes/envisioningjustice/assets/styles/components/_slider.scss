@@ -11,8 +11,8 @@
   }
 
   .nav-button {
-    top: 30%;
     z-index: 1;
+    bottom: $padding;
     position: absolute;
 
     &.button-prev {
@@ -26,7 +26,7 @@
     }
 
     @include media-md {
-      top: 60%;
+      bottom: 70px;
 
       &.button-prev {
         left: 70px;

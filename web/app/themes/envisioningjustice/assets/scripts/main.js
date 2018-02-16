@@ -249,6 +249,12 @@ var EJ = (function($) {
       speed: 300,
       lazyLoad: 'ondemand'
     });
+
+    // Put slick arrows in a wrapper for positioning
+    $('.slider').each(function() {
+      $(this).append('<div class="slick-arrows-container"></div>');
+      $(this).find('.slick-arrow').appendTo($(this).find('.slick-arrows-container'));
+    });
   }
 
   function _initAccordions() {

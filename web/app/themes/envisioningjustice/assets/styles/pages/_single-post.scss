@@ -36,6 +36,16 @@ body.single {
         padding-bottom: 85.7142857%;
         background-position: center center;
       }
+
+      .slick-arrows-container {
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 100%;
+        z-index: 1;
+        position: absolute;
+        padding-bottom: 85.7142857%;
+      }
     }
 
     .image-caption {
