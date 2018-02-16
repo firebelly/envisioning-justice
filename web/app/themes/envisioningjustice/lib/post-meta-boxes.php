@@ -179,14 +179,23 @@ function get_post_slideshow($post_id) {
   if (get_the_post_thumbnail($post_id)) {
     $image = get_post($post_id);
     $image = \Firebelly\Media\get_header_bg($image);
-    $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+    $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+    // Does it have a catption?
+    if (!empty(get_post(get_post_thumbnail_id())->post_excerpt)) {
+      $output .= '<p class="image-caption">'.get_post(get_post_thumbnail_id())->post_excerpt.'</p>';
+    }
+    $output .= '</li>';
   }
   if ($images) {
     foreach ($images as $attachment_id => $attachment_url):
       $image_id = attachment_url_to_postid($attachment_url);
       $image = get_attached_file($image_id, false);
       $image = \Firebelly\Media\get_header_bg($image);
-      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
+      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+      if (!empty(get_post($image_id)->post_excerpt)) {
+        $output .= '<p class="image-caption">'.get_post($image_id)->post_excerpt.'</p>';
+      }
+      $output .= '</li>';
     endforeach;
   }
   $output .= '</ul>';

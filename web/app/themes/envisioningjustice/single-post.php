@@ -7,6 +7,7 @@ $slash_rows = 7;
 $no_image_in_header = true;
 $secondary_title = 'News Post';
 $post_slideshow = \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
+$featuredImageCaption = get_post(get_post_thumbnail_id())->post_excerpt;
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -47,6 +48,9 @@ $post_slideshow = \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID);
             echo $post_slideshow;
           } else {
             echo '<div class="post-featured-image" '.\Firebelly\Media\get_header_bg($post).'></div>';
+            if (!empty($featuredImageCaption)) {
+              echo '<p class="image-caption">'.$featuredImageCaption.'</p>';
+            }
           }
         ?>
       </div>

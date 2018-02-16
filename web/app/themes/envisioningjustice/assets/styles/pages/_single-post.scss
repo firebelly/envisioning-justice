@@ -14,6 +14,9 @@ body.single-post {
     background-size: cover;
     padding-bottom: 85.7142857%;
     background-position: center center;
+    @include media-md {
+      margin-bottom: $padding-medium;
+    }
   }
 }
 
@@ -32,6 +35,15 @@ body.single {
         background-size: cover;
         padding-bottom: 85.7142857%;
         background-position: center center;
+      }
+    }
+
+    .image-caption {
+      padding: $padding;
+      color: $white-dark;
+      margin-bottom: $padding-medium;
+      @include media-md {
+        padding: $padding $padding-medium;
       }
     }
   }
