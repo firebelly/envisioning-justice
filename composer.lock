@@ -368,15 +368,15 @@
         },
         {
             "name": "wpackagist-plugin/akismet",
-            "version": "4.0.2",
+            "version": "4.0.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/akismet/",
-                "reference": "tags/4.0.2"
+                "reference": "tags/4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.2.zip",
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.0.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -468,15 +468,15 @@
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/3.1.1"
+                "reference": "tags/3.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.3.1.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.3.2.1.zip",
                 "reference": null,
                 "shasum": null
             },
