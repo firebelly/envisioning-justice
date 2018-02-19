@@ -4,7 +4,6 @@
  */
 
 $post = get_page_by_path('/search');
-$with_image_class = (has_post_thumbnail($post->ID)) ? 'with-image' : '';
 $page_content = apply_filters('the_content', $post->post_content);
 
 ?>
@@ -64,8 +63,5 @@ $page_content = apply_filters('the_content', $post->post_content);
     <?php endif; ?>
 
   </main>
-  <aside class="main">
-    <?php include(locate_template('templates/thought-of-the-day.php')); ?>
-  </aside>
 
 </div>
