@@ -1,67 +1,43 @@
-<?php 
+<?php
 /**
- * Search results
+ * Blog landing page
  */
 
 $post = get_page_by_path('/search');
 $page_content = apply_filters('the_content', $post->post_content);
-
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$per_page = get_query_var( 'posts_per_page', 1 );
+$total_posts = $GLOBALS['wp_query']->found_posts;
+$total_pages = ($total_posts > 0) ? ceil($total_posts / $per_page) : 1;
+$no_image_in_header = true;
 ?>
-<div class="content-wrap <?= $with_image_class ?>">
-  <?php get_template_part('templates/page', 'image-header'); ?>
-  <main>
-    <div class="search-results-form">
-      <h2 class="flag">Search Results For</h2>
-      <form role="search" method="get" action="<?= esc_url(home_url('/')); ?>">
-        <label class="sr-only"><?php _e('Search for:', 'sage'); ?></label>
-        <input type="search" value="<?= get_search_query(); ?>" autocomplete="off" name="s" class="search-field form-control" placeholder="Search" required>
-        <button type="submit" class="search-submit icon-search"><span class="sr-only"><?php _e('Search', 'sage'); ?></span></button>
-      </form>
-    </div>
 
-    <?php if (!have_posts()) : ?>
+<?php include(locate_template('templates/page-header.php')); ?>
 
-      <div class="alert alert-warning">
-        <?php _e('Sorry, no results were found.', 'sage'); ?>
+<div id="page-content">
+  <div class="container">
+
+      <div class="section color-bg-gray-light<?= (have_posts() ? '' : ' -empty') ?>">
+
+        <?php if (have_posts()): ?>
+          <div class="news-list load-more-container article-list grid masonry">
+            <?php 
+            while (have_posts()) : the_post();
+              $news_post = $post;
+              include(locate_template('templates/article-news.php'));
+            endwhile; 
+            ?>
+          </div>
+          <?php if ($total_pages > 1) { ?>
+            <div class="news-buttons">
+              <div class="load-more" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
+            </div>
+          <?php } ?>
+        <?php else: ?>    
+          <p class="empty-message">There are currently no blog posts.</p>
+        <?php endif; ?>
+
       </div>
 
-    <?php else: ?>
-
-      <div class="masonry article-list">
-      <?php while (have_posts()) : the_post(); ?>
-
-        <?php 
-        $show_images = true;
-
-        if ($post->post_type=='post'):
-
-          $news_post = $post;
-          include(locate_template('templates/article-news.php'));
-
-        elseif (preg_match('/(event)/',$post->post_type)):
-
-          $event_post = $post;
-          include(locate_template('templates/article-event.php'));
-
-        elseif (preg_match('/(program)/',$post->post_type)):
-
-          $program_post = $post;
-          include(locate_template('templates/article-program.php'));
-
-        elseif (preg_match('/(page)/',$post->post_type)):
-
-          include(locate_template('templates/article-page.php'));
-
-        endif;
-        ?>
-
-      <?php endwhile; ?>
-      </div>
-
-      <?php the_posts_navigation(); ?>
-
-    <?php endif; ?>
-
-  </main>
-
+  </div>
 </div>

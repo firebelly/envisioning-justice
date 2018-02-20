@@ -3,11 +3,27 @@
 namespace Firebelly\Utils;
 
 /**
- * Bump up # search results
+ * Get a page id by a page slug
+ */
+function get_id_by_slug($page_slug) {
+  $page = get_page_by_path($page_slug);
+  if ($page) {
+      return $page->ID;
+  } else {
+      return null;
+  }
+} 
+
+/**
+ * Bump up # search results, exclude search page from result
  */
 function search_queries( $query ) {
   if ( !is_admin() && is_search() ) {
-    $query->set( 'posts_per_page', 40 );
+    $query->set( 'posts_per_page', 50 );
+    // Exclude Search page
+    $searchId = get_id_by_slug('search');
+    $post_ids = array($searchId);
+    $query->set('post__not_in', $post_ids);
   }
   return $query;
 }
