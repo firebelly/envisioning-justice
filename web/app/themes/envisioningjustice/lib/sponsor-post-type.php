@@ -11,6 +11,7 @@ $options = [
   'supports'   => ['title', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
   'menu_icon'  => 'dashicons-store',
+  'exclude_from_search' => true
 ];
 $labels = [
   'featured_image'  => 'Sponsor Logo',
