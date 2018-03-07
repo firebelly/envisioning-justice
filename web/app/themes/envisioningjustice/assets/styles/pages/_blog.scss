@@ -1,13 +1,11 @@
 // Blog 
 
 body.blog,
-body.single-post,
-body.search {
+body.single-post {
   @include colorScheme($purple);
 }
 
-body.blog,
-body.search {
+body.blog {
   .news-list {
     @include media-md {
       .article {

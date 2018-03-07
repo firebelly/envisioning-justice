@@ -43,6 +43,17 @@ $colors: (
     }
   }
 
+  // In-page search
+  .page-search {
+    .search-form {
+      .search-submit {
+        &:hover {
+          color: $color;
+        }
+      }
+    }
+  }
+
   // Header
   .site-header {
     .container::before {

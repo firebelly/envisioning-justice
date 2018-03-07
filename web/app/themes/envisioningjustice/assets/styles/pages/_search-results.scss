@@ -1,26 +1,17 @@
 // Search Results page
 
-body.search {
-  .page-header .container {
-    min-height: 60px;
-    @include tablet {
-      min-height: 30px;
-    }
-  }
-  .search-results-form {
-    margin: 0 0 30px;
-    background: $white;
-    form {
-      padding: 30px 25px;
-      @include tablet {
-        padding: 30px #{$column-width/2 * 22/15};
-      }
+// Blog 
 
-    }
-    .search-field {
-      width: 90%;
-      @include tablet {
-        width: 95%;
+body.search {
+  @include colorScheme($orange);
+}
+
+body.search {
+  .news-list {
+    @include media-md {
+      .article {
+        width: 50%;
+        padding-right: 40px;
       }
     }
   }

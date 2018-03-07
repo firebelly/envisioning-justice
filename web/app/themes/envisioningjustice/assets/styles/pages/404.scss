@@ -2,4 +2,10 @@
 
 body.error404 {
   @include colorScheme($orange);
+
+  .page-header {
+    .page-header-top {
+      margin-bottom: 60px;
+    }
+  }
 }

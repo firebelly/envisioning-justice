@@ -16,7 +16,7 @@
           <h3 class="type-h3">Sorry, but the page you were trying to view does not exist.</h3>
         </div>
       </div>
-      <div class="page-search color-bg-orange md-one-half -right">
+      <div class="page-search section color-bg-orange md-one-half -right">
         <div class="-inner">
           <?php get_search_form(); ?>
         </div>

@@ -9,18 +9,19 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_query_var( 'posts_per_page', 1 );
 $total_posts = $GLOBALS['wp_query']->found_posts;
 $total_pages = ($total_posts > 0) ? ceil($total_posts / $per_page) : 1;
-$no_image_in_header = true;
+$no_header_bottom = true;
+$secondary_title = 'Search Results For';
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
 
 <div id="page-content">
-  <div class="container">
+  <div class="container grid">
 
-      <div class="section color-bg-gray-light<?= (have_posts() ? '' : ' -empty') ?>">
+      <div class="section md-one-half color-bg-gray-light<?= (have_posts() ? '' : ' -empty') ?>">
 
         <?php if (have_posts()): ?>
-          <div class="news-list load-more-container article-list grid masonry">
+          <div class="news-list load-more-container article-list grid">
             <?php 
             while (have_posts()) : the_post();
               $news_post = $post;
@@ -37,6 +38,12 @@ $no_image_in_header = true;
           <p class="empty-message">There are currently no blog posts.</p>
         <?php endif; ?>
 
+      </div>
+
+      <div class="section page-search color-bg-orange md-one-half -right">
+        <div class="-inner">
+          <?php get_search_form(); ?>
+        </div>
       </div>
 
   </div>

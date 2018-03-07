@@ -19,6 +19,7 @@
 @import "components/buttons";
 @import "components/user-content";
 @import "components/header";
+@import "components/search-form";
 @import "components/nav";
 @import "components/slash-fields";
 @import "components/forms";
@@ -40,7 +41,7 @@
 @import "pages/resources";
 @import "pages/404";
 @import "pages/single-post";
-// @import "pages/search-results";
+@import "pages/search-results";
 
 // WP specifics
 @import 'wp-classes';

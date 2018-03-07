@@ -1,0 +1,53 @@
+// Search Form
+
+.search-form {
+
+  h3 {
+    margin: 0 0 35px;
+    @include type-h2;
+  }
+
+  .search-submit {
+    width: 100%;
+    margin-top: 20px;
+    @extend .-black;
+  }
+
+  .input-wrap {
+    &::after {
+      background-color: $white-dark;
+    }
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  @include min-screen($breakpoint-nav) {
+
+    .input-wrap {
+      float: left;
+      width: 340px;
+      &::after {
+        background-color: $black;
+      }
+    }
+
+    .search-submit {
+      top: 7px;
+      width: 100px;
+      padding: 10px;
+      margin-top: 0;
+      margin-left: 20px;
+      position: relative;
+      display: inline-block;
+    }
+  }
+}
+
+// Page search forms
+.page-search .search-form {
+  .search-close {
+    display: none;
+  }
+}
