@@ -33,13 +33,6 @@
         var bboxInit2 = bboxInit2 || [];     bboxInit2.push(function () {         bboxApi.showForm('38ced2e2-cad0-4cec-baa5-4e97cce64789');     });     (function () {         var e = document.createElement('script'); e.async = true;         e.src = 'https://bbox.blackbaudhosting.com/webforms/bbox-2.0-min.js';         document.getElementsByTagName('head')[0].appendChild(e);     } ());
         // ]]></script>
 
-        <div class="logos">
-          <a href="http://ilhumanities.org"><span class="sr-only">Illinois Humanities</span><svg class="il-humanities-logo" aria-hidden="true" role="presentation"><use xlink:href="#ih-logo-color"/></svg></a>
-          <a href="/"><span class="sr-only"><?php bloginfo('name'); ?></span><svg class="icon envisioning-justice-logo" aria-hidden="true" role="presentation"><use xlink:href="#envisioning-justice-logo"/></svg></a>
-        </div>
-        <p class="site-disclaimer"><?= \Firebelly\SiteOptions\get_option('disclaimer'); ?></p>
-
-
         <h3 class="type-h3">Contact</h3>
 
         <div class="site-communication -item">
@@ -52,6 +45,12 @@
             <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
           </address>
         </div>
+
+        <div class="logos">
+          <a href="http://ilhumanities.org"><span class="sr-only">Illinois Humanities</span><svg class="il-humanities-logo" aria-hidden="true" role="presentation"><use xlink:href="#ih-logo-color"/></svg></a>
+          <a href="/"><span class="sr-only"><?php bloginfo('name'); ?></span><svg class="icon envisioning-justice-logo" aria-hidden="true" role="presentation"><use xlink:href="#envisioning-justice-logo"/></svg></a>
+        </div>
+        <p class="site-disclaimer"><?= \Firebelly\SiteOptions\get_option('disclaimer'); ?></p>
 
       </div>
 

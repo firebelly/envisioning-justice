@@ -133,7 +133,11 @@ footer.site-footer {
 
     .site-communication {
       margin-right: 50px;
-      margin-bottom: 15px;
+      margin-bottom: 60px;
+
+      a:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
