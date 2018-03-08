@@ -3,10 +3,11 @@
  * Single page
  */
 
-$body_content = apply_filters('the_content', $post->post_content);
+$primary_content = apply_filters('the_content', $post->post_content);
+$secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_secondary_content', true));
 ?>
 
-<?php get_template_part('templates/page', 'header'); ?>
+<?php include(locate_template('templates/page-header.php')); ?>
 
 <div id="page-content">
   <div class="container grid">
@@ -14,13 +15,17 @@ $body_content = apply_filters('the_content', $post->post_content);
       <div class="section md-one-half color-bg-gray-light">
 
         <div class="user-content">
-          <?= $body_content ?>
+          <?= $primary_content ?>
         </div>
 
       </div>
 
       <div class="section md-one-half color-bg-gray">
-        
+
+        <div class="user-content">
+          <?= $secondary_content ?>
+        </div>
+
       </div>
 
   </div>

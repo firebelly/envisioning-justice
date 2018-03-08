@@ -77,6 +77,23 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['page_content_areas'] = array(
+    'id'            => 'page_content_areas',
+    'title'         => __( 'Content', 'cmb2' ),
+    'object_types'  => array( 'page' ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['default'] ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'fields'        => array(
+      array(
+        'name' => 'Secondary Content Area',
+        'id'   => $prefix . 'secondary_content',
+        'type' => 'wysiwyg',
+      ),
+    ),
+  );
+
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
