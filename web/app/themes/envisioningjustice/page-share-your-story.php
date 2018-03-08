@@ -3,8 +3,8 @@
  * Template Name: Share Your Story
  */
 
-$primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
-$secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+$primary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_primary_content', true));
+$secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_secondary_content', true));
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');

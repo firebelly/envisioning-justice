@@ -6,8 +6,8 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
 $total_commissions = \Firebelly\PostTypes\Commission\get_commissions(['countposts' => 1]);
 $total_pages = ($total_commissions > 0) ? ceil($total_commissions / $per_page) : 1;
-$primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
-$secondary_content = get_post_meta($post->ID, '_cmb2_secondary_content', true);
+$primary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_primary_content', true));
+$secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_secondary_content', true));
 $commissions = Firebelly\PostTypes\Commission\get_commissions(['num_posts' => $per_page]);
 $no_image_in_header = true;
 ?>

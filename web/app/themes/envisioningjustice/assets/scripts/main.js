@@ -260,11 +260,11 @@ var EJ = (function($) {
   function _initAccordions() {
     // Attach button
     $('.accordion').each(function() {
-      if (!$(this).is('.-open')) {
+      if (!$(this).is('.open')) {
         $(this).find('.accordion-content').hide();
-        $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></button>');
+        $(this).find('.accordion-toggle, .accordion-title').append('<button class="button button-circular"><svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg></button>');
       } else {
-        $(this).find('.accordion-toggle').append('<button class="button button-circular"><svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg></button>');
+        $(this).find('.accordion-toggle, .accordion-title').append('<button class="button button-circular"><svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg></button>');
       }
     });
 
@@ -272,29 +272,44 @@ var EJ = (function($) {
       e.preventDefault();
 
       var $accordion = $(this).closest('.accordion');
-      if ($accordion.is('.-open')) {
+      if ($accordion.is('.open')) {
         _closeAccordion($accordion);
       } else {
         _openAccordion($accordion);
       }
     });
+
+    // Wordpress accordions
+    $('.accordion-title').on('click', function(e) {
+
+      $(this).find('.icon').remove();
+
+      if ($(this).is('.open')) {
+        $(this).find('button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+      } else if (!$(this).is('.open')) {
+        $(this).find('button').append('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
+      }
+
+      $('.accordion-title').not($(this)).find('.icon').remove();
+      $('.accordion-title').not($(this)).find('button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+    });
   }
 
   function _openAccordion($accordion) {
-    var $content = $accordion.find('.accordion-content');
-    $accordion.addClass('-open');
-    $accordion.find('.accordion-toggle .icon').remove();
-    $accordion.find('.accordion-toggle button').append('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
+    $accordion.addClass('open');
+    $accordion.find('.accordion-toggle .icon, .accordion-title .icon').remove();
+    $accordion.find('.accordion-toggle button, .accordion-title button').append('<svg class="icon icon-minus" aria-hidden="true" role="presentation"><use xlink:href="#icon-minus"/></svg>');
 
+    var $content = $accordion.find('.accordion-content');
     $content.slideDown(250);
   }
 
   function _closeAccordion($accordion) {
-    var $content = $accordion.find('.accordion-content');
-    $accordion.removeClass('-open');
-    $accordion.find('.accordion-toggle .icon').remove();
-    $accordion.find('.accordion-toggle button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
+    $accordion.removeClass('open');
+    $accordion.find('.accordion-toggle .icon, .accordion-title .icon').remove();
+    $accordion.find('.accordion-toggle button, .accordion-title button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
 
+    var $content = $accordion.find('.accordion-content');
     $content.slideUp(250);
   }
 

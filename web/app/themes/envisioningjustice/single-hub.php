@@ -46,7 +46,7 @@ $body_content = apply_filters('the_content', $post->post_content);
       <div class="section md-one-half color-bg-gray-light">
 
         <div class="entry-content user-content">
-          <?php echo apply_filters('the_content', $post->post_content); ?>
+          <?= $body_content ?>
         </div>
 
         <?= Firebelly\PostTypes\Hub\get_hub_staff($post) ?>

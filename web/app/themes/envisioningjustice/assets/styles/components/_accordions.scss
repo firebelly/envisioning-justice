@@ -2,31 +2,32 @@
 
 .accordion {
   
-  .accordion-toggle {
-    height: 50px;
+  .accordion-toggle,
+  .accordion-title {
     cursor: pointer;
+    min-height: 50px;
     margin-top: 20px;
     margin-bottom: 0;
-    padding-top: 20px;
-    line-height: 40px;
+    padding-top: 23px;
+    line-height: 20px;
     position: relative;
     padding-right: 80px;
     &::before {
+      top: 0;
       left: 0;
       content: '';
       height: 1px;
       width: 100%;
-      bottom: 38px;
       position: absolute;
       background: $gray-dark;
       transform-origin: left;
       transform: skewY(2.68deg);
       will-change: transform, top;
-      transition: transform .2s ease-out, bottom .2s ease-out;
+      transition: transform .2s ease-out, top .2s ease-out;
     }
     &:hover {
       &::before {
-        bottom: 25px;
+        top: 17px;
         transform: none;
       }
     }
@@ -37,7 +38,7 @@
 
     button {
       right: 0;
-      bottom: 0;
+      top: -7px;
       position: absolute;
     }
   }
@@ -47,15 +48,28 @@
   }
 
   // Active State
-  &.-open {
+  &.open {
 
     .accordion-toggle {
       &::before {
-        bottom: 25px;
+        top: 17px;
         transform: none;
       }
     }
 
+  }
+
+  // Accordion Title form wordpress accordions
+  .accordion-title {
+    &:focus {
+      outline: none;
+    }
+    &.open {
+      &::before {
+        top: 17px;
+        transform: none;
+      }
+    }
   }
 
 }
