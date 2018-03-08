@@ -66,6 +66,7 @@
     "wpackagist-plugin/enhanced-media-library": ">=2.2",
     "wpackagist-plugin/simple-history": ">=2.5.3",
     "wpackagist-plugin/wp-super-cache": ">=1.4.7",
+    "wpackagist-plugin/accordion-shortcodes": ">=2.2.0",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
     "johnpbloch/wordpress": ">=4.8.1",
     "jjgrainger/posttypes": "^2.0"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "73bebf5e3effb2ba38672fe7918a28b5",
+    "content-hash": "cc9a85dae7b8bd856835a62cfd6ac389",
     "packages": [
         {
             "name": "composer/installers",
@@ -365,6 +365,26 @@
                 "environment"
             ],
             "time": "2016-09-01T10:05:43+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/accordion-shortcodes",
+            "version": "2.3.3",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/accordion-shortcodes/",
+                "reference": "tags/2.3.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/accordion-shortcodes.2.3.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/accordion-shortcodes/"
         },
         {
             "name": "wpackagist-plugin/akismet",
