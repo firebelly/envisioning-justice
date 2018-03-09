@@ -66,6 +66,7 @@ function cmb2_render_address_field_callback( $field_object, $value, $object_id, 
             'name'  => $field_type_object->_name( '[address-1]' ),
             'id'    => $field_type_object->_id( '_address_1' ),
             'value' => $value['address-1'],
+            'desc'  => '<p class="cmb2-metabox-description">For best results spell out cardinal directions (Ex: use "<strong>South</strong>" instead of "S."), and make sure to include full street names (Ex: "Western <strong>Ave.</strong>", not "Western").</p>',
         ) ); ?>
     </div>
     <div><p><label for="<?php echo $field_type_object->_id( '_address_2' ); ?>'">Address 2</label></p>
