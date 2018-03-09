@@ -28,7 +28,7 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
                 <p><?= date('l, F j, Y', $event->event_start) ?>
                 <br><em>through</em>
                 <br><?= date('l, F j, Y', $event->event_end) ?></p>
-                <p><?= $event->time_txt ?> Daily</p>
+                <p><?= $event->time_txt ?> <?= (empty($event->days) ? "Daily" : $event->days) ?></p>
               <?php } else { ?>
                 <p><?= date('l, F j, Y', $event->event_start) ?>
                 <br><?= $event->time_txt ?></p>
@@ -77,9 +77,9 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
               </p>
               <ul class="actions">
                 <?php if (!empty($event->registration_url)): ?>
-                  <li><a class="register" target="_blank" href="<?= $event->registration_url ?>">Register For Event</a></li>
+                  <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Register For Event</a></li>
                 <?php elseif (!empty($event->registration_embed)): ?>
-                  <li><a class="register smoothscroll" href="#register">Register For Event</a></li>
+                  <li><a class="button register smoothscroll" href="#register">Register For Event</a></li>
                 <?php endif; ?>
               </ul>
               <?php if ($article_tags): ?><div class="article-tags"><?= $article_tags ?></div><?php endif; ?>

@@ -81,12 +81,13 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'event_end',
           'type'    => 'text_datetime_timestamp',
       ),
-      // array(
-      //     'name'    => 'Exhibition',
-      //     'desc'    => 'If checked, only shows in Ongoing Exhibitions and Past Events',
-      //     'id'      => $prefix . 'exhibition',
-      //     'type'    => 'checkbox',
-      // ),
+      array(
+          'name'    => 'Days of the Week',
+          'desc'    => 'What days of the week does the program meet? Ex: "Mondays, Wednesdays, Fridays". If not multiple days, or if daily, leave blank.',
+          'id'      => $prefix . 'days',
+          'type'    => 'text',
+      ),
+     
     ),
   );
 
@@ -490,6 +491,7 @@ function get_event_details($post) {
   } else {
     $event['time_txt'] = $event['start_time'];
   }
+  $event['days'] = get_post_meta($post->ID, '_cmb2_days', true);
   
   $event['archived'] = empty($event['event_end']) ? ($event['event_start'] < current_time('timestamp')) : ($event['event_end'] < current_time('timestamp'));
   $event['desc'] = date('M d, Y @ ', $event['event_start']) . $event['time_txt']; // used in map pins
