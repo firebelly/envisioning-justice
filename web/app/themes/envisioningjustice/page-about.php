@@ -15,7 +15,7 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
 
       <div class="section md-one-half color-bg-gray-light">
 
-        <div class="user-content">
+        <div class="primary-content user-content">
           <?= $primary_content ?>
         </div>
 
@@ -24,7 +24,7 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
           <?php
 
             $sponsor_types = get_terms( array(
-              'taxonomy' => 'sponsor type'
+              'taxonomy' => 'sponsor-type'
             ));
 
             foreach ($sponsor_types as $key => $sponsor_type) {
@@ -32,8 +32,8 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
               if ($sponsor_type->slug == 'sponsors') {
                 continue;
               } else {
-                $term = get_term_by('slug', $sponsor_type->slug, 'sponsor type'); 
-                $description = term_description($term->term_id, 'sponsor type');
+                $term = get_term_by('slug', $sponsor_type->slug, 'sponsor-type'); 
+                $description = term_description($term->term_id, 'sponsor-type');
                 echo '<div class="accordion'.($key===0?' -open':'').'">
                         <h3 class="accordion-toggle type-h3"><span>'.$sponsor_type->name.'</span></h3>';
                 if (!empty($description)) {

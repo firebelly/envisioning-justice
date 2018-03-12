@@ -20,11 +20,11 @@ $labels = [
   'use_featured_image'  => 'Use Sponsor Logo'
 ];
 $sponsors = new PostType('sponsor', $options, $labels);
-$sponsors->taxonomy('sponsor type');
+$sponsors->taxonomy('sponsor-type');
 $sponsors->register();
 
 // Taxonomies
-$sponsor_types = new Taxonomy('sponsor type');
+$sponsor_types = new Taxonomy('sponsor-type');
 $sponsor_types->register();
 
 /**
@@ -112,7 +112,7 @@ function get_sponsors($options=[]) {
   if (!empty($options['type'])) {
     $with_thumb_args['tax_query'] = [
       [
-        'taxonomy' => 'sponsor type',
+        'taxonomy' => 'sponsor-type',
         'field' => 'slug',
         'terms' => $options['type']
       ]
@@ -120,7 +120,7 @@ function get_sponsors($options=[]) {
 
     $without_thumb_args['tax_query'] = [
       [
-        'taxonomy' => 'sponsor type',
+        'taxonomy' => 'sponsor-type',
         'field' => 'slug',
         'terms' => $options['type']
       ]
