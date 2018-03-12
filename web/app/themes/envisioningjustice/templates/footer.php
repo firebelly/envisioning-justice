@@ -33,18 +33,19 @@
         var bboxInit2 = bboxInit2 || [];     bboxInit2.push(function () {         bboxApi.showForm('38ced2e2-cad0-4cec-baa5-4e97cce64789');     });     (function () {         var e = document.createElement('script'); e.async = true;         e.src = 'https://bbox.blackbaudhosting.com/webforms/bbox-2.0-min.js';         document.getElementsByTagName('head')[0].appendChild(e);     } ());
         // ]]></script>
 
-        <h3 class="type-h3">Contact</h3>
+        <h3 class="type-h3">Envisioning Justice</h3>
 
-        <div class="site-communication -item">
-          <p><a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>"><?= \Firebelly\SiteOptions\get_option('contact_email'); ?></a></p>
-          <p><?= \Firebelly\SiteOptions\get_option('contact_phone'); ?></p>
-        </div>
-        <div class="site-address -item">        
-          <address class="vcard">
-            <p>Envisioning Justice</p>
-            <span class="street-address"><?= \Firebelly\SiteOptions\get_option('contact_address'); ?></span>
-            <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
-          </address>
+        <div class="-item">
+          <div class="site-address">        
+            <address class="vcard">
+              <span class="street-address"><?= \Firebelly\SiteOptions\get_option('contact_address'); ?></span>
+              <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
+            </address>
+          </div>
+          <div class="site-communication">
+            <p><a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>"><?= \Firebelly\SiteOptions\get_option('contact_email'); ?></a></p>
+            <p><?= \Firebelly\SiteOptions\get_option('contact_phone'); ?></p>
+          </div>       
         </div>
 
         <div class="logos">
