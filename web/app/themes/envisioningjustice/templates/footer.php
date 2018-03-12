@@ -41,6 +41,7 @@
         </div>
         <div class="site-address -item">        
           <address class="vcard">
+            <p>Envisioning Justice</p>
             <span class="street-address"><?= \Firebelly\SiteOptions\get_option('contact_address'); ?></span>
             <span class="locality"><?= \Firebelly\SiteOptions\get_option('contact_locality'); ?></span>
           </address>
