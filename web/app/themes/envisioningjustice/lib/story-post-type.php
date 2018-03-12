@@ -155,9 +155,9 @@ function new_story() {
     // Send email if notification_email was set for position or in site_options for internships/portfolio
     if ($notification_email) {
       $headers = ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
-      $message .= 'Story Name: ' . $_POST['story_name'] . "\n";
-      $message .= 'Email: ' . $_POST['story_email'] . "\n";
-      $message .= 'Story: ' . $_POST['story_content'] . "\n";
+      $message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
+      $message .= '<strong>Email:</strong> ' . $_POST['story_email'] . "\n";
+      $message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
       $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
       if (!empty($attachments)) {
         $message .= "\nFiles uploaded:\n";
@@ -175,8 +175,9 @@ function new_story() {
     // Send quick receipt email to applicant
     if (!empty(\Firebelly\SiteOptions\get_option('story_submission_email_message'))) {
       $story_message = \Firebelly\SiteOptions\get_option('story_submission_email_message') . "\n";
-      $story_message .= 'Story Name: ' . $_POST['story_name'] . "\n";
-      $story_message .= 'Story: ' . $_POST['story_content'] . "\n";
+      $story_message .= '<br><br>' . "\n";
+      $story_message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
+      $story_message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
     } else {
       $story_message = "Thank you for sharing your story with us.\n\n";
       $story_message .= "Best Regards,\nIllinois Humanities";

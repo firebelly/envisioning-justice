@@ -167,7 +167,12 @@ class FbSiteOptions {
       'name' => __( 'Story Submission Email Message', 'firebelly' ),
       'id'   => 'story_submission_email_message',
       'desc' => __( 'Message sent in an email to the person who submitted the story.'),
-      'type' => 'textarea',
+      'type' => 'wysiwyg',
+      'options' => array(
+        'media_buttons' => false,
+        'textarea_rows' => get_option('default_post_edit_rows', 5),
+        'teeny' => true,
+      ),
     ) );
 
     $cmb->add_field( array(
