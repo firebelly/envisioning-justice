@@ -77,8 +77,8 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['page_content_areas'] = array(
-    'id'            => 'page_content_areas',
+  $meta_boxes['single_page_content_areas'] = array(
+    'id'            => 'single_page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
     'show_on'       => array( 'key' => 'page-template', 'value' => ['page-default.php'] ),
@@ -88,7 +88,7 @@ function metaboxes( array $meta_boxes ) {
     'fields'        => array(
       array(
         'name' => 'Secondary Content Area',
-        'id'   => $prefix . 'secondary_content',
+        'id'   => $prefix . 'single_secondary_content',
         'type' => 'wysiwyg',
       ),
     ),
