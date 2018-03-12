@@ -215,6 +215,7 @@ function get_hubs($options=[]) {
   }
 
   if (empty($options['show_description'])) $options['show_description'] = false;
+  if (empty($options['show_primary_org'])) $options['show_primary_org'] = false;
   if (empty($options['display_on_map'])) $options['display_on_map'] = false;
 
   // Display all matching posts using article-{$post_type}.php
@@ -222,6 +223,7 @@ function get_hubs($options=[]) {
   if (!$hubs_posts) return false;
   $output = '';
   foreach ($hubs_posts as $hub_post):
+    $show_primary_org = $options['show_primary_org'];
     $show_description = $options['show_description'];
     $display_on_map = $options['display_on_map'];
     ob_start();
