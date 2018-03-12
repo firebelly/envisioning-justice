@@ -2,4 +2,10 @@
 
 .page.about {
   @include colorScheme($yellow);
+
+  #page-content {
+    .secondary-content {
+      margin-bottom: 40px;
+    }
+  }
 }

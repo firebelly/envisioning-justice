@@ -3,7 +3,8 @@
  * Template Name: About
  */
 
-$body_content = apply_filters('the_content', $post->post_content);
+$primary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_primary_content', true));
+$secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_secondary_content', true));
 ?>
 
 
@@ -15,7 +16,7 @@ $body_content = apply_filters('the_content', $post->post_content);
       <div class="section md-one-half color-bg-gray-light">
 
         <div class="user-content">
-          <?= $body_content ?>
+          <?= $primary_content ?>
         </div>
 
         <div class="sponsor-types">
@@ -52,6 +53,11 @@ $body_content = apply_filters('the_content', $post->post_content);
       </div>
 
       <div class="section md-one-half color-bg-gray">
+        <?php if (!empty($secondary_content)) { ?>
+        <div class="secondary-content user-content">
+          <?= $secondary_content ?>
+        </div>
+        <?php } ?>
         <div class="events-list article-list grid">
           <?php echo \Firebelly\PostTypes\Event\get_events(['num_posts' => 4]); ?>
         </div>
