@@ -27,7 +27,7 @@
 
       <div class="section site-contact grid-item md-one-half -second">
 
-        <h3 class="type-h3">Subscribe to our Newsletter</h3>
+        <h3 class="type-h3">Join our Email List</h3>
         <div id="bbox-root-38ced2e2-cad0-4cec-baa5-4e97cce64789" class="bb-form"></div>
         <script type="text/javascript">// <![CDATA[
         var bboxInit2 = bboxInit2 || [];     bboxInit2.push(function () {         bboxApi.showForm('38ced2e2-cad0-4cec-baa5-4e97cce64789');     });     (function () {         var e = document.createElement('script'); e.async = true;         e.src = 'https://bbox.blackbaudhosting.com/webforms/bbox-2.0-min.js';         document.getElementsByTagName('head')[0].appendChild(e);     } ());
