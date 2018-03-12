@@ -103,14 +103,5 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
 
     </div>
 
-    <section class="sponsors-section section">
-      <div class="-inner">
-        <h2 class="type-h2">Sponsors</h2>
-        <div class="grid sm-spaced">
-          <?= Firebelly\PostTypes\Sponsor\get_sponsors(['type'=>'sponsors']) ?>
-        </div>
-      </div>
-    </section>
-
   </div><!-- .container -->
 </div><!-- #page-content -->
