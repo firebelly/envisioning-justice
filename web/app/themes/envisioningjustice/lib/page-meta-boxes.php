@@ -81,7 +81,7 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
-    'show_on'       => array( 'key' => 'page-template', 'value' => ['default'] ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-default.php'] ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
