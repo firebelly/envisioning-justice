@@ -4,6 +4,7 @@
   @include colorScheme($yellow);
 
   #page-content {
+    .primary-content,
     .secondary-content {
       margin-bottom: 40px;
     }
