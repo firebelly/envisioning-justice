@@ -159,7 +159,14 @@ class FbSiteOptions {
     $cmb->add_field( array(
       'name' => __( 'Story Submission Success Message', 'firebelly' ),
       'id'   => 'story_submission_success',
-      'desc' => __( 'Message displayed when a story is successfully submitted.'),
+      'desc' => __( 'Message displayed ont he site when a story is successfully submitted.'),
+      'type' => 'textarea',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Story Submission Email Message', 'firebelly' ),
+      'id'   => 'story_submission_email_message',
+      'desc' => __( 'Message sent in an email to the person who submitted the story.'),
       'type' => 'textarea',
     ) );
 
