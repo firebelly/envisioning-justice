@@ -82,7 +82,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
         </section>
 
         <section class="announcements-section section color-bg-gray-light grid-item md-one-half">
-          <h2 class="section-title type-h3">Announcements</h2>
+          <h2 class="section-title type-h3">News</h2>
           <div class="news-list load-more-container article-list">
             <?php 
             // Recent Blog & News posts
