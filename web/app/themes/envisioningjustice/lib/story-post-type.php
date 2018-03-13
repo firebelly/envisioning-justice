@@ -178,9 +178,6 @@ function new_story() {
     }
 
     // Send quick receipt email to applicant
-    $user_headers  = 'MIME-Version: 1.0' . "\r\n";
-    $user_headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $user_headers .= 'From: Envisioning Justice <www-data@envisioningjustice.com>';
     $user_message = '<html><body>';
     if (!empty(\Firebelly\SiteOptions\get_option('story_submission_email_message'))) {
       $user_message .= \Firebelly\SiteOptions\get_option('story_submission_email_message');
@@ -188,7 +185,6 @@ function new_story() {
       $user_message .= "<p>Thank you for sharing your story with us.</p>";
       $user_message .= "<p>Best Regards,<br>Illinois Humanities</p>";
     }
-    $user_message .= '<br><br>';
     $user_message .= '<p><strong>Story Name:</strong> ' . $_POST['story_name'] . "</p>";
     $user_message .= '<p><strong>Story:</strong> ' . $_POST['story_content'] . "</p>";
     if (!empty($attachments)) {
@@ -203,7 +199,7 @@ function new_story() {
     }
     $user_message .= '</body></html>';
 
-    wp_mail($_POST['story_email'], 'Thank you for sharing your story', $user_message, $user_headers);
+    wp_mail($_POST['story_email'], 'Thank you for sharing your story', $user_message, $headers);
 
   } else {
     $errors[] = 'Error inserting post';
