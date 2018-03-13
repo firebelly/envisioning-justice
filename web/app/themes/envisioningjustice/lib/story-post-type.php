@@ -154,11 +154,15 @@ function new_story() {
 
     // Send email if notification_email was set for position or in site_options for internships/portfolio
     if ($notification_email) {
-      $headers = ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+      $headers  = 'MIME-Version: 1.0' . "\r\n";
+      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+      $headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+      $message = '<html><body>';
       $message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
       $message .= '<strong>Email:</strong> ' . $_POST['story_email'] . "\n";
       $message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
       $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
+      $message .= '</body></html>';
       if (!empty($attachments)) {
         $message .= "\nFiles uploaded:\n";
         foreach ($attachments as $attachment_id => $attachment_url) {
@@ -173,17 +177,22 @@ function new_story() {
     }
 
     // Send quick receipt email to applicant
+    $user_headers  = 'MIME-Version: 1.0' . "\r\n";
+    $user_headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $user_headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+    $user_message = '<html><body>';
     if (!empty(\Firebelly\SiteOptions\get_option('story_submission_email_message'))) {
-      $story_message = \Firebelly\SiteOptions\get_option('story_submission_email_message') . "\n";
-      $story_message .= '<br><br>' . "\n";
-      $story_message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
-      $story_message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
+      $user_message .= \Firebelly\SiteOptions\get_option('story_submission_email_message') . "\n";
     } else {
-      $story_message = "Thank you for sharing your story with us.\n\n";
-      $story_message .= "Best Regards,\nIllinois Humanities";
+      $user_message .= "Thank you for sharing your story with us.\n\n";
+      $user_message .= "Best Regards,\nIllinois Humanities";
     }
+    $user_message .= '<br><br>' . "\n";
+    $user_message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
+    $user_message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
+    $user_message .= '</body></html>';
 
-    wp_mail($_POST['story_email'], 'Thank you for sharing your story', $story_message, ['From: Illinois Humanities <envisioningjustic@ilhumanities.org>']);
+    wp_mail($_POST['story_email'], 'Thank you for sharing your story', $user_message, $user_headers);
 
   } else {
     $errors[] = 'Error inserting post';
