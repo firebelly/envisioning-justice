@@ -156,15 +156,13 @@ function new_story() {
     if ($notification_email) {
       $headers  = 'MIME-Version: 1.0' . "\r\n";
       $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-      $headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+      $headers .= 'From: Envisioning Justice <www-data@envisioningjustice.com>';
       $message = '<html><body>';
-      $message .= '<h3>Story Name: ' . $_POST['story_name'] . "</h3>";
-      $message .= '<h3>Email: ' . $_POST['story_email'] . "</h3>";
-      $message .= '<h3>Story: ' . $_POST['story_content'] . "</h3>";
-      $message .= "<p>Edit in WordPress:<br>" . admin_url('post.php?post='.$post_id.'&action=edit') . "</p>";
-      $message .= '</body></html>';
+      $message .= '<p><strong>Story Name:</strong> ' . $_POST['story_name'] . "</p>";
+      $message .= '<p><strong>Email:</strong> ' . $_POST['story_email'] . "</p>";
+      $message .= '<p><strong>Story:</strong> ' . $_POST['story_content'] . "</p>";
       if (!empty($attachments)) {
-        $message .= "<p>Files uploaded:</p>";
+        $message .= "<p><strong>Files uploaded:</strong></p>";
         foreach ($attachments as $attachment_id => $attachment_url) {
           // Add home_url (if not there) to make these links
           if (strpos($attachment_url, get_home_url())===false) {
@@ -173,13 +171,16 @@ function new_story() {
           $message .= "<p>" . $attachment_url . "</p>";
         }
       }
+      $message .= "<p><strong>Edit in WordPress:</strong><br>" . admin_url('post.php?post='.$post_id.'&action=edit') . "</p>";
+      $message .= '</body></html>';
+
       wp_mail($notification_email, $subject, $message, $headers);
     }
 
     // Send quick receipt email to applicant
     $user_headers  = 'MIME-Version: 1.0' . "\r\n";
     $user_headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $user_headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
+    $user_headers .= 'From: Envisioning Justice <www-data@envisioningjustice.com>';
     $user_message = '<html><body>';
     if (!empty(\Firebelly\SiteOptions\get_option('story_submission_email_message'))) {
       $user_message .= \Firebelly\SiteOptions\get_option('story_submission_email_message');
@@ -188,10 +189,10 @@ function new_story() {
       $user_message .= "<p>Best Regards,<br>Illinois Humanities</p>";
     }
     $user_message .= '<br><br>';
-    $user_message .= '<h3>Story Name: ' . $_POST['story_name'] . "</h3>";
-    $user_message .= '<h3>Story: ' . $_POST['story_content'] . "</h3>";
+    $user_message .= '<p><strong>Story Name:</strong> ' . $_POST['story_name'] . "</p>";
+    $user_message .= '<p><strong>Story:</strong> ' . $_POST['story_content'] . "</p>";
     if (!empty($attachments)) {
-      $user_message .= "<p>Files uploaded:</p>";
+      $user_message .= "<p><strong>Files uploaded:</strong></p>";
       foreach ($attachments as $attachment_id => $attachment_url) {
         // Add home_url (if not there) to make these links
         if (strpos($attachment_url, get_home_url())===false) {
