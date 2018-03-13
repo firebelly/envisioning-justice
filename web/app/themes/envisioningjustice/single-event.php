@@ -56,9 +56,9 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
           </p>
           <ul class="actions">
             <?php if (!empty($event->registration_url)): ?>
-              <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Register For Event</a></li>
+              <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Enroll Now</a></li>
             <?php elseif (!empty($event->registration_embed)): ?>
-              <li><a class="button register smoothscroll" href="#register">Register For Event</a></li>
+              <li><a class="button register smoothscroll" href="#register">Enroll Now</a></li>
             <?php endif; ?>
             <li><a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a></li>
           </ul>          
