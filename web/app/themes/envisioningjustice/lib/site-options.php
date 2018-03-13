@@ -177,25 +177,25 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Facebook', 'firebelly' ),
-      'desc' => __( 'Facebook Account Url', 'firebelly' ),
-      'id'   => 'facebook_url',
-      'type' => 'text_url',
+      'name' => __( 'Facebook Handle', 'firebelly' ),
+      'desc' => __( 'The handle, excluding the "@" symbol, ex: "EnvisioningJustice"', 'firebelly' ),
+      'id'   => 'facebook_handle',
+      'type' => 'text_small',
       'before_row' => '<h3>Social Media Links</h3>',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Twitter', 'firebelly' ),
-      'desc' => __( 'Twitter Account Url', 'firebelly' ),
-      'id'   => 'twitter_url',
-      'type' => 'text_url',
+      'name' => __( 'Twitter Handle', 'firebelly' ),
+      'desc' => __( 'The handle, excluding the "@" symbol, ex: "EnvisioningJustice"', 'firebelly' ),
+      'id'   => 'twitter_handle',
+      'type' => 'text_small',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'YouTube', 'firebelly' ),
-      'desc' => __( 'YouTube Account Url', 'firebelly' ),
-      'id'   => 'youtube_url',
-      'type' => 'text_url',
+      'name' => __( 'Hashtag', 'firebelly' ),
+      'desc' => __( 'Hashtag displayed on site', 'firebelly' ),
+      'id'   => 'hashtag',
+      'type' => 'text_small',
     ) );
 
     $cmb->add_field( array(

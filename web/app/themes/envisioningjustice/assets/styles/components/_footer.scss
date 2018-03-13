@@ -38,10 +38,29 @@ footer.site-footer {
     }
   }
 
+  .social-media-section {
+    @include media-md {
+      padding-right: 60px;
+    }
+  }
+
   .social-media-links {
+    @include clearfix;
     li {
-      margin-left: 40px;
-      display: inline-block;
+      float: left;
+      padding-right: 20px;
+      .button {
+        margin-bottom: 10px;
+      }
+      a {
+        display: block;
+        color: $white-dark;
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: underline;
+        }
+      }
       &:first-of-type {
         margin-left: 0;
       }
