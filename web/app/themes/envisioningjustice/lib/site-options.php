@@ -172,6 +172,7 @@ class FbSiteOptions {
         'media_buttons' => false,
         'textarea_rows' => get_option('default_post_edit_rows', 5),
         'teeny' => true,
+        'wpautop' => true,
       ),
     ) );
 

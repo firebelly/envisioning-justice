@@ -158,19 +158,19 @@ function new_story() {
       $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
       $headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
       $message = '<html><body>';
-      $message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
-      $message .= '<strong>Email:</strong> ' . $_POST['story_email'] . "\n";
-      $message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
-      $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
+      $message .= '<h3>Story Name: ' . $_POST['story_name'] . "</h3>";
+      $message .= '<h3>Email: ' . $_POST['story_email'] . "</h3>";
+      $message .= '<h3>Story: ' . $_POST['story_content'] . "</h3>";
+      $message .= "<p>Edit in WordPress:<br>" . admin_url('post.php?post='.$post_id.'&action=edit') . "</p>";
       $message .= '</body></html>';
       if (!empty($attachments)) {
-        $message .= "\nFiles uploaded:\n";
+        $message .= "<p>Files uploaded:</p>";
         foreach ($attachments as $attachment_id => $attachment_url) {
           // Add home_url (if not there) to make these links
           if (strpos($attachment_url, get_home_url())===false) {
             $attachment_url = get_home_url().$attachment_url;
           }
-          $message .= $attachment_url . "\n";
+          $message .= "<p>" . $attachment_url . "</p>";
         }
       }
       wp_mail($notification_email, $subject, $message, $headers);
@@ -182,14 +182,24 @@ function new_story() {
     $user_headers .= ['From: Envisioning Justice <www-data@envisioningjustice.com>'];
     $user_message = '<html><body>';
     if (!empty(\Firebelly\SiteOptions\get_option('story_submission_email_message'))) {
-      $user_message .= \Firebelly\SiteOptions\get_option('story_submission_email_message') . "\n";
+      $user_message .= \Firebelly\SiteOptions\get_option('story_submission_email_message');
     } else {
-      $user_message .= "Thank you for sharing your story with us.\n\n";
-      $user_message .= "Best Regards,\nIllinois Humanities";
+      $user_message .= "<p>Thank you for sharing your story with us.</p>";
+      $user_message .= "<p>Best Regards,<br>Illinois Humanities</p>";
     }
-    $user_message .= '<br><br>' . "\n";
-    $user_message .= '<strong>Story Name:</strong> ' . $_POST['story_name'] . "\n";
-    $user_message .= '<strong>Story:</strong> ' . $_POST['story_content'] . "\n";
+    $user_message .= '<br><br>';
+    $user_message .= '<h3>Story Name: ' . $_POST['story_name'] . "</h3>";
+    $user_message .= '<h3>Story: ' . $_POST['story_content'] . "</h3>";
+    if (!empty($attachments)) {
+      $user_message .= "<p>Files uploaded:</p>";
+      foreach ($attachments as $attachment_id => $attachment_url) {
+        // Add home_url (if not there) to make these links
+        if (strpos($attachment_url, get_home_url())===false) {
+          $attachment_url = get_home_url().$attachment_url;
+        }
+        $user_message .= "<p>" . $attachment_url . "</p>";
+      }
+    }
     $user_message .= '</body></html>';
 
     wp_mail($_POST['story_email'], 'Thank you for sharing your story', $user_message, $user_headers);
