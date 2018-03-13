@@ -300,7 +300,13 @@
 
     .page-header-details {
       .actions {
-        margin-bottom: 0;
+        margin: 40px 0 0;
+        li {
+          margin-top: 20px;
+          &:first-of-type {
+            margin-top: 0;
+          }
+        }
       }
     }
 

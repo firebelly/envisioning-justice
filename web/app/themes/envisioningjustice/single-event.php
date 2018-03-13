@@ -44,9 +44,24 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
               </p>
             </div>
           </div>
-          <p class="actions">
-            <a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a>
-          </p>          
+          <p>Cost:
+            <?php if (!$event->cost): ?>
+              Free, open to the public.
+            <?php else: ?>
+              <?= $event->cost ?>
+            <?php endif; ?>
+            <?php if ($event->rsvp_text): ?>
+              <br>RSVP is <?= $event->rsvp_text ?>.
+            <?php endif; ?>
+          </p>
+          <ul class="actions">
+            <?php if (!empty($event->registration_url)): ?>
+              <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Register For Event</a></li>
+            <?php elseif (!empty($event->registration_embed)): ?>
+              <li><a class="button register smoothscroll" href="#register">Register For Event</a></li>
+            <?php endif; ?>
+            <li><a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a></li>
+          </ul>          
         </div>
       </div>
     </div>
@@ -64,24 +79,6 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
               <?php echo apply_filters('the_content', $post->post_content); ?>
             </div>
             <footer>
-              <h3>Cost:</h3>
-              <p class="cost">
-                <?php if (!$event->cost): ?>
-                  Free, open to the public.
-                <?php else: ?>
-                  <?= $event->cost ?>
-                <?php endif; ?>
-                <?php if ($event->rsvp_text): ?>
-                  <br>RSVP is <?= $event->rsvp_text ?>.
-                <?php endif; ?>
-              </p>
-              <ul class="actions">
-                <?php if (!empty($event->registration_url)): ?>
-                  <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Register For Event</a></li>
-                <?php elseif (!empty($event->registration_embed)): ?>
-                  <li><a class="button register smoothscroll" href="#register">Register For Event</a></li>
-                <?php endif; ?>
-              </ul>
               <?php if ($article_tags): ?><div class="article-tags"><?= $article_tags ?></div><?php endif; ?>
             </footer>
           </div>
