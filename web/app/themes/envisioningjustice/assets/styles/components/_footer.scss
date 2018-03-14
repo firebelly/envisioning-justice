@@ -47,13 +47,21 @@ footer.site-footer {
   .social-media-links {
     @include clearfix;
     li {
-      float: left;
-      padding-right: 20px;
+      margin-bottom: 10px;
+      &:not(.hashtag) {
+        display: flex;
+        align-items: center;
+
+        @include media-md {
+          width: 50%;
+          float: left;
+          padding-right: 20px;
+        }
+      }
       .button {
-        margin-bottom: 10px;
+        margin-right: 10px;
       }
       a {
-        display: block;
         color: $white-dark;
         &:hover,
         &:focus,

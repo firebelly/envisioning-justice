@@ -12,21 +12,21 @@
       <div class="social-media-section section grid-item md-one-half -first">
 
         <ul class="social-media-links">
+          <?php if (!empty(\Firebelly\SiteOptions\get_option('hashtag'))) { ?>
+            <li class="hashtag">
+              <h3 class="type-h3"><?= \Firebelly\SiteOptions\get_option('hashtag') ?></h3>
+            </li>
+          <?php } ?>
           <?php if (!empty(\Firebelly\SiteOptions\get_option('facebook_handle'))) { ?>
-            <li class="w-50">
+            <li>
               <a href="https://facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_handle'); ?>" class="button button-circular theme-exception -gray-light"><span class="sr-only">Facebook</span><svg class="icon icon-facebook" aria-hidden="true" role="presentation"><use xlink:href="#icon-facebook"/></svg></a>
               <a href="https://facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_handle'); ?>">@<?= \Firebelly\SiteOptions\get_option('facebook_handle') ?></a>
             </li>
           <?php } ?>
           <?php if (!empty(\Firebelly\SiteOptions\get_option('twitter_handle'))) { ?>
-            <li class="w-50">
+            <li>
               <a href="https://twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_handle'); ?>" class="button button-circular theme-exception -gray-light"><span class="sr-only">Twitter</span><svg class="icon icon-twitter" aria-hidden="true" role="presentation"><use xlink:href="#icon-twitter"/></svg></a>
               <a href="https://twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_handle'); ?>">@<?= \Firebelly\SiteOptions\get_option('twitter_handle') ?></a>
-            </li>
-          <?php } ?>
-          <?php if (!empty(\Firebelly\SiteOptions\get_option('hashtag'))) { ?>
-            <li>
-              <h3><?= \Firebelly\SiteOptions\get_option('hashtag') ?></h3>
             </li>
           <?php } ?>
         </ul>
