@@ -47,12 +47,12 @@ footer.site-footer {
   .social-media-links {
     @include clearfix;
     li {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       &:not(.hashtag) {
         display: flex;
         align-items: center;
 
-        @include media-md {
+        @include min-screen(1220px) {
           width: 50%;
           float: left;
           padding-right: 20px;
