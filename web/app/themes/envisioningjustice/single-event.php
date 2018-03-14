@@ -58,7 +58,9 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
             <?php if (!empty($event->registration_url)): ?>
               <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Enroll Now</a></li>
             <?php elseif (!empty($event->registration_embed)): ?>
-              <li><a class="button register smoothscroll" href="#register">Enroll Now</a></li>
+              <li>
+                <a class="button register smoothscroll" href="#register"><?= !empty($event->registration_link_text) ? $event->registration_link_text : "Register Now"; ?></a>
+              </li>
             <?php endif; ?>
             <li><a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a></li>
           </ul>          
@@ -79,6 +81,14 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
               <?php echo apply_filters('the_content', $post->post_content); ?>
             </div>
             <footer>
+              <?php if (!($event->archived) && !empty($event->registration_embed)): ?>
+                <div class="registration-embed" id="register">
+                  <h3 class="type-h3"><?= !empty($event->registration_link_text) ? $event->registration_link_text : "Register Now"; ?></h3>
+                  <div class="user-content">
+                    <?= $event->registration_embed ?>
+                  </div>
+                </div>
+              <?php endif; ?>
               <?php if ($article_tags): ?><div class="article-tags"><?= $article_tags ?></div><?php endif; ?>
             </footer>
           </div>

@@ -173,6 +173,12 @@ function metaboxes( array $meta_boxes ) {
         'type'    => 'textarea',
       ),
       array(
+        'name'    => 'Registration Link Text',
+        'desc'    => 'The text displayed in the link to the registration URL or embed code. If left blank it will read "Register Now"',
+        'id'      => $prefix . 'registration_link_text',
+        'type'    => 'text_small',
+      ),
+      array(
         'name'    => 'RSVP',
         'id'      => $prefix . 'rsvp_text',
         'type'    => 'radio_inline',
@@ -478,6 +484,7 @@ function get_event_details($post) {
     'registration_url' => get_post_meta($post->ID, '_cmb2_registration_url', true),
     'rsvp_text' => get_post_meta($post->ID, '_cmb2_rsvp_text', true),
     'registration_embed' => get_post_meta($post->ID, '_cmb2_registration_embed', true),
+    'registration_link_text' => get_post_meta($post->ID, '_cmb2_registration_link_text', true),
     'lat' => get_post_meta($post->ID, '_cmb2_lat', true),
     'lng' => get_post_meta($post->ID, '_cmb2_lng', true),
     'add_to_calendar_url' => admin_url('admin-ajax.php') . "?action=event_ics&amp;id={$post->ID}&amp;nc=" . current_time('timestamp'),
