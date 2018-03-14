@@ -58,7 +58,7 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
-    'show_on'       => array( 'key' => 'page-template', 'value' => ['front-page.php','page-grants-commissions.php','page-share-your-story.php', 'page-about.php'] ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php'] ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,

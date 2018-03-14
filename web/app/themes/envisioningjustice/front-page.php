@@ -12,7 +12,7 @@ $header_text = get_post_meta($post->ID, '_cmb2_header_text', true);
 $header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'));
 $secondary_header_text = get_post_meta($post->ID, '_cmb2_frontpage_secondary_header_text', true);
 $secondary_header_text = strip_tags($secondary_header_text, '<u><strong><em><a><br><br/>');
-$primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
+$body_content = apply_filters('the_content', $post->post_content);
 ?>
 
 <header class="page-header container with-image">
@@ -73,7 +73,7 @@ $primary_content = get_post_meta($post->ID, '_cmb2_primary_content', true);
         <section class="hub-section section color-bg-yellow grid-item md-one-half">
           <h2 class="section-title type-h3">Hubs</h2>
           <div class="user-content">
-            <?= $primary_content ?>
+            <?= $body_content ?>
           </div>
           <div class="hub-list">
             <?= Firebelly\PostTypes\Hub\get_hubs() ?>
