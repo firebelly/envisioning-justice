@@ -5,6 +5,14 @@ body.single-event {
   @include colorScheme($orange);
 }
 
+.page.programming {
+  #page-content {
+    .user-content {
+      margin-bottom: 60px;
+    }
+  }
+}
+
 // Single event page
 body.single-event {
 

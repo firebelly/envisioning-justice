@@ -7,6 +7,7 @@ $per_page = get_option('posts_per_page');
 $total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
 $total_pages = ($total_events > 0) ? ceil($total_events / $per_page) : 1;
 $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
+$body_content = apply_filters('the_content', $post->post_content);
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -15,6 +16,10 @@ $events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
   <div class="container grid">
 
       <div class="section md-one-half color-bg-gray-light<?= (empty($events) ? ' -empty' : '') ?>">
+
+        <div class="user-content">
+          <?= $body_content ?>
+        </div>
 
         <?php
           if (!empty($events)) {
