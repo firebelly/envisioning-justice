@@ -58,7 +58,7 @@
 
         <div class="logos">
           <a href="http://ilhumanities.org"><span class="sr-only">Illinois Humanities</span><svg class="il-humanities-logo" aria-hidden="true" role="presentation"><use xlink:href="#ih-logo-color"/></svg></a>
-          <a href="/"><span class="sr-only"><?php bloginfo('name'); ?></span><svg class="icon envisioning-justice-logo" aria-hidden="true" role="presentation"><use xlink:href="#envisioning-justice-logo"/></svg></a>
+          <a href="http://www.safetyandjusticechallenge.org/" target="_blank"><span class="sr-only"><?php bloginfo('name'); ?></span><svg class="icon sjc-logo" aria-hidden="true" role="presentation"><use xlink:href="#sjc-logo"/></svg></a>
         </div>
         <p class="site-disclaimer"><?= \Firebelly\SiteOptions\get_option('disclaimer'); ?></p>
 
