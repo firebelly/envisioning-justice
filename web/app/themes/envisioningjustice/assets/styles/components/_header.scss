@@ -370,15 +370,15 @@
   }
 
   // (not) no-image
-  &:not(.no-image):not(.no-header-bottom) {
-    .page-header-top {
-      .page-title {
-        @include max-screen($breakpoint-medium) {
-          margin-bottom: -9vw;
-        }
-      }
-    }
-  }
+  // &:not(.no-image):not(.no-header-bottom) {
+  //   .page-header-top {
+  //     .page-title {
+  //       @include max-screen($breakpoint-medium) {
+  //         margin-bottom: -9vw;
+  //       }
+  //     }
+  //   }
+  // }
 
   // No header-image format
   &.no-image {
