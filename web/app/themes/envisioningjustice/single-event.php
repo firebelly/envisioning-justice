@@ -54,16 +54,19 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
               <br>RSVP is <?= $event->rsvp_text ?>.
             <?php endif; ?>
           </p>
+          <?php if (!($event->archived)) { ?>
           <ul class="actions">
             <?php if (!empty($event->registration_url)): ?>
-              <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>">Enroll Now</a></li>
+              <li><a class="button register" target="_blank" href="<?= $event->registration_url ?>"><?= !empty($event->registration_link_text) ? $event->registration_link_text : "Register Now"; ?></a></li>
             <?php elseif (!empty($event->registration_embed)): ?>
               <li>
                 <a class="button register smoothscroll" href="#register"><?= !empty($event->registration_link_text) ? $event->registration_link_text : "Register Now"; ?></a>
               </li>
             <?php endif; ?>
+
             <li><a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a></li>
-          </ul>          
+          </ul>     
+          <?php } ?>
         </div>
       </div>
     </div>
