@@ -96,7 +96,9 @@ function get_sponsors($options=[]) {
   $with_thumb_args = [
     'numberposts' => -1,
     'post_type'   => 'sponsor',
-    'meta_key'    => '_thumbnail_id'
+    'meta_key'    => '_thumbnail_id',
+    'orderby'     => 'title', 
+    'order'       => 'ASC'
   ];
   $without_thumb_args = [
     'numberposts' => -1,
@@ -108,6 +110,8 @@ function get_sponsors($options=[]) {
          'compare' => 'NOT EXISTS'
        )
     ),
+    'orderby'     => 'title', 
+    'order'       => 'ASC'
   ];
   if (!empty($options['type'])) {
     $with_thumb_args['tax_query'] = [
