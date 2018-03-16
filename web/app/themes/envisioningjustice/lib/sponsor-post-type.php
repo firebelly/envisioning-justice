@@ -41,51 +41,22 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $sponsor_info->add_field([
+    'name'      => 'Description',
+    'id'        => $prefix . 'sponsor_description',
+    'desc'      => 'A short description, organization affiliation, or job title',
+    'type'      => 'wysiwyg',
+    'options' => array(
+      'media_buttons' => false,
+      'textarea_rows' => get_option('default_post_edit_rows', 3),
+      'teeny' => true
+    ),
+  ]);
+  $sponsor_info->add_field([
     'name'      => 'Website URL',
     'id'        => $prefix . 'sponsor_url',
     'type'      => 'text_url',
     'desc'      => 'make sure to include http://',
   ]);
-
-  // Hub Staff/Organizers
-  // $cmb_group = new_cmb2_box( array(
-  //     'id'           => $prefix . 'metabox',
-  //     'title'        => __( 'Page Blocks', 'cmb2' ),
-  //     'priority'      => 'low',
-  //     'object_types' => array( 'program', 'page', ),
-  //   ) 
-  // );
-
-  // $group_field_id = $cmb_group->add_field( array(
-  //     'id'          => $prefix . 'page_blocks',
-  //     'type'        => 'group',
-  //     'description' => __( 'Note that you must be in Text mode to reorder the Page Blocks', 'cmb' ),
-  //     'options'     => array(
-  //         'group_title'   => __( 'Block {#}', 'cmb' ),
-  //         'add_button'    => __( 'Add Another Block', 'cmb' ),
-  //         'remove_button' => __( 'Remove Block', 'cmb' ),
-  //         'sortable'      => true, // beta
-  //     ),
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Block Title',
-  //     'id'   => 'title',
-  //     'type' => 'text',
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Body',
-  //     'id'   => 'body',
-  //     'type' => 'wysiwyg',
-  // ) );
-
-  // $cmb_group->add_group_field( $group_field_id, array(
-  //     'name' => 'Hide Block',
-  //     // 'desc' => 'Check this to hide Page Block from the front end',
-  //     'id'   => 'hide_block',
-  //     'type' => 'checkbox',
-  // ) );
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 
