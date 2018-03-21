@@ -1,6 +1,6 @@
 <?php
 /**
- * Filtering for 
+ * Filtering for Events
  */
 
 $filter_related_hub = get_query_var('filter_related_hub', '');
@@ -62,7 +62,10 @@ $program_types = get_terms(array(
 
     </div>
 
-    <div class="actions">
-      <button class="button -full" type="submit">Filter</button>
+    <div class="actions grid sm-spaced">
+      <div class="grid-item sm-one-half">
+        <button class="button -full" type="submit">Filter</button>
+      </div>
+      <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_related_hub !== '' || $filter_program_type !== '' || $filter_event_type !== '') ? '' : ' hide' ?>">Clear All</button></div>
     </div>
   </form>

@@ -209,12 +209,13 @@ form {
 // Custom select styles
 .select-wrapper {
   margin: 0;
-  padding: 20px 0;
+  padding: 0;
   position: relative;
   border-bottom: 1px solid $black;
   select {
     width: 100%;
     border: none;
+    padding: 20px 0;
     box-shadow: none;
     background: none;
     border-radius: 0;

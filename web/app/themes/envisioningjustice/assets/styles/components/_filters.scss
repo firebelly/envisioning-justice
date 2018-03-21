@@ -2,17 +2,18 @@
 
 .filters {
   margin-bottom: 40px;
-  
+
   .field-group {
     margin-top: 5px;
   }
 
   .actions {
     margin-top: 20px;
-
-    @include media-sm {
-      width: 50%;
-      padding-right: 20px;
+    .grid-item:first-of-type {
+      margin-bottom: 20px;
+      @include media-sm {
+        margin-bottom: 0;
+      }
     }
   } 
 }

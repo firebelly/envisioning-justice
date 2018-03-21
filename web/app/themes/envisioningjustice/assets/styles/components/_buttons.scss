@@ -32,6 +32,9 @@
       background-color: transparent;
     }
   }
+  &.hide {
+    display: none;
+  }
 
   .icon {
     width: 25px;
@@ -42,7 +45,6 @@
   // Full-width buttons
   &.-full {
     width: 100%;
-    display: block;
   }
 
   &.button-circular {

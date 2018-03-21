@@ -235,6 +235,22 @@ var EJ = (function($) {
     }).on('keypress', 'form input, form textarea', function(e) {
       $(this).parents('.input-wrap, .BBFormFieldContainer').addClass('filled');
     });
+
+    // Clear Filter Button
+    $('#filter-clear').on('click', function(e) {
+      e.preventDefault();
+      // The form
+      var $form = $(this).closest('form');
+      $form.find('input[type="radio"]').prop('checked', false);
+      $form.find('select option').prop('selected', false);
+
+      $(this).addClass('hide');
+    });
+
+    // Add Clear Filter Button
+    $('form.filters').on('change', function(e) {
+      $(this).find('#filter-clear').removeClass('hide');
+    });
   }
 
   function _initSlickSliders() {
