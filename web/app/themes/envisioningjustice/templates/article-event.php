@@ -16,8 +16,7 @@ $event_url = get_permalink($event_post);
       <div class="event-details article-details">
         <time class="article-date flagged" datetime="<?= date('c', $event->event_start); ?>">
         <?php if (date('d', $event->event_start) != date('d', $event->event_end)) { ?>
-          <span class="month event-start"><?= date('M d', $event->event_start) ?></span>
-          <span class="month event-end"><?= date('M d', $event->event_end) ?></span>
+          <span class="month event-start"><?= date('M d', $event->event_start) ?></span> - <span class="month event-end"><?= date('M d', $event->event_end) ?></span>
         <?php } else { ?>
           <span class="month"><?= date('M', $event->event_start) ?></span> <span class="day"><?= date('d', $event->event_start) ?></span><?= ($event->year < date('Y') ? ' <span class="year">'.$event->year.'</span>' : '') ?>
         <?php } ?>
