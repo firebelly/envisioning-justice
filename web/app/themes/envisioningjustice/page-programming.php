@@ -4,10 +4,24 @@
  */
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
-$total_events = \Firebelly\PostTypes\Event\get_events(['countposts' => 1]);
-$total_pages = ($total_events > 0) ? ceil($total_events / $per_page) : 1;
-$events = \Firebelly\PostTypes\Event\get_events(['num_posts' => $per_page]);
 $body_content = apply_filters('the_content', $post->post_content);
+
+$filter_event_type = get_query_var('filter_event_type', '');
+$filter_program_type = get_query_var('filter_program_type', '');
+$filter_related_hub = get_query_var('filter_related_hub', '');
+$args = [
+  'event-type' => $filter_event_type,
+  'program-type' => $filter_program_type,
+  'hub' => $filter_related_hub,
+];
+
+// Get post count for load more
+$total_events = \Firebelly\PostTypes\Event\get_events(array_merge(['countposts' => 1], $args));
+$total_pages = ($total_events > 0) ? ceil($total_events / $per_page) : 1;
+
+// Actually pull posts
+$events = \Firebelly\PostTypes\Event\get_events($args);
+
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>
@@ -20,6 +34,8 @@ $body_content = apply_filters('the_content', $post->post_content);
         <div class="user-content">
           <?= $body_content ?>
         </div>
+
+        <?php include(locate_template('templates/events-filter.php')); ?>
 
         <?php
           if (!empty($events)) {

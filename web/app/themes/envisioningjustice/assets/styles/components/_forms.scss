@@ -6,6 +6,12 @@ form {
     margin-top: 20px;
   }
 
+  fieldset {
+    margin: 0;
+    border: 0;
+    padding: 0;
+  }
+  
   .input-wrap {
     display: flex;
     position: relative;
@@ -68,7 +74,7 @@ form {
     }
   }
 
-  input,
+  input:not[type=radio],
   textarea {
     width: 100%;
     color: inherit;
@@ -156,33 +162,79 @@ form {
   }
 }
 
+// Custom radio buttons
+.radio-wrap {
+
+  input[type=radio] {
+    display: none;
+  }
+
+  input[type=radio] + label {
+    display: block;
+    min-height: 30px;
+    line-height: 30px;
+    padding-left: 40px;
+    position: relative;
+    &::before,
+    &::after {
+      content: '';
+      border-radius: 50%;
+      position: absolute;
+    }
+    &::before {
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border: 5px solid;
+      // border-color: $color; in _color-themes.scss
+    }
+    &::after {
+      top: 9px;
+      left: 9px;
+      width: 12px;
+      height: 12px;
+      display: none;
+      // background: $color; in _color-themes.scss
+    }
+  }
+
+  input[type=radio]:checked + label {
+    &::after {
+      display: block;
+    }
+  }
+}
+
 // Custom select styles
 .select-wrapper {
   margin: 0;
-  padding: 0;
+  padding: 20px 0;
   position: relative;
+  border-bottom: 1px solid $black;
   select {
-    box-shadow: none;
-    border-radius: 0;
+    width: 100%;
     border: none;
-    padding-right: 28px;
+    box-shadow: none;
     background: none;
+    border-radius: 0;
+    @extend .type-h3;
+    padding-right: 28px;
     -webkit-appearance: none;
     &:focus {
       outline: none;
     }
   }
   &::after {
-    position: absolute;
-    top: 0;
     right: 0;
-    height: 30px;
-    width: 30px;
     content: '';
+    width: 15px;
+    bottom: 22px;
+    height: 10px;
+    position: absolute;
     pointer-events: none;
-    border-left: 1px solid $white;
-    background: url("../images/icon-arrow-down.svg") no-repeat center center;
-    background-size: 13px 8px;
+    background: url("../images/select-arrow.svg") no-repeat center center;
+    background-size: 10px 15px;
   }
 }
 
@@ -190,23 +242,8 @@ form {
 .filters {
   .program-topic,
   .focus-area-topic {
-    white-space: nowrap;
     overflow: hidden;
-  }
-}
-.filters .select-wrapper {
-  display: inline-block;
-  border-bottom: 1px solid $yellow;
-  select {
-    // @include type-h3;
-    max-width: 200px;
-    text-transform: uppercase;
-  }
-  &::after {
-    height: 16px;
-    width: 24px;
-    border: none;
-    background-color: $white;
+    white-space: nowrap;
   }
 }
 // go firefox!

@@ -34,6 +34,15 @@ $colors: (
         background-color: $color;
       }
     }
+
+    .radio-wrap label {
+      &::before {
+        border-color: $color;
+      }
+      &::after {
+        background-color: $color;
+      }
+    }
   }
 
   // Blackbaud form

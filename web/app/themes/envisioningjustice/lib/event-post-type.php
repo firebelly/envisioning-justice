@@ -77,9 +77,13 @@ function metaboxes( array $meta_boxes ) {
       ),
       array(
           'name'    => 'End Date',
-          // 'desc'    => '(Optional)',
           'id'      => $prefix . 'event_end',
           'type'    => 'text_datetime_timestamp',
+      ),
+      array(
+          'name'    => 'Event Type',
+          'id'      => $prefix . 'event_type',
+          'type'    => 'hidden',
       ),
       array(
           'name'    => 'Days of the Week',
@@ -109,40 +113,6 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'address',
           'type'    => 'address',
       ),
-      // array(
-      //     'name'    => 'Sponsor Organization(s)',
-      //     'id'      => $prefix . 'sponsor',
-      //     'type'    => 'wysiwyg',
-      //     'options' => array(
-      //       'textarea_rows' => 4,
-      //     ),
-      // ),
-      // array(
-      //     'name'    => 'Partner(s)',
-      //     'id'      => $prefix . 'partner',
-      //     'type'    => 'wysiwyg',
-      //     'options' => array(
-      //       'textarea_rows' => 4,
-      //     ),
-      // ),
-      // array(
-      //     'name'    => 'Funder(s)',
-      //     'id'      => $prefix . 'funder',
-      //     'type'    => 'wysiwyg',
-      //     'options' => array(
-      //       'textarea_rows' => 4,
-      //     ),
-      // ),
-      // array(
-      //     'name'    => 'Lat',
-      //     'id'      => $prefix . 'lat',
-      //     'type'    => 'text_small',
-      // ),
-      // array(
-      //     'name'    => 'Lng',
-      //     'id'      => $prefix . 'lng',
-      //     'type'    => 'text_small',
-      // ),
     ),
   );
 
@@ -210,6 +180,7 @@ function get_events($options=[]) {
   ];
   // Make sure we're only pulling upcoming or past events
   $args['order'] = !empty($options['past_events']) ? 'DESC' : 'ASC';
+
   $args['meta_query'] = [
     [
       'key' => '_cmb2_event_end',
@@ -217,14 +188,25 @@ function get_events($options=[]) {
       'compare' => (!empty($options['past_events']) ? '<=' : '>')
     ]
   ];
-  // If not Past Events, either make sure Exhibition is or isn't checked
-  // if (empty($options['past_events'])) {
-  //   $args['meta_query'][] = array(
-  //     'key' => '_cmb2_exhibition',
-  //     'value' => 'on',
-  //     'compare' => !empty($options['exhibitions']) ? '=' : 'NOT EXISTS',
-  //   );
-  // }
+
+  if (!empty($options['event-type'])) {
+    $args['meta_query'][] = array(
+      'key' => '_cmb2_event_type',
+      'value' => array( (int)$options['event-type'] ),
+      'compare' => 'IN',
+    );
+  }
+
+  if (!empty($options['program-type'])) {
+    $args['tax_query'][] = array(
+      array(
+        'taxonomy' => 'program-type',
+        'field'    => 'slug',
+        'terms'    => $options['program-type'],
+      ),
+    );
+  }
+
   if (!empty($options['hub'])) {
     $args['meta_query'][] = array(
       'key' => '_cmb2_related_hub',
@@ -232,6 +214,7 @@ function get_events($options=[]) {
       'compare' => 'IN',
     );
   }
+
   // Geo query?
   if (!empty($options['prox_zip']) && is_numeric($options['prox_zip']) && !empty($options['prox_miles'])) {
     $prox_zip = (int)$options['prox_zip'];
@@ -361,6 +344,20 @@ function geocode_address($post_id, $post='') {
 add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 2);
 
 /**
+ * Set whether event-type is 'one-time' or 'ongoing' (one or multiple days) for event filter
+ */
+function set_event_type($post_id) {
+  if ($_POST['_cmb2_event_start']['date'] != $_POST['_cmb2_event_end']['date']) {
+    $event_type = 'ongoing';
+  } else {
+    $event_type = 'one-time';
+  }
+
+  update_post_meta($post_id, '_cmb2_event_type', (string)$event_type);
+}
+add_action('save_post_event', __NAMESPACE__ . '\\set_event_type', 20, 1);
+
+/**
  * Generate an iCalendar .ics file for event
  */
 function event_ics() {
@@ -457,11 +454,9 @@ function get_ical_date($time, $incl_time=true){
  * Add query vars for events
  */
 function add_query_vars_filter($vars){
-  $vars[] = "past_events";
-  // $vars[] = "exhibitions";
-  $vars[] = "filter_hub";
-  $vars[] = "prox_miles";
-  $vars[] = "prox_zip";
+  $vars[] = "filter_event_type";
+  $vars[] = "filter_program_type";
+  $vars[] = "filter_related_hub";
   return $vars;
 }
 add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
@@ -488,6 +483,7 @@ function get_event_details($post) {
     'lat' => get_post_meta($post->ID, '_cmb2_lat', true),
     'lng' => get_post_meta($post->ID, '_cmb2_lng', true),
     'add_to_calendar_url' => admin_url('admin-ajax.php') . "?action=event_ics&amp;id={$post->ID}&amp;nc=" . current_time('timestamp'),
+    'event_type' => get_post_meta($post->ID, '_cmb2_event_type', true),
   ];
   // Is this event multiple days?
   $event['multiple_days'] = (date('Y-m-d', $event['event_start']) != date('Y-m-d', $event['event_end']));
