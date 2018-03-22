@@ -14,36 +14,16 @@ $resource_types = get_terms(array(
 
     <h3 class="type-h3">View By</h3>
 
-    <div class="field-group grid sm-spaced">
-      
-      <div class="grid-item sm-one-half">
-        <div class="select-wrapper">
-          <select name="filter_neighborhood">
-            <option value="">Neighborhood</option>
-            <?php
-              $hub_args = array(
-                'post_type' => 'hub',
-                'numberposts' => -1
-              );
+    <div class="field-group">
 
-              $hubs = get_posts($hub_args);
-              foreach ($hubs as $hub): ?>
-              <option <?= $filter_neighborhood==$hub->ID ? 'selected' : '' ?> value="<?= $hub->ID ?>"><?= $hub->post_title ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-item sm-one-half">
-        <div class="select-wrapper">
-          <select name="filter_resource_type">
-            <option value="">Resource Type</option>
-            <?php
-              foreach ($resource_types as $resource_type): ?>
-              <option <?= $filter_resource_type==$resource_type->slug ? 'selected' : '' ?> value="<?= $resource_type->slug ?>"><?= $resource_type->name ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+      <div class="select-wrapper">
+        <select name="filter_resource_type">
+          <option value="">Resource Type</option>
+          <?php
+            foreach ($resource_types as $resource_type): ?>
+            <option <?= $filter_resource_type==$resource_type->slug ? 'selected' : '' ?> value="<?= $resource_type->slug ?>"><?= $resource_type->name ?></option>
+          <?php endforeach; ?>
+        </select>
       </div>
 
     </div>
