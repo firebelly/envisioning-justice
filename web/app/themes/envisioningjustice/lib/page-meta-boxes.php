@@ -26,6 +26,8 @@ function metaboxes( array $meta_boxes ) {
         'type' => 'wysiwyg',
         'options' => array(
           'textarea_rows' => 6,
+          'media_buttons' => false,
+          'teeny'         => true,
         ),
       ),
     ),
@@ -64,7 +66,6 @@ function metaboxes( array $meta_boxes ) {
     'show_names'    => false,
     'fields'        => array(
       
-      // Secondary Header field
       array(
         'name' => 'Resource Submission Text',
         'desc' => 'The text to display as instructions for submitting a resource',
