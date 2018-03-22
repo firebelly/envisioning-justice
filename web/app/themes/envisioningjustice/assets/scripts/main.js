@@ -309,6 +309,18 @@ var EJ = (function($) {
       $('.accordion-title').not($(this)).find('.icon').remove();
       $('.accordion-title').not($(this)).find('button').append('<svg class="icon icon-plus" aria-hidden="true" role="presentation"><use xlink:href="#icon-plus"/></svg>');
     });
+
+    $('#resource-submit-expand').on('click', function(e) {
+      e.preventDefault();
+
+      if ($('.resource-submission-text').is('.open')) {
+        $('.resource-submission-text').removeClass('open');
+        $('.resource-submission-text').slideUp(250);
+      } else {
+        $('.resource-submission-text').addClass('open');
+        $('.resource-submission-text').slideDown(250);
+      }
+    });
   }
 
   function _openAccordion($accordion) {
