@@ -1,10 +1,12 @@
 <?php
+use Firebelly\Utils;
 $event = \Firebelly\PostTypes\Event\get_event_details($post);
 $header_text = get_post_meta($post->ID, '_cmb2_header_text', true);
 $header_text = str_replace("\n","<br>",strip_tags($header_text, '<u><br><br/>'));
 $related_hub = get_post_meta($post->ID, '_cmb2_related_hub', true);
 $post_date_timestamp = strtotime($post->post_date);
 $article_tags = \Firebelly\Utils\get_article_tags($post);
+$program_type = Utils\get_first_term($post, 'program-type');
 ?>
 
 <header class="page-header container">
@@ -12,7 +14,7 @@ $article_tags = \Firebelly\Utils\get_article_tags($post);
   <div class="-inner">
     <div class="page-header-top">
       <div class="slashfield" data-rows="7"></div>
-      <h2 class="page-title"><span class="color-black">Event</span><br> <?= get_the_title(); ?></h2>
+      <h2 class="page-title"><span class="color-black"><?= (!empty($program_type)) ? $program_type->name : 'Event' ?></span><br> <?= get_the_title(); ?></h2>
     </div>
     <div class="page-header-bottom grid">
       <div class="page-header-text md-one-half -left section">
