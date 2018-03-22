@@ -8,7 +8,7 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 
 $options = [
-  'supports'   => ['editor', 'title', 'thumbnail'],
+  'supports'   => ['editor', 'title'],
   'rewrite'    => ['slug' => 'programming'],
 ];
 $events = new PostType('event', $options);
