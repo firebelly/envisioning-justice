@@ -7,12 +7,14 @@ $per_page = get_option('posts_per_page');
 $body_content = apply_filters('the_content', $post->post_content);
 
 $filter_event_type = get_query_var('filter_event_type', '');
+$filter_order = get_query_var('filter_order', '');
 $filter_program_type = get_query_var('filter_program_type', '');
 $filter_related_hub = get_query_var('filter_related_hub', '');
 $args = [
   'event-type' => $filter_event_type,
   'program-type' => $filter_program_type,
   'hub' => $filter_related_hub,
+  'order' => $filter_order,
 ];
 
 // Get post count for load more

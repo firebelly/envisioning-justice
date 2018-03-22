@@ -80,11 +80,11 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'event_end',
           'type'    => 'text_datetime_timestamp',
       ),
-      array(
-          'name'    => 'Event Type',
-          'id'      => $prefix . 'event_type',
-          'type'    => 'hidden',
-      ),
+      // array(
+      //     'name'    => 'Event Type',
+      //     'id'      => $prefix . 'event_type',
+      //     'type'    => 'hidden',
+      // ),
       array(
           'name'    => 'Days of the Week',
           'desc'    => 'What days of the week does the program meet? Ex: "Mondays, Wednesdays, Fridays". If not multiple days, or if daily, leave blank.',
@@ -170,6 +170,7 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
  */
 function get_events($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
+  if (empty($options['order'])) $options['order'] = 'ASC';
   if (!empty($_REQUEST['past_events'])) $options['past_events'] = 1;
   // if (!empty($_REQUEST['exhibitions'])) $options['exhibitions'] = 1;
   $args = [
@@ -177,9 +178,8 @@ function get_events($options=[]) {
     'post_type' => 'event',
     'meta_key' => '_cmb2_event_start',
     'orderby' => 'meta_value_num',
+    'order' => $options['order']
   ];
-  // Make sure we're only pulling upcoming or past events
-  $args['order'] = !empty($options['past_events']) ? 'DESC' : 'ASC';
 
   $args['meta_query'] = [
     [
@@ -346,16 +346,16 @@ add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 2);
 /**
  * Set whether event-type is 'one-time' or 'ongoing' (one or multiple days) for event filter
  */
-function set_event_type($post_id) {
-  if ($_POST['_cmb2_event_start']['date'] != $_POST['_cmb2_event_end']['date']) {
-    $event_type = 'ongoing';
-  } else {
-    $event_type = 'one-time';
-  }
+// function set_event_type($post_id) {
+//   if ($_POST['_cmb2_event_start']['date'] != $_POST['_cmb2_event_end']['date']) {
+//     $event_type = 'ongoing';
+//   } else {
+//     $event_type = 'one-time';
+//   }
 
-  update_post_meta($post_id, '_cmb2_event_type', (string)$event_type);
-}
-add_action('save_post_event', __NAMESPACE__ . '\\set_event_type', 20, 1);
+//   update_post_meta($post_id, '_cmb2_event_type', (string)$event_type);
+// }
+// add_action('save_post_event', __NAMESPACE__ . '\\set_event_type', 20, 1);
 
 /**
  * Generate an iCalendar .ics file for event
@@ -455,6 +455,7 @@ function get_ical_date($time, $incl_time=true){
  */
 function add_query_vars_filter($vars){
   $vars[] = "filter_event_type";
+  $vars[] = "filter_order";
   $vars[] = "filter_program_type";
   $vars[] = "filter_related_hub";
   return $vars;

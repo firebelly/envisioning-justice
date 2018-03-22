@@ -5,6 +5,7 @@
 
 $filter_neighborhood = get_query_var('filter_neighborhood', '');
 $filter_resource_type = get_query_var('filter_resource_type', '');
+$filter_order = get_query_var('filter_order', '');
 $resource_types = get_terms(array(
   'taxonomy' => 'resource-type',
   'hide_empty' => true,
@@ -14,16 +15,27 @@ $resource_types = get_terms(array(
 
     <h3 class="type-h3">View By</h3>
 
-    <div class="field-group">
+    <div class="field-group grid sm-spaced">
 
-      <div class="select-wrapper">
-        <select name="filter_resource_type">
-          <option value="">Resource Type</option>
-          <?php
-            foreach ($resource_types as $resource_type): ?>
-            <option <?= $filter_resource_type==$resource_type->slug ? 'selected' : '' ?> value="<?= $resource_type->slug ?>"><?= $resource_type->name ?></option>
-          <?php endforeach; ?>
-        </select>
+      <div class="grid-item sm-one-half">
+        <div class="select-wrapper">
+          <select name="filter_resource_type">
+            <option value="">Resource Type</option>
+            <?php
+              foreach ($resource_types as $resource_type): ?>
+              <option <?= $filter_resource_type==$resource_type->slug ? 'selected' : '' ?> value="<?= $resource_type->slug ?>"><?= $resource_type->name ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-item sm-one-half">
+        <div class="select-wrapper">
+          <select name="filter_order">
+            <option value="ASC" <?= $filter_order=='ASC' ? 'selected' : '' ?>>Name (A-Z)</option>
+            <option value="DESC" <?= $filter_order=='DESC' ? 'selected' : '' ?>>Name (Z-A)</option>
+          </select>
+        </div>
       </div>
 
     </div>

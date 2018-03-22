@@ -114,6 +114,7 @@ add_action('save_post_resource', __NAMESPACE__ . '\\geocode_address', 20, 2);
 function add_query_vars_filter($vars){
   $vars[] = "filter_resource_type";
   $vars[] = "filter_neighborhood";
+  $vars[] = "filter_order";
   return $vars;
 }
 add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
@@ -123,9 +124,12 @@ add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
  */
 function get_resources($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = -1;
+  if (empty($options['order'])) $options['order'] = 'ASC';
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type'   => 'resource',
+    'orderby'     => 'title',
+    'order'       => $options['order']
   ];
 
   if (!empty($options['resource-type'])) {

@@ -16,17 +16,6 @@ $program_types = get_terms(array(
     <h3 class="type-h3">View By</h3>
 
     <div class="field-group grid sm-spaced">
-      <div class="radio-wrap grid-item sm-one-half">
-        <input type="radio" name="filter_event_type" id="one-time" value="one-time" <?= $filter_event_type=='one-time' ? 'checked' : '' ?>>
-        <label for="one-time">One-Time Events</label>
-      </div>
-      <div class="radio-wrap grid-item sm-one-half">
-        <input type="radio" name="filter_event_type" id="ongoing" value="ongoing" <?= $filter_event_type=='ongoing' ? 'checked' : '' ?>>
-        <label for="ongoing">Ongoing Events</label>
-      </div>
-    </div>
-
-    <div class="field-group grid sm-spaced">
       
       <div class="hub-topic grid-item sm-one-half">
         <div class="select-wrapper">
@@ -58,6 +47,14 @@ $program_types = get_terms(array(
         </div>
       </div>
 
+      <div class="grid-item sm-full">
+        <div class="select-wrapper">
+          <select name="filter_order">
+            <option value="ASC" <?= $filter_order=='ASC' ? 'selected' : '' ?>>Date (0-9)</option>
+            <option value="DESC" <?= $filter_order=='DESC' ? 'selected' : '' ?>>Date (9-0)</option>
+          </select>
+        </div>
+      </div>
 
     </div>
 

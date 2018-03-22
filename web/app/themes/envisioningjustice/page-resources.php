@@ -10,9 +10,12 @@ $per_page = get_option('posts_per_page');
 
 $filter_neighborhood = get_query_var('filter_neighborhood', '');
 $filter_resource_type = get_query_var('filter_resource_type', '');
+$filter_order = get_query_var('filter_order', '');
 $args = [
   'resource-type' => $filter_resource_type,
   'hub' => $filter_neighborhood,
+  'orderby' => 'title',
+  'order' => $filter_order,
 ];
   
 // Get post count for load more
