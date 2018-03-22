@@ -46,6 +46,13 @@ $colors: (
   }
 
   // Blackbaud form
+  #register #mongo-form {
+    .BBFormContainer .BBFormFieldContainer {
+      &.-focus::after {
+        background-color: $color;
+      }
+    }
+  }
   .bb-form {
     p {
       color: $color; 

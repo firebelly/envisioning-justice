@@ -381,3 +381,59 @@ form {
     display: none;
   }
 }
+
+// Registration Form Mods
+#register #mongo-form {
+
+  .BBFormContainer {
+
+    .BBFormFieldContainer {
+      color: $black;
+
+      &::after {
+        background-color: $black;
+      }
+    }
+
+  }
+
+  .BBFormTextbox,
+  .BBFormTextArea {
+    color: $black;
+    max-width: 100%;
+    &::placeholder {
+      color: rgba($black,.6);
+    }
+  }
+
+  .BBFormSection {
+    padding-bottom: 0;
+  }
+
+  // "1 Registrant" text they don't want displayed
+  #bboxevent_priceselect_ctl00_lblPriceRegCount {
+    display: none;
+  }
+
+  .BBFormTableHeader {
+    border-bottom-color: $black;
+  }
+
+  .BBFormTable {
+    padding: 0;
+    border: none;
+  }
+
+  .BBFormButtonRow {
+    .BBFormFieldContainer {
+      &::after {
+        display: none;
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+}

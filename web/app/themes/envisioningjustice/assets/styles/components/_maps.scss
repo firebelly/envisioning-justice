@@ -17,6 +17,10 @@
     background-position: center center;
   }
 
+  &.loaded {
+    background: none;
+  }
+
   .mapboxgl-ctrl-icon.mapboxgl-ctrl-compass {
     display: none;
   }
