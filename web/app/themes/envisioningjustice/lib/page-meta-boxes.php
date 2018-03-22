@@ -54,6 +54,30 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['resources_metabox'] = array(
+    'id'            => 'resources_metabox',
+    'title'         => __( 'Resource Submission Text', 'cmb2' ),
+    'object_types'  => array( 'page' ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-resources.php'] ),
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => false,
+    'fields'        => array(
+      
+      // Secondary Header field
+      array(
+        'name' => 'Resource Submission Text',
+        'desc' => 'The text to display as instructions for submitting a resource',
+        'id'   => $prefix . 'resource_submission_text',
+        'type' => 'wysiwyg',
+        'options' => array(
+          'textarea_rows' => 4,
+          'wpautop' => false,
+        ),
+      ),
+    ),
+  );
+
   $meta_boxes['page_content_areas'] = array(
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),

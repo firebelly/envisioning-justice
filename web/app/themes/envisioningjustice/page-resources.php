@@ -4,6 +4,7 @@
  */
 
 $no_image_in_header = true;
+$resource_submission_text = get_post_meta($post->ID, '_cmb2_resource_submission_text', true);
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
 
@@ -50,14 +51,7 @@ $resources = \Firebelly\PostTypes\Resource\get_resources($args);
         <h3 class="type-h3">Know of any resources missing from the list?</h3>
         <button class="button -full" id="resource-submit-expand">Submit a Resource</button>
         <div class="resource-submission-text user-content">
-          <p>To submit a resource to be added to our resources page please send the following information to <a href="mailto:ej@ilhumanities.org">ej@ilhumanities.org</a></p>
-          <ul>
-            <li>Resrouce Name</li>
-            <li>Resource Address</li>
-            <li>Resource Website URL</li>
-            <li>A full description of the resource</li>
-            <li>What kind of resource it is</li>
-          </ul>
+          <?= $resource_submission_text ?>
         </div>
       </div>
 
