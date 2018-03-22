@@ -32,7 +32,7 @@ $resource_types = get_terms(array(
       <div class="grid-item sm-one-half">
         <div class="select-wrapper">
           <select name="filter_order">
-            <option value="ASC" <?= $filter_order=='ASC' ? 'selected' : '' ?>>Name (A-Z)</option>
+            <option value="">Name (A-Z)</option>
             <option value="DESC" <?= $filter_order=='DESC' ? 'selected' : '' ?>>Name (Z-A)</option>
           </select>
         </div>
@@ -44,6 +44,6 @@ $resource_types = get_terms(array(
       <div class="grid-item sm-one-half">
         <button class="button -full" type="submit">Filter</button>
       </div>
-      <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_neighborhood !== '' || $filter_resource_type !== '') ? '' : ' hide' ?>">Clear All</button></div>
+      <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_order !== '' || $filter_resource_type !== '') ? '' : ' hide' ?>">Clear All</button></div>
     </div>
   </form>

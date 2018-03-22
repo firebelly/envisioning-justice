@@ -50,7 +50,7 @@ $program_types = get_terms(array(
       <div class="grid-item sm-full">
         <div class="select-wrapper">
           <select name="filter_order">
-            <option value="ASC" <?= $filter_order=='ASC' ? 'selected' : '' ?>>Date (0-9)</option>
+            <option value="">Date (0-9)</option>
             <option value="DESC" <?= $filter_order=='DESC' ? 'selected' : '' ?>>Date (9-0)</option>
           </select>
         </div>
@@ -62,6 +62,6 @@ $program_types = get_terms(array(
       <div class="grid-item sm-one-half">
         <button class="button -full" type="submit">Filter</button>
       </div>
-      <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_related_hub !== '' || $filter_program_type !== '' || $filter_event_type !== '') ? '' : ' hide' ?>">Clear All</button></div>
+      <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_related_hub !== '' || $filter_program_type !== '' || $filter_order !== '') ? '' : ' hide' ?>">Clear All</button></div>
     </div>
   </form>
