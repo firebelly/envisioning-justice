@@ -109,6 +109,16 @@ function geocode_address($post_id, $post='') {
 add_action('save_post_resource', __NAMESPACE__ . '\\geocode_address', 20, 2);
 
 /**
+ * Add query vars for events
+ */
+function add_query_vars_filter($vars){
+  $vars[] = "filter_resource_type";
+  $vars[] = "filter_neighborhood";
+  return $vars;
+}
+add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
+
+/**
  * Get Resources
  */
 function get_resources($options=[]) {
@@ -117,14 +127,23 @@ function get_resources($options=[]) {
     'numberposts' => $options['num_posts'],
     'post_type'   => 'resource',
   ];
-  if (!empty($options['type'])) {
-    $args['tax_query'] = [
-      [
-        'taxonomy' => 'resource type',
-        'field' => 'slug',
-        'terms' => $options['type']
-      ]
-    ];
+
+  if (!empty($options['resource-type'])) {
+    $args['tax_query'][] = array(
+      array(
+        'taxonomy' => 'resource-type',
+        'field'    => 'slug',
+        'terms'    => $options['resource-type'],
+      ),
+    );
+  }
+
+  if (!empty($options['hub'])) {
+    $args['meta_query'][] = array(
+      'key' => '_cmb2_related_hub',
+      'value' => array( (int)$options['hub'] ),
+      'compare' => 'IN',
+    );
   }
 
   if (!empty($options['countposts'])) {

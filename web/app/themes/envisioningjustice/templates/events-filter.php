@@ -6,7 +6,6 @@
 $filter_related_hub = get_query_var('filter_related_hub', '');
 $filter_event_type = get_query_var('filter_event_type', '');
 $filter_program_type = get_query_var('filter_program_type', '');
-$post_type = 'event';
 $program_types = get_terms(array(
   'taxonomy' => 'program-type',
   'hide_empty' => true,
