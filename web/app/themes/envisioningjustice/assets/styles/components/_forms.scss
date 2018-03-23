@@ -74,7 +74,7 @@ form {
     }
   }
 
-  input:not[type=radio],
+  input:not([type=radio]),
   textarea {
     width: 100%;
     color: inherit;
