@@ -170,6 +170,9 @@ $colors: (
         fill: $black;
       }
     }
+    &.button-circular {
+      border-color: $color;
+    }
   }
 
   // Article lists
