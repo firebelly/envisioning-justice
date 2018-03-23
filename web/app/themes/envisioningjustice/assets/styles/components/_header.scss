@@ -346,7 +346,7 @@
   .header-text-secondary {
     color: $gray;
     background: $black;
-    padding: 0 $padding;
+    padding: #{$padding * 2} $padding 0;
     margin-left: -$padding;
     width: calc(100% + #{$padding * 2});
 
