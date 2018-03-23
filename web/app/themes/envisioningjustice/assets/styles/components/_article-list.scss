@@ -11,6 +11,18 @@
         padding: 0 20px;
       }
     }
+    @include media-md {
+      article {
+        max-width: 100%;
+        flex-basis: 100%;
+      }
+    }
+    @include min-screen($breakpoint-nav) {
+      article {
+        max-width: 50%;
+        flex-basis: 50%;
+      }
+    }
   }
 
   article {
@@ -19,8 +31,6 @@
       margin: 0 0 10px;
       @include type-h2;
       a {
-        hyphens: auto;
-        display: block; // for MS Edge support? 
         &:hover,
         &:active,
         &:focus {
