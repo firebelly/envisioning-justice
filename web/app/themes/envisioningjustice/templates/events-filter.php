@@ -47,15 +47,6 @@ $program_types = get_terms(array(
         </div>
       </div>
 
-      <div class="grid-item sm-full">
-        <div class="select-wrapper">
-          <select name="filter_order">
-            <option value="">Date (0-9)</option>
-            <option value="DESC" <?= $filter_order=='DESC' ? 'selected' : '' ?>>Date (9-0)</option>
-          </select>
-        </div>
-      </div>
-
     </div>
 
     <div class="actions grid sm-spaced">
