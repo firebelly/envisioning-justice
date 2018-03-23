@@ -30,7 +30,19 @@ body.single-resource {
 
   .map-container {
     @include media-md {
+      height: auto;
       min-height: 600px;
+
+      #map {
+        top: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+      }
+
+      .mapboxgl-ctrl-top-right {
+        top: 4vw;
+      }
     }
   }
 }
