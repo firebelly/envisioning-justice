@@ -158,6 +158,7 @@ $colors: (
   // Buttons
   .button:not(.theme-exception) {
     color: $color;
+    border-color: $color;
     .icon {
       fill: $color;
     }
