@@ -34,7 +34,7 @@ body.single-story {
     .article-title {
       margin: 0 0 10px;
     }
-    p {
+    p:not(.actions) {
       margin: 0;
     }
   }
