@@ -58,6 +58,7 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
           <?= $secondary_content ?>
         </div>
         <?php } ?>
+        <h3 class="type-h2">Upcoming Events</h3>
         <div class="events-list article-list grid">
           <?php echo \Firebelly\PostTypes\Event\get_events(['num_posts' => 4]); ?>
         </div>
