@@ -1,5 +1,5 @@
 set :stage, :production
-set :application, 'ih_wp'
+set :application, 'envisioningjustice_staging'
 set :login, 'ilhumanities'
 
 # Simple Role Syntax
@@ -10,7 +10,7 @@ set :login, 'ilhumanities'
 
 # Extended Server Syntax
 # ======================
-server 'ilhumanities.webfactional.com', user: fetch(:login), roles: %w{web app db}
+server 'envisioningjustice.org', user: fetch(:login), roles: %w{web app db}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
