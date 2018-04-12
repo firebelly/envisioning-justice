@@ -11,6 +11,13 @@ body.single-resource {
     background: none;
   }
 
+  .actions {
+    margin: 40px 0 0;
+    p {
+      margin: 0;
+    }
+  }
+
   .resource-meta {
     z-index: 1;
     @include angledEdge(after, $afterOrientation: rtl, $color: $black);
