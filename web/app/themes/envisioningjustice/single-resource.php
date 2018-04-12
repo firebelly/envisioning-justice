@@ -52,7 +52,7 @@ $secondary_title = 'Resource';
           <div class="grid-item sm-one-half address type-h3">
             <?php if (!empty($resource_address['address-1'])) { ?>
             <p><?= $resource_address['address-1'] ?></p>
-            <p><?= $resource_address['city'].', '.$resource_address['state'].', '.$resource_address['zip'] ?></p>
+            <p><?= $resource_address['city'].', '.$resource_address['state'].' '.$resource_address['zip'] ?></p>
             <?php } ?>
           </div>
         </div>
