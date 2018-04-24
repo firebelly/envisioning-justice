@@ -66,8 +66,8 @@ $body_content = apply_filters('the_content', $post->post_content);
             <?= $related_events ?>
           </div>
           <?php if ($related_events_count > 6) { ?>
-          <div class="events-buttons section-actions grid sm-spaced">
-            <div class="view-all grid-item sm-one-half"><a href="/programming/?filter_related_hub=<?= $post->ID ?>#page-content" class="button -full">View All Events</a></div>
+          <div class="events-buttons section-actions">
+            <div class="view-all"><a href="/programming/?filter_related_hub=<?= $post->ID ?>#page-content" class="button -full">All Events</a></div>
           </div>
           <?php } ?>
         <?php } ?>
