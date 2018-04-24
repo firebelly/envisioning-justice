@@ -51,7 +51,7 @@ $program_types = get_terms(array(
 
     <div class="actions grid sm-spaced">
       <div class="grid-item sm-one-half">
-        <button class="button -full" type="submit">Filter</button>
+        <button class="button -full" type="submit">Search</button>
       </div>
       <div class="grid-item sm-one-half"><button id="filter-clear" class="button -full<?= ($filter_related_hub !== '' || $filter_program_type !== '' || $filter_order !== '') ? '' : ' hide' ?>">Clear All</button></div>
     </div>
