@@ -11,7 +11,7 @@ $program_types = get_terms(array(
   'hide_empty' => true,
 ));
 ?>
-  <form class="filters" action="/programming" method="get">
+  <form class="filters" action="/programming#filter" method="get" id="filter">
 
     <h3 class="type-h3">View By</h3>
 

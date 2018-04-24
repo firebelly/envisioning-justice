@@ -57,13 +57,19 @@ $body_content = apply_filters('the_content', $post->post_content);
 
       <div class="events-section section md-one-half color-bg-gray">
         <?php 
-          $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 4, 'hub' => $post->ID, 'exclude_from_map' =>true]);
+          $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 6, 'hub' => $post->ID, 'exclude_from_map' =>true]);
+          $related_events_count = \Firebelly\PostTypes\Event\get_events(['countposts' => true]);
 
           if ($related_events) { ?>
-        <h2 class="type-h2">Upcoming Events at <?= get_the_title(); ?></h2>
-        <div class="events-list article-list grid">
-          <?= $related_events ?>
-        </div>
+          <h2 class="type-h2">Upcoming Events at <?= get_the_title(); ?></h2>
+          <div class="events-list article-list grid">
+            <?= $related_events ?>
+          </div>
+          <?php if ($related_events_count > 6) { ?>
+          <div class="events-buttons section-actions grid sm-spaced">
+            <div class="view-all grid-item sm-one-half"><a href="/programming/?filter_related_hub=<?= $post->ID ?>#page-content" class="button -full">View All Events</a></div>
+          </div>
+          <?php } ?>
         <?php } ?>
       </div>
 

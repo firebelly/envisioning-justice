@@ -11,7 +11,7 @@ $resource_types = get_terms(array(
   'hide_empty' => true,
 ));
 ?>
-  <form class="filters" action="/resources" method="get">
+  <form class="filters" action="/resources#filter" method="get" id="filter">
 
     <h3 class="type-h3">View By</h3>
 
