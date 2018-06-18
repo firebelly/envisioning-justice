@@ -242,6 +242,7 @@ var EJ = (function($) {
       // The form
       var $form = $(this).closest('form');
       $form.find('input[type="radio"]').prop('checked', false);
+      $form.find('input[type="radio"]:first').prop('checked', true);
       $form.find('select option').prop('selected', false);
 
       $(this).addClass('hide');
@@ -374,18 +375,20 @@ var EJ = (function($) {
       $mapPoint.each(function(){
         var $this = $(this);
         $this.addClass('mapped');
-        mapPoints.push({
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
-          },
-          'properties': {
-            'title': $this.attr('data-title'),
-            'url': $this.attr('data-url'),
-            'enabled': !$this.hasClass('disabled')
-          }
-        });
+        if ($this.attr('data-lat') !== '') {
+          mapPoints.push({
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+            },
+            'properties': {
+              'title': $this.attr('data-title'),
+              'url': $this.attr('data-url'),
+              'enabled': !$this.hasClass('disabled')
+            }
+          });
+        }
       });
 
       mapPointsData = {
@@ -394,7 +397,7 @@ var EJ = (function($) {
       };
 
       // Center map
-      if (mapPoints.length > 1) {      
+      if (mapPoints.length > 1) {
         var bounds = new mapboxgl.LngLatBounds();
         mapPointsData.features.forEach(function(feature) {
           bounds.extend(feature.geometry.coordinates);
@@ -545,7 +548,7 @@ var EJ = (function($) {
       });
 
       map.setView(pointsLayer.getBounds().getCenter());
-  
+
     }
 
     // After render and titles loaded hide the
@@ -577,18 +580,20 @@ var EJ = (function($) {
       $mapPoints.each(function(){
         var $this = $(this);
         $this.addClass('mapped');
-        mapPointsData.features.push({
-          'type': 'Feature',
-          'geometry': {
-            'type': 'Point',
-            'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
-          },
-          'properties': {
-            'title': $this.attr('data-title'),
-            'url': $this.attr('data-url'),
-            'enabled': !$this.hasClass('disabled')
-          }
-        });
+        if ($this.attr('data-lat') !== '') {
+          mapPointsData.features.push({
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [parseFloat($this.attr('data-lng')), parseFloat($this.attr('data-lat'))]
+            },
+            'properties': {
+              'title': $this.attr('data-title'),
+              'url': $this.attr('data-url'),
+              'enabled': !$this.hasClass('disabled')
+            }
+          });
+        }
       });
 
       map.getSource('points').setData(mapPointsData);
@@ -680,6 +685,7 @@ var EJ = (function($) {
       var $load_more = $(this).closest('.load-more');
       var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
       var page = parseInt($load_more.attr('data-page-at'));
+      var past_events = parseInt($load_more.attr('data-past-events'));
       var per_page = parseInt($load_more.attr('data-per-page'));
       var prox_zip = (post_type==='event') ? parseInt($load_more.attr('data-prox-zip')) : '';
       var prox_miles = (post_type==='event') ? parseInt($load_more.attr('data-prox-miles')) : '';
@@ -692,6 +698,7 @@ var EJ = (function($) {
           data: {
               action: 'load_more_posts',
               post_type: post_type,
+              past_events: past_events,
               page: page+1,
               per_page: per_page,
               prox_zip: prox_zip,
@@ -816,9 +823,9 @@ var EJ = (function($) {
       var rows = $(this).data('rows');
       var slashAmount = rows*(maxW / slashW);
       var fieldW = $(this).width();
-      
+
       $(this).height(slashH*rows);
-      
+
       for(var i = 0;i < slashAmount; i++) {
         $(this).append('<svg class="slash" aria-hidden="true" role="presentation"><use xlink:href="#slash"/></svg>');
       }

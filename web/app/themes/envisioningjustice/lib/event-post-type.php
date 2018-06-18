@@ -28,6 +28,7 @@ function edit_columns($columns){
     'title' => 'Title',
     'event_dates' => 'Date',
     '_cmb2_venue' => 'Venue',
+    'latlng' => 'LatLng',
   );
   return $columns;
 }
@@ -37,9 +38,12 @@ function custom_columns($column){
   global $post;
   if ( $post->post_type == 'event' ) {
     $custom = get_post_custom();
-    if ( $column == 'featured_image' )
+    if ( $column == 'featured_image' ) {
       echo the_post_thumbnail( 'event-thumb' );
-    elseif ( $column == 'event_dates' ) {
+    } elseif ( $column == 'latlng' ) {
+      echo (!empty($custom['_cmb2_lat'][0]) && !empty($custom['_cmb2_lng'][0]) ? '&check;' : '');
+
+    } elseif ( $column == 'event_dates' ) {
       $timestamp_start = $custom['_cmb2_event_start'][0];
       $timestamp_end = !empty($custom['_cmb2_event_end'][0]) ? $custom['_cmb2_event_end'][0] : $timestamp_start;
       if ($timestamp_end != $timestamp_start) {
@@ -80,18 +84,14 @@ function metaboxes( array $meta_boxes ) {
           'id'      => $prefix . 'event_end',
           'type'    => 'text_datetime_timestamp',
       ),
-      // array(
-      //     'name'    => 'Event Type',
-      //     'id'      => $prefix . 'event_type',
-      //     'type'    => 'hidden',
-      // ),
+
       array(
           'name'    => 'Days of the Week',
           'desc'    => 'What days of the week does the program meet? Ex: "Mondays, Wednesdays, Fridays". If not multiple days, or if daily, leave blank.',
           'id'      => $prefix . 'days',
           'type'    => 'text',
       ),
-     
+
     ),
   );
 
@@ -112,6 +112,26 @@ function metaboxes( array $meta_boxes ) {
           'name'    => 'Address',
           'id'      => $prefix . 'address',
           'type'    => 'address',
+      ),
+      array(
+          'name'    => 'Latitude',
+          'id'      => $prefix . 'lat',
+          'type'    => 'text',
+          'save_field'  => false, // Otherwise CMB2 will end up removing the value.
+          'attributes'  => array(
+            'readonly' => 'readonly',
+            'disabled' => 'disabled',
+          ),
+     ),
+      array(
+          'name'    => 'Longitude',
+          'id'      => $prefix . 'lng',
+          'type'    => 'text',
+          'save_field'  => false, // Otherwise CMB2 will end up removing the value.
+          'attributes'  => array(
+            'readonly' => 'readonly',
+            'disabled' => 'disabled',
+          ),
       ),
     ),
   );
@@ -172,14 +192,14 @@ function get_events($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
   if (empty($options['order'])) $options['order'] = 'ASC';
   if (!empty($_REQUEST['past_events'])) $options['past_events'] = 1;
-  // if (!empty($_REQUEST['exhibitions'])) $options['exhibitions'] = 1;
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type' => 'event',
     'meta_key' => '_cmb2_event_start',
     'orderby' => 'meta_value_num',
-    'order' => $options['order']
   ];
+  // If past_events, make sure it's DESC, otherwise use the option sent along (can be for Z-A sorting in Resources)
+  $args['order'] = !empty($options['past_events']) ? 'DESC' : $options['order'];
 
   $args['meta_query'] = [
     [
@@ -291,7 +311,7 @@ function get_event_ids_in_proximity($prox_zip,$prox_miles) {
 }
 
 /**
- * Update lookup table for events geodata, if post_id isn't sent, all posts are updates/inserted into wp_events_lat_lng
+ * Update lookup table for events geodata, if post_id isn't sent, all posts are updated/inserted into wp_events_lat_lng
  */
 function update_events_lat_lng($post_id='') {
   global $wpdb;
@@ -317,8 +337,8 @@ function update_events_lat_lng($post_id='') {
  * Geocode address for event and save in custom fields
  */
 function geocode_address($post_id, $post='') {
-  $address = !empty($_POST['_cmb2_address']) ? $_POST['_cmb2_address'] : '';
-  $address = wp_parse_args($address, array(
+  if (empty($_POST['_cmb2_address'])) return;
+  $address = wp_parse_args($_POST['_cmb2_address'], array(
       'address-1' => '',
       'address-2' => '',
       'city'      => '',
@@ -328,7 +348,7 @@ function geocode_address($post_id, $post='') {
 
   if (!empty($address['address-1'])):
     $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
-    $request_url = "http://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined);
+    $request_url = "https://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined . '&key=' . getenv('GEOCODE_API_KEY'));
 
     $xml = simplexml_load_file($request_url);
     $status = $xml->status;
@@ -342,20 +362,6 @@ function geocode_address($post_id, $post='') {
   endif;
 }
 add_action('save_post_event', __NAMESPACE__ . '\\geocode_address', 20, 2);
-
-/**
- * Set whether event-type is 'one-time' or 'ongoing' (one or multiple days) for event filter
- */
-// function set_event_type($post_id) {
-//   if ($_POST['_cmb2_event_start']['date'] != $_POST['_cmb2_event_end']['date']) {
-//     $event_type = 'ongoing';
-//   } else {
-//     $event_type = 'one-time';
-//   }
-
-//   update_post_meta($post_id, '_cmb2_event_type', (string)$event_type);
-// }
-// add_action('save_post_event', __NAMESPACE__ . '\\set_event_type', 20, 1);
 
 /**
  * Generate an iCalendar .ics file for event
@@ -411,45 +417,6 @@ function get_ical_date($time, $incl_time=true){
   return $incl_time ? date('Ymd\THis', $time) : date('Ymd', $time);
 }
 
-// custom URLs like /events/2014/11/the-event-name
-// function event_rewrite_tag() {
-//   global $wp_rewrite;
-//   $event_structure = '/events/%year%/%monthnum%/%postname%';
-//   $wp_rewrite->add_rewrite_tag("%event%", '([^/]+)', "event=");
-//   $wp_rewrite->add_permastruct('event', $event_structure, true);
-// }
-// add_action('init', __NAMESPACE__ . '\\event_rewrite_tag', 10, 0);
-
-// add_filter('post_type_link', __NAMESPACE__ . '\\event_permalink', 10, 3);
-// // Adapted from get_permalink function in wp-includes/link-template.php
-// function event_permalink($permalink, $post_id, $leavename) {
-//     $post = get_post($post_id);
-//     $rewritecode = array(
-//         '%year%',
-//         '%monthnum%',
-//         '%day%',
-//         $leavename? '' : '%postname%',
-//         '%post_id%',
-//     );
-
-//     if ( '' != $permalink && !in_array($post->post_status, array('draft', 'pending', 'auto-draft')) ) {
-//         $unixtime = strtotime($post->post_date);
-
-//         $date = explode(" ",date('Y m d H i s', $unixtime));
-//         $rewritereplace =
-//         array(
-//             $date[0],
-//             $date[1],
-//             $date[2],
-//             $post->post_name,
-//             $post->ID,
-//         );
-//         $permalink = str_replace($rewritecode, $rewritereplace, $permalink);
-//     } else { // if they're not using the fancy permalink option
-//     }
-//     return $permalink;
-// }
-
 /**
  * Add query vars for events
  */
@@ -458,6 +425,7 @@ function add_query_vars_filter($vars){
   $vars[] = "filter_order";
   $vars[] = "filter_program_type";
   $vars[] = "filter_related_hub";
+  $vars[] = "past_events";
   return $vars;
 }
 add_filter( 'query_vars', __NAMESPACE__ . '\\add_query_vars_filter' );
@@ -496,7 +464,7 @@ function get_event_details($post) {
     $event['time_txt'] = $event['start_time'];
   }
   $event['days'] = get_post_meta($post->ID, '_cmb2_days', true);
-  
+
   $event['archived'] = empty($event['event_end']) ? ($event['event_start'] < current_time('timestamp')) : ($event['event_end'] < current_time('timestamp'));
   $event['desc'] = date('M d, Y @ ', $event['event_start']) . $event['time_txt']; // used in map pins
   $event['year'] = date('Y', $event['event_start']);
@@ -598,12 +566,12 @@ function import_csv_admin_form() {
 <pre>
 Ev_Type                         (Focus Area)
 Ev_Group                        (Related Program)
-Ev_Start_Date                  
-Ev_End_Date                    
-Ev_Start_Time                  
-Ev_End_Time                    
-Ev_Event_ID                    
-Ev_Import_ID                   
+Ev_Start_Date
+Ev_End_Date
+Ev_Start_Time
+Ev_End_Time
+Ev_Event_ID
+Ev_Import_ID
 Attendee Cost                   (Cost)
 Attendee Cost Details           (Cost details)
 RSVP                            (yes/no)
@@ -612,13 +580,13 @@ Web Title                       (Title)
 Web Description                 (Body)
 RSVP URL                        (Registration URL)
 RSVP Embed                      (Reg. embed code)
-Location                        
-Ev_Prt_1_01_CnAdrPrf_Addrline1 
-Ev_Prt_1_01_CnAdrPrf_Addrline2 
-Ev_Prt_1_01_CnAdrPrf_City      
-Ev_Prt_1_01_CnAdrPrf_State     
-Ev_Prt_1_01_CnAdrPrf_ZIP       
-Ev_Prt_1_01_CnAdrPrf_County                           
+Location
+Ev_Prt_1_01_CnAdrPrf_Addrline1
+Ev_Prt_1_01_CnAdrPrf_Addrline2
+Ev_Prt_1_01_CnAdrPrf_City
+Ev_Prt_1_01_CnAdrPrf_State
+Ev_Prt_1_01_CnAdrPrf_ZIP
+Ev_Prt_1_01_CnAdrPrf_County
 </pre>
   </div>
 <?php

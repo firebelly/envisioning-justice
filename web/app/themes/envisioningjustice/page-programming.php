@@ -10,7 +10,10 @@ $filter_event_type = get_query_var('filter_event_type', '');
 $filter_order = get_query_var('filter_order', '');
 $filter_program_type = get_query_var('filter_program_type', '');
 $filter_related_hub = get_query_var('filter_related_hub', '');
+$past_events = get_query_var('past_events', 0);
+$is_filtering = !empty($filter_related_hub) || !empty($filter_program_type) || !empty($filter_order) || !empty($past_events);
 $args = [
+  'past_events' => $past_events,
   'event-type' => $filter_event_type,
   'program-type' => $filter_program_type,
   'hub' => $filter_related_hub,
@@ -43,13 +46,13 @@ $events = \Firebelly\PostTypes\Event\get_events($args);
           if (!empty($events)) {
             echo '<div class="events-list load-more-container article-list grid">'.$events.'</div>';
           } else {
-            echo '<p class="empty-message">There are currently no upcoming events.</p>';
+            echo ($is_filtering ? '<p class="empty-message">There are no events matching search.</p>' : '<p class="empty-message">There are currently no upcoming events.</p>');
           }
         ?>
 
         <?php if ($total_events > $per_page) { ?>
           <div class="events-buttons">
-            <div class="load-more" data-post-type="event" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
+            <div class="load-more" data-post-type="event" data-past-events="<?= $past_events ?>vent" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
           </div>
         <?php } ?>
 

@@ -20,7 +20,7 @@ $body_content = apply_filters('the_content', $post->post_content);
       <div class="page-header-text md-one-half -left section">
         <div class="-inner">
           <h3 class="hub-address type-h2">
-            <?php if (!empty($primary_org_website)) { 
+            <?php if (!empty($primary_org_website)) {
                 echo '<a href="'.$primary_org_website.'" target="_blank">'.$primary_org_name.'</a>';
               } else {
                 echo $primary_org_name;
@@ -56,9 +56,11 @@ $body_content = apply_filters('the_content', $post->post_content);
       </div>
 
       <div class="events-section section md-one-half color-bg-gray">
-        <?php 
+        <?php
           $related_events = \Firebelly\PostTypes\Event\get_events(['num_posts' => 6, 'hub' => $post->ID, 'exclude_from_map' =>true]);
-          $related_events_count = \Firebelly\PostTypes\Event\get_events(['countposts' => true]);
+          $related_events_count = \Firebelly\PostTypes\Event\get_events(['hub' => $post->ID, 'countposts' => true]);
+          // Past events?
+          $past_related_events_count = \Firebelly\PostTypes\Event\get_events(['hub' => $post->ID, 'countposts' => true, 'past_events' => 1]);
 
           if ($related_events) { ?>
           <h2 class="type-h2">Upcoming Events at <?= get_the_title(); ?></h2>
@@ -68,6 +70,11 @@ $body_content = apply_filters('the_content', $post->post_content);
           <?php if ($related_events_count > 6) { ?>
           <div class="events-buttons section-actions">
             <div class="view-all"><a href="/programming/?filter_related_hub=<?= $post->ID ?>#page-content" class="button -full">All Events</a></div>
+          </div>
+          <?php } ?>
+          <?php if ($past_related_events_count > 0) { ?>
+          <div class="events-buttons section-actions">
+            <div class="view-all"><a href="/programming/?filter_related_hub=<?= $post->ID ?>&past_events=1#page-content" class="button -full">View Past Events (<?= $past_related_events_count ?>)</a></div>
           </div>
           <?php } ?>
         <?php } ?>
