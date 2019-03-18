@@ -13,7 +13,6 @@ web/app/uploads/*
 
 # WordPress
 web/wp
-web/.htaccess
 
 # WP-CLI
 db-sync
