@@ -348,10 +348,11 @@ function geocode_address($post_id, $post='') {
 
   if (!empty($address['address-1'])):
     $address_combined = $address['address-1'] . ' ' . $address['address-2'] . ' ' . $address['city'] . ', ' . $address['state'] . ' ' . $address['zip'];
-    $request_url = "https://maps.google.com/maps/api/geocode/xml?sensor=false&address=" . urlencode($address_combined . '&key=' . getenv('GEOCODE_API_KEY'));
+    $request_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=" . urlencode($address_combined) . '&key=' . getenv('GEOCODE_API_KEY');
 
     $xml = simplexml_load_file($request_url);
     $status = $xml->status;
+
     if(strcmp($status, 'OK')===0):
         $lat = $xml->result->geometry->location->lat;
         $lng = $xml->result->geometry->location->lng;
