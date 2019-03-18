@@ -88,20 +88,12 @@ namespace :deploy do
     end
   end
 
-  task :ungulp do
-    run_locally do
-      execute "cd #{fetch(:local_theme_path)} && ./node_modules/.bin/gulp --development"
-    end
-  end
-
   task :copy_assets do
     invoke 'deploy:compile_assets'
 
     on roles(:web) do
       upload! fetch(:local_theme_path).join('dist').to_s, release_path.join(fetch(:theme_path)), recursive: true
     end
-
-    invoke 'deploy:ungulp'
   end
 end
 

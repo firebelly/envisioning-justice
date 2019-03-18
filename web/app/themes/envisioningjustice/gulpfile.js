@@ -243,6 +243,7 @@ gulp.task('watch', function() {
     files: [path.dist, '{lib,templates}/**/*.php', '*.php'],
     proxy: config.devUrl,
     notify: false,
+    open: false,
     snippetOptions: {
       whitelist: ['/wp-admin/admin-ajax.php'],
       blacklist: ['/wp-admin/**']

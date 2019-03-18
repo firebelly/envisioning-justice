@@ -391,7 +391,7 @@ var EJ = (function($) {
         }
       });
 
-      // No map points found?
+      // No map points with lat/lng found?
       if (mapPoints.length === 0) { return; }
 
       mapPointsData = {

@@ -12,7 +12,7 @@ function get_id_by_slug($page_slug) {
   } else {
       return null;
   }
-} 
+}
 
 /**
  * Bump up # search results, exclude search page from result
@@ -135,7 +135,7 @@ function get_total_pages($category, $per_page) {
  */
 function get_related_event_post($post_or_focus_area) {
   $output = $event = false;
-  
+
   if (is_object($post_or_focus_area)) {
     // If post_type is Program see if there's a directly related Event
     if ($post_or_focus_area->post_type == 'program') {
@@ -151,7 +151,7 @@ function get_related_event_post($post_or_focus_area) {
   // If we didn't find a directly related event above, try to find one by Focus Area
   if (!$event)
     $event = \Firebelly\PostTypes\Event\get_events(['num_posts' => 1, 'focus_area' => $focus_area, 'show_view_all_button' => true]);
-  
+
   if ($event) {
     $output = '<div class="related related-events">';
     $output .= '<h2 class="flag">Attend an Event</h2>';
@@ -242,11 +242,11 @@ function add_current_nav_class($classes, $item) {
     if (isset( $id )){
         // Getting the post type of the current post
         $current_post_type = get_post_type_object(get_post_type($post->ID));
-        $current_post_type_slug = $current_post_type->rewrite['slug'];          
+        $current_post_type_slug = $current_post_type->rewrite['slug'];
         // Getting the URL of the menu item
         $menu_slug = strtolower(trim($item->url));
         // If the menu item URL contains the current post types slug add the current-menu-item class
-        if (strpos($menu_slug,$current_post_type_slug) !== false) {
+        if (strpos($menu_slug, $current_post_type_slug) !== false) {
            $classes[] = 'current-menu-item';
         }
     }
