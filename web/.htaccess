@@ -1,11 +1,13 @@
 # BEGIN redirects
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !\.well-known
-RewriteCond %{HTTP_HOST} !^envisioningjustice.org$ [NC]
+RewriteCond %{HTTP_HOST} !^envisioningjustice\.org$ [NC]
+RewriteCond %{HTTP_HOST} !^envisioning-justice\.(localhost|sage)$ [NC]
 RewriteRule ^(.*)$ https://envisioningjustice.org/$1 [R=301,L]
 
 RewriteCond %{HTTP:X-Forwarded-SSL} !on
 RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTP_HOST} !^envisioning-justice\.(localhost|sage)$ [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # END redirects
 
