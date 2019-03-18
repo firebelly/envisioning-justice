@@ -58,7 +58,7 @@
     "wpackagist-plugin/limit-login-attempts" : "*",
     "wpackagist-plugin/intuitive-custom-post-order": "*",
     "wpackagist-plugin/cmb2": ">=2.0.5",
-    "wpackagist-plugin/user-roles-and-capabilities": ">=1.2.3",
+    "wpackagist-plugin/user-roles-and-capabilities": "^1.2.3",
     "mustardBees/cmb-field-select2": ">=2.0.4",
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/redirection": ">=2.3.16",
