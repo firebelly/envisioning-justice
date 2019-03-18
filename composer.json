@@ -69,7 +69,8 @@
     "wpackagist-plugin/accordion-shortcodes": ">=2.2.0",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
     "johnpbloch/wordpress": ">=4.8.1",
-    "jjgrainger/posttypes": "^2.0"
+    "jjgrainger/posttypes": "^2.0",
+    "wpackagist-plugin/disable-gutenberg": "^1.5"
   },
   "extra": {
     "installer-paths": {
