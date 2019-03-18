@@ -391,6 +391,9 @@ var EJ = (function($) {
         }
       });
 
+      // No map points found?
+      if (mapPoints.length === 0) { return; }
+
       mapPointsData = {
         'type': 'FeatureCollection',
         'features': mapPoints
