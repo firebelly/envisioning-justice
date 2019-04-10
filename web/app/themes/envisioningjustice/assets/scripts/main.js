@@ -113,12 +113,11 @@ var EJ = (function($) {
       useMapboxGl = mapboxgl.supported();
 
       // Get the correct CSS
-      var mapboxCss = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.css' : 'https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css';
+      var mapboxCss = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' : 'https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css';
       $('head').append('<link href="'+mapboxCss+'" rel="stylesheet" />');
 
-
       // Get the correct JS, init maps on load
-      var mapboxJs = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.js' : 'https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js';
+      var mapboxJs = useMapboxGl ? 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js' : 'https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js';
       $.getScript(mapboxJs, function() {
         if (breakpoint_medium) {
           _initMap(useMapboxGl, 11, [-87.6568088,41.8909229]);
@@ -610,26 +609,6 @@ var EJ = (function($) {
       map.resize();
 
     }
-  }
-
-  function _highlightMapPoint(event_id) {
-    pointsLayer.eachLayer(function(marker) {
-      if (marker.feature.properties.event_id === event_id) {
-        marker.setIcon(mapIconRed);
-        marker.setZIndexOffset(1000);
-      } else {
-        marker.setIcon(mapIconBlue);
-        marker.setZIndexOffset(0);
-      }
-    });
-    // pointsLayer.setGeoJSON(mapGeoJSON);
-  }
-  function _unHighlightMapPoints() {
-    pointsLayer.eachLayer(function(marker) {
-      marker.setIcon(mapIconRed);
-      marker.setZIndexOffset(0);
-    });
-    // pointsLayer.setGeoJSON(mapGeoJSON);
   }
 
   // Handles main nav
