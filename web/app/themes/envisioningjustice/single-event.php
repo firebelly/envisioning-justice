@@ -7,6 +7,7 @@ $related_hub = get_post_meta($post->ID, '_cmb2_related_hub', true);
 $post_date_timestamp = strtotime($post->post_date);
 $article_tags = \Firebelly\Utils\get_article_tags($post);
 $program_type = Utils\get_first_term($post, 'program-type');
+$event_url = get_permalink($post);
 ?>
 
 <header class="page-header container">
@@ -67,7 +68,7 @@ $program_type = Utils\get_first_term($post, 'program-type');
             <?php endif; ?>
 
             <li><a class="button add-to-calendar" href="<?= $event->add_to_calendar_url ?>">Add To Calendar</a></li>
-          </ul>     
+          </ul>
           <?php } ?>
         </div>
       </div>
