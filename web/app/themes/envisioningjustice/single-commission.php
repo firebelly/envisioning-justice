@@ -23,7 +23,7 @@ $link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
     </div>
 
     <div class="images-section section md-one-half color-bg-gray">
-      <?= \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID); ?>
+      <?= \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID, false); ?>
     </div>
   </div>
 </div>

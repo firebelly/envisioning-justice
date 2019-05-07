@@ -160,7 +160,7 @@ add_action('pre_get_posts', __NAMESPACE__ . '\\news_filters');
 /**
  * Get post images and put into slideshow
  */
-function get_post_slideshow($post_id) {
+function get_post_slideshow($post_id, $include_post_thumbnail = true) {
   $images = [];
   $files = get_post_meta($post_id, '_cmb2_slideshow-images', true);
   if ($files) {
@@ -176,7 +176,7 @@ function get_post_slideshow($post_id) {
   if (!$images) return false;
   $output = '<ul class="slider">';
   // Is there also a featured image?
-  if (get_the_post_thumbnail($post_id)) {
+  if ($include_post_thumbnail === true && get_the_post_thumbnail($post_id)) {
     $image = get_post($post_id);
     $image = \Firebelly\Media\get_header_bg($image);
     $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
