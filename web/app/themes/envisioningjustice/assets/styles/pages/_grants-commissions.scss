@@ -42,22 +42,15 @@
 }
 
 // Single Commissions
-body.single-commission {
+body.single.single-commission {
   @include colorScheme($yellow);
 
-  .media-section {
+  .images-section {
     padding: 0;
+    background-color: $yellow;
 
-    .slide-image {
-      height: 0;
-      width: 100%;
-      background-size: cover;
-      padding-bottom: 85.7142857%;
-      background-position: center;
-    }
-
-    .section-content {
-      padding: 120px;
+    .image-caption {
+      color: $black;
     }
   }
 }

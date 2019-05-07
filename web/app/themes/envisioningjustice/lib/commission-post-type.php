@@ -52,13 +52,6 @@ function metaboxes() {
     'type'  => 'wysiwyg',
     'sanitization_cb' => false,
   ]);
-  $commission_info->add_field([
-    'name' => 'Media',
-    'id'   => $prefix . 'media',
-    'type' => 'wysiwyg',
-    'desc'  => 'Other media, appearing on the right, below the image slideshow if there is one.',
-    'sanitization_cb' => false,
-  ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 

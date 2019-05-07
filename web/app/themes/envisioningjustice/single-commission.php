@@ -4,7 +4,6 @@
  */
 
 $text = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_text', true));
-$media = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_media', true));
 $website = get_post_meta($post->ID, '_cmb2_commission_url', true);
 $link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
 ?>
@@ -23,12 +22,8 @@ $link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
       </div>
     </div>
 
-    <div class="media-section section md-one-half color-bg-gray">
+    <div class="images-section section md-one-half color-bg-gray">
       <?= \Firebelly\PostTypes\Posts\get_post_slideshow($post->ID); ?>
-
-      <div class="section-content user-content">
-        <?= $media ?>
-      </div>
     </div>
   </div>
 </div>
