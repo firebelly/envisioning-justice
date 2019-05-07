@@ -832,7 +832,6 @@ var EJ = (function($) {
     var lastMove = 0;
     var eventThrottle = 10;
     $(window).on('mousemove', function(e) {
-      e.preventDefault();
       var now = Date.now();
       if (now > lastMove + eventThrottle) {
         lastMove = now;

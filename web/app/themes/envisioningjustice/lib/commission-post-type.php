@@ -45,6 +45,20 @@ function metaboxes() {
     'type'      => 'text',
     'desc'      => 'The text that links to the website. If left blank, "artist\'s portfolio" will be used.',
   ]);
+  $commission_info->add_field([
+    'name'  => 'Text',
+    'id'    => $prefix . 'text',
+    'desc'  => 'Text description that appears on the left.',
+    'type'  => 'wysiwyg',
+    'sanitization_cb' => false,
+  ]);
+  $commission_info->add_field([
+    'name' => 'Media',
+    'id'   => $prefix . 'media',
+    'type' => 'wysiwyg',
+    'desc'  => 'Other media, appearing on the right, below the image slideshow if there is one.',
+    'sanitization_cb' => false,
+  ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 

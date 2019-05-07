@@ -1,5 +1,5 @@
 set :stage, :staging
-set :application, 'envisioningjustice_staging'
+set :application, 'envisioningjustice'
 
 # Simple Role Syntax
 # ==================

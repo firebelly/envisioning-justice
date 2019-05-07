@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
     'title'         => __( 'Extra Fields', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
+    'object_types'  => array( 'post', 'commission'), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -74,8 +74,8 @@ function metaboxes( array $meta_boxes ) {
   //         'id'       => $prefix . 'related_program',
   //         'type'     => 'select',
   //         'show_option_none' => true,
-  //         // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15 
-  //         // 'multiple' => true, 
+  //         // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15
+  //         // 'multiple' => true,
   //         'options'  => \Firebelly\CMB2\get_post_options(['post_type' => 'program', 'numberposts' => -1]),
   //     ),
   //   ),

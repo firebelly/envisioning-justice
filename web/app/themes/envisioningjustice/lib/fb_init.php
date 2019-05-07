@@ -80,10 +80,10 @@ if (!is_admin()) { add_filter('nav_menu_css_class', __NAMESPACE__ . '\custom_nav
 //   // Select random bg & accents for page
 //   $background = rand(1,6);
 //   $accent = rand(1,5);
-  
+
 //   // Set global var to use when creating treated backgrounds
 //   define('IHC_BACKGROUND', $background_array[$background-1]);
-  
+
 //   // Add to body_class()
 //   $classes[] = 'background-' . $background;
 //   $classes[] = 'accent-' . $accent;
@@ -107,7 +107,7 @@ function simplify_tinymce($settings) {
     $settings['formats'] = substr($settings['formats'],0,-1).",underline: { inline: 'u', exact: true} }";
   else
     $settings['formats'] = "{ underline: { inline: 'u', exact: true} }";
-  
+
   // What goes into the toolbars. Add 'wp_adv' to get the Toolbar toggle button back
   $settings['toolbar1'] = 'styleselect,bold,italic,underline,strikethrough,formatselect,bullist,numlist,blockquote,link,unlink,hr,wp_more,outdent,indent,AccordionShortcode,AccordionItemShortcode,fullscreen';
   $settings['toolbar2'] = '';
@@ -120,13 +120,13 @@ function simplify_tinymce($settings) {
   // Clear most formatting when pasting text directly in the editor
   $settings['paste_as_text'] = 'true';
 
-  $style_formats = array( 
-    array( 
+  $style_formats = array(
+    array(
       'title' => 'Button',
       'block' => 'span',
-      'classes' => 'button',
+      'classes' => 'wysiwyg-button',
     )
- );  
+ );
   $settings['style_formats'] = json_encode($style_formats);
 
   return $settings;
