@@ -7,7 +7,7 @@ namespace Firebelly\PostTypes\Commission;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
 $options = [
-  'supports'   => ['editor', 'title', 'thumbnail'],
+  'supports'   => ['title', 'thumbnail'],
   'rewrite'    => ['slug' => 'grants-commissions'],
   'menu_icon'  => 'dashicons-art',
 ];

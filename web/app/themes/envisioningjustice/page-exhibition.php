@@ -20,17 +20,17 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
     </div>
 
     <div class="section md-one-half color-bg-gray">
-      <?php if (!empty($secondary_content)) { ?>
-      <div class="secondary-content user-content">
-        <?= $secondary_content ?>
-      </div>
-      <?php } ?>
       <?php if (\Firebelly\PostTypes\Event\get_events(['program-type' => 'exhibitions'])): ?>
         <h3 class="type-h2">Upcoming Events</h3>
         <div class="events-list article-list grid">
           <?php echo \Firebelly\PostTypes\Event\get_events(['num_posts' => 4, 'program-type' => 'exhibitions']); ?>
         </div>
       <?php endif ?>
+      <?php if (!empty($secondary_content)) { ?>
+      <div class="secondary-content user-content">
+        <?= $secondary_content ?>
+      </div>
+      <?php } ?>
     </div>
 
   </div>

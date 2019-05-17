@@ -124,3 +124,22 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Hide editor on specific pages.
+ *
+ */
+add_action( 'admin_head', __NAMESPACE__ . '\hide_editor' );
+function hide_editor() {
+  global $pagenow;
+  if( !( 'post.php' == $pagenow ) ) return;
+  global $post;
+  // Get the Post ID.
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  if( !isset( $post_id ) ) return;
+  // Hide the editor on the page titled 'Homepage'
+  $pagetitle = get_the_title($post_id);
+  if($pagetitle == 'Exhibition'){
+    remove_post_type_support('page', 'editor');
+  }
+}

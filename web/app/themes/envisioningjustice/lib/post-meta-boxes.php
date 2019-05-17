@@ -160,7 +160,7 @@ add_action('pre_get_posts', __NAMESPACE__ . '\\news_filters');
 /**
  * Get post images and put into slideshow
  */
-function get_post_slideshow($post_id, $include_post_thumbnail = true) {
+function get_post_slideshow($post_id, $include_post_thumbnail = true, $color_treated = true) {
   $images = [];
   $files = get_post_meta($post_id, '_cmb2_slideshow-images', true);
   if ($files) {
@@ -178,8 +178,14 @@ function get_post_slideshow($post_id, $include_post_thumbnail = true) {
   // Is there also a featured image?
   if ($include_post_thumbnail === true && get_the_post_thumbnail($post_id)) {
     $image = get_post($post_id);
-    $image = \Firebelly\Media\get_header_bg($image);
-    $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+    if ($color_treated === true) {
+      $image = \Firebelly\Media\get_header_bg($image);
+    } else {
+      $thumb_id = get_post_thumbnail_id($image->ID);
+      $image_url = wp_get_attachment_url($thumb_id);
+      $image = ' style="background-image:url(' . $image_url . ');"';
+    }
+    $output .= '<li class="slide-item"><div class="slide-image"'.$image.'></div>';
     // Does it have a catption?
     if (!empty(get_post(get_post_thumbnail_id())->post_excerpt)) {
       $output .= '<p class="image-caption">'.get_post(get_post_thumbnail_id())->post_excerpt.'</p>';
@@ -190,8 +196,12 @@ function get_post_slideshow($post_id, $include_post_thumbnail = true) {
     foreach ($images as $attachment_id => $attachment_url):
       $image_id = attachment_url_to_postid($attachment_url);
       $image = get_attached_file($image_id, false);
-      $image = \Firebelly\Media\get_header_bg($image);
-      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+      if ($color_treated === true) {
+        $image = \Firebelly\Media\get_header_bg($image);
+      } else {
+        $image = ' style="background-image:url(' . $attachment_url . ');"';
+      }
+      $output .= '<li class="slide-item"><div class="slide-image"'.$image.'></div>';
       if (!empty(get_post($image_id)->post_excerpt)) {
         $output .= '<p class="image-caption">'.get_post($image_id)->post_excerpt.'</p>';
       }
