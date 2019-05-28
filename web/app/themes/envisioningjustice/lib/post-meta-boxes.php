@@ -43,44 +43,6 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  // $meta_boxes['focus_area'] = array(
-  //   'id'            => 'focus_area',
-  //   'title'         => __( 'Focus Area', 'cmb2' ),
-  //   'object_types'  => array( 'event', 'post', 'program', ),
-  //   'context'       => 'side',
-  //   'priority'      => 'default',
-  //   'show_names'    => false,
-  //   'fields'        => array(
-  //     array(
-  //         // 'name'     => 'Focus Area',
-  //         'id'       => $prefix . 'focus_area',
-  //         'type'     => 'taxonomy_select',
-  //         'taxonomy' => 'focus_area',
-  //     ),
-  //   ),
-  // );
-
-  // $meta_boxes['related_program'] = array(
-  //   'id'            => 'related_program',
-  //   'title'         => __( 'Related Program', 'cmb2' ),
-  //   'object_types'  => array( 'event', 'post', ),
-  //   'context'       => 'side',
-  //   'priority'      => 'default',
-  //   'show_names'    => true,
-  //   'fields'        => array(
-  //     array(
-  //         // 'name'     => 'If set, will trump finding a related program by Focus Area',
-  //         // 'desc'     => 'Select Program(s)...',
-  //         'id'       => $prefix . 'related_program',
-  //         'type'     => 'select',
-  //         'show_option_none' => true,
-  //         // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15
-  //         // 'multiple' => true,
-  //         'options'  => \Firebelly\CMB2\get_post_options(['post_type' => 'program', 'numberposts' => -1]),
-  //     ),
-  //   ),
-  // );
-
   $meta_boxes['related_hub'] = array(
     'id'            => 'related_hub',
     'title'         => __( 'Related Hub', 'cmb2' ),

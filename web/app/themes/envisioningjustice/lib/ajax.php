@@ -26,6 +26,7 @@ function load_more_posts() {
   } else {
     $post_type = 'news';
   }
+
   // get page offsets
   $page = !empty($_REQUEST['page']) ? $_REQUEST['page'] : 1;
   $per_page = !empty($_REQUEST['per_page']) ? $_REQUEST['per_page'] : get_option('posts_per_page');
@@ -37,7 +38,7 @@ function load_more_posts() {
       'posts_per_page' => $per_page,
       'post_type' => 'post'
     ];
-  } else {  
+  } else {
     $args = [
       'offset' => $offset,
       'posts_per_page' => $per_page,
@@ -81,13 +82,14 @@ function load_more_posts() {
       }
     }
   }
-  // Filter by Focus Area?
-  if (!empty($_REQUEST['focus_area'])) {
+
+  // Filter by Category?
+  if (!empty($_REQUEST['category'])) {
     $args['tax_query'] = array(
         array(
-            'taxonomy' => 'focus_area',
+            'taxonomy' => 'category',
             'field' => 'slug',
-            'terms' => $_REQUEST['focus_area'],
+            'terms' => $_REQUEST['category'],
         )
     );
   }
