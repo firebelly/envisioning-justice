@@ -27,6 +27,24 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
+  $meta_boxes['external_post_meta'] = array(
+    'id'            => 'external_post_meta',
+    'title'         => __( 'External Post Information', 'cmb2' ),
+    'object_types'  => array( 'post', 'commission'), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Post Url',
+          'desc'    => 'The external url the post will link to. If this is filled out the link to the post will go here, not to a post.',
+          'id'      => $prefix . 'external_post_url',
+          'type'    => 'text_url',
+
+      ),
+    ),
+  );
+
   $meta_boxes['post_category'] = array(
     'id'            => 'post_category',
     'title'         => __( 'Category', 'cmb2' ),
