@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
     'title'         => __( 'Extra Fields', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
+    'object_types'  => array( 'post', 'commission'), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -22,6 +22,24 @@ function metaboxes( array $meta_boxes ) {
           'desc'    => 'Images will be displayed in the post as a slideshow',
           'id'      => $prefix . 'slideshow-images',
           'type'    => 'file_list',
+
+      ),
+    ),
+  );
+
+  $meta_boxes['external_post_meta'] = array(
+    'id'            => 'external_post_meta',
+    'title'         => __( 'External Post Information', 'cmb2' ),
+    'object_types'  => array( 'post', 'commission'), // Post type
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true, // Show field names on the left
+    'fields'        => array(
+      array(
+          'name'    => 'Post Url',
+          'desc'    => 'The external url the post will link to. If this is filled out the link to the post will go here, not to a post.',
+          'id'      => $prefix . 'external_post_url',
+          'type'    => 'text_url',
 
       ),
     ),
@@ -42,44 +60,6 @@ function metaboxes( array $meta_boxes ) {
       ),
     ),
   );
-
-  // $meta_boxes['focus_area'] = array(
-  //   'id'            => 'focus_area',
-  //   'title'         => __( 'Focus Area', 'cmb2' ),
-  //   'object_types'  => array( 'event', 'post', 'program', ),
-  //   'context'       => 'side',
-  //   'priority'      => 'default',
-  //   'show_names'    => false,
-  //   'fields'        => array(
-  //     array(
-  //         // 'name'     => 'Focus Area',
-  //         'id'       => $prefix . 'focus_area',
-  //         'type'     => 'taxonomy_select',
-  //         'taxonomy' => 'focus_area',
-  //     ),
-  //   ),
-  // );
-
-  // $meta_boxes['related_program'] = array(
-  //   'id'            => 'related_program',
-  //   'title'         => __( 'Related Program', 'cmb2' ),
-  //   'object_types'  => array( 'event', 'post', ),
-  //   'context'       => 'side',
-  //   'priority'      => 'default',
-  //   'show_names'    => true,
-  //   'fields'        => array(
-  //     array(
-  //         // 'name'     => 'If set, will trump finding a related program by Focus Area',
-  //         // 'desc'     => 'Select Program(s)...',
-  //         'id'       => $prefix . 'related_program',
-  //         'type'     => 'select',
-  //         'show_option_none' => true,
-  //         // 'type'     => 'pw_multiselect', // currently multiple=true is causing issues with pw_multiselect -nate 4/30/15 
-  //         // 'multiple' => true, 
-  //         'options'  => \Firebelly\CMB2\get_post_options(['post_type' => 'program', 'numberposts' => -1]),
-  //     ),
-  //   ),
-  // );
 
   $meta_boxes['related_hub'] = array(
     'id'            => 'related_hub',
@@ -160,7 +140,7 @@ add_action('pre_get_posts', __NAMESPACE__ . '\\news_filters');
 /**
  * Get post images and put into slideshow
  */
-function get_post_slideshow($post_id) {
+function get_post_slideshow($post_id, $include_post_thumbnail = true, $color_treated = true) {
   $images = [];
   $files = get_post_meta($post_id, '_cmb2_slideshow-images', true);
   if ($files) {
@@ -176,10 +156,16 @@ function get_post_slideshow($post_id) {
   if (!$images) return false;
   $output = '<ul class="slider">';
   // Is there also a featured image?
-  if (get_the_post_thumbnail($post_id)) {
+  if ($include_post_thumbnail === true && get_the_post_thumbnail($post_id)) {
     $image = get_post($post_id);
-    $image = \Firebelly\Media\get_header_bg($image);
-    $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+    if ($color_treated === true) {
+      $image = \Firebelly\Media\get_header_bg($image);
+    } else {
+      $thumb_id = get_post_thumbnail_id($image->ID);
+      $image_url = wp_get_attachment_url($thumb_id);
+      $image = ' style="background-image:url(' . $image_url . ');"';
+    }
+    $output .= '<li class="slide-item"><div class="slide-image"'.$image.'></div>';
     // Does it have a catption?
     if (!empty(get_post(get_post_thumbnail_id())->post_excerpt)) {
       $output .= '<p class="image-caption">'.get_post(get_post_thumbnail_id())->post_excerpt.'</p>';
@@ -190,8 +176,12 @@ function get_post_slideshow($post_id) {
     foreach ($images as $attachment_id => $attachment_url):
       $image_id = attachment_url_to_postid($attachment_url);
       $image = get_attached_file($image_id, false);
-      $image = \Firebelly\Media\get_header_bg($image);
-      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div>';
+      if ($color_treated === true) {
+        $image = \Firebelly\Media\get_header_bg($image);
+      } else {
+        $image = ' style="background-image:url(' . $attachment_url . ');"';
+      }
+      $output .= '<li class="slide-item"><div class="slide-image"'.$image.'></div>';
       if (!empty(get_post($image_id)->post_excerpt)) {
         $output .= '<p class="image-caption">'.get_post($image_id)->post_excerpt.'</p>';
       }

@@ -7,7 +7,7 @@ namespace Firebelly\PostTypes\Commission;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
 $options = [
-  'supports'   => ['editor', 'title', 'thumbnail'],
+  'supports'   => ['title', 'thumbnail'],
   'rewrite'    => ['slug' => 'grants-commissions'],
   'menu_icon'  => 'dashicons-art',
 ];
@@ -44,6 +44,13 @@ function metaboxes() {
     'id'        => $prefix . 'commission_link_text',
     'type'      => 'text',
     'desc'      => 'The text that links to the website. If left blank, "artist\'s portfolio" will be used.',
+  ]);
+  $commission_info->add_field([
+    'name'  => 'Text',
+    'id'    => $prefix . 'text',
+    'desc'  => 'Text description that appears on the left.',
+    'type'  => 'wysiwyg',
+    'sanitization_cb' => false,
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );

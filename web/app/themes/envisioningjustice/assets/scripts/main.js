@@ -676,6 +676,7 @@ var EJ = (function($) {
       e.preventDefault();
       var $load_more = $(this).closest('.load-more');
       var post_type = $load_more.attr('data-post-type') ? $load_more.attr('data-post-type') : 'news';
+      var category = $load_more.attr('data-category') ? $load_more.attr('data-category') : '';
       var page = parseInt($load_more.attr('data-page-at'));
       var past_events = parseInt($load_more.attr('data-past-events'));
       var per_page = parseInt($load_more.attr('data-per-page'));
@@ -690,6 +691,7 @@ var EJ = (function($) {
           data: {
               action: 'load_more_posts',
               post_type: post_type,
+              category: category,
               past_events: past_events,
               page: page+1,
               per_page: per_page,
@@ -832,7 +834,6 @@ var EJ = (function($) {
     var lastMove = 0;
     var eventThrottle = 10;
     $(window).on('mousemove', function(e) {
-      e.preventDefault();
       var now = Date.now();
       if (now > lastMove + eventThrottle) {
         lastMove = now;

@@ -21,7 +21,7 @@
     }
     .commission-image {
       height: 0;
-      width: 100%;  
+      width: 100%;
       padding-bottom: 100%;
       background-size: cover;
       background-position: top center;
@@ -42,6 +42,15 @@
 }
 
 // Single Commissions
-body.single-commission {
+body.single.single-commission {
   @include colorScheme($yellow);
+
+  .images-section {
+    padding: 0;
+    background-color: $yellow;
+
+    .image-caption {
+      color: $black;
+    }
+  }
 }

@@ -17,7 +17,7 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      
+
       // Header fields
       array(
         'name' => 'Header Text',
@@ -42,7 +42,7 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      
+
       // Secondary Header field
       array(
         'name' => 'Secondary Header Text',
@@ -65,7 +65,7 @@ function metaboxes( array $meta_boxes ) {
     'priority'      => 'high',
     'show_names'    => false,
     'fields'        => array(
-      
+
       array(
         'name' => 'Resource Submission Text',
         'desc' => 'The text to display as instructions for submitting a resource',
@@ -83,21 +83,23 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
-    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php'] ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php', 'page-exhibition.php'] ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
     'fields'        => array(
-      
+
       array(
         'name' => 'Primary Content Area',
         'id'   => $prefix . 'primary_content',
         'type' => 'wysiwyg',
+        'sanitization_cb' => false,
       ),
       array(
         'name' => 'Secondary Content Area',
         'id'   => $prefix . 'secondary_content',
         'type' => 'wysiwyg',
+        'sanitization_cb' => false,
       ),
     ),
   );
@@ -122,3 +124,22 @@ function metaboxes( array $meta_boxes ) {
   return $meta_boxes;
 }
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+
+/**
+ * Hide editor on specific pages.
+ *
+ */
+add_action( 'admin_head', __NAMESPACE__ . '\hide_editor' );
+function hide_editor() {
+  global $pagenow;
+  if( !( 'post.php' == $pagenow ) ) return;
+  global $post;
+  // Get the Post ID.
+  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+  if( !isset( $post_id ) ) return;
+  // Hide the editor on the page titled 'Homepage'
+  $pagetitle = get_the_title($post_id);
+  if($pagetitle == 'Exhibition'){
+    remove_post_type_support('page', 'editor');
+  }
+}

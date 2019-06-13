@@ -1,4 +1,4 @@
-// Blog 
+// Blog
 
 body.blog,
 body.single-post {
@@ -6,11 +6,30 @@ body.single-post {
 }
 
 body.blog {
-  .news-list {
-    @include media-md {
-      .article {
-        width: 25%;
-        padding-right: 40px;
+  #page-content {
+    .post-category {
+      position: relative;
+      padding-bottom: $padding;
+
+      @include media-md {
+        padding-bottom: $padding-medium;
+      }
+
+      h3 {
+        @include type-h2;
+      }
+
+      + .post-category {
+        padding-top: 0;
+      }
+    }
+
+    .news-list {
+      @include media-md {
+        .article {
+          width: 25%;
+          padding-right: 40px;
+        }
       }
     }
   }

@@ -175,7 +175,7 @@
         pointer-events: auto;
         transition: opacity .2s ease-out .3s;
       }
-      
+
       .-inner {
         padding: 0;
         opacity: 1;
@@ -285,7 +285,7 @@
       @include angledEdge(before, $beforeOrientation: rtl, $color: inherit);
       margin-top: 0;
 
-      @include max-screen($breakpoint-medium) {      
+      @include max-screen($breakpoint-medium) {
         padding-top: 40px;
         padding-bottom: 40px;
       }
@@ -331,6 +331,7 @@
       .page-header-background {
         order: 1;
         height: auto;
+        min-height: 400px;
         @include killAngle(after);
       }
     }

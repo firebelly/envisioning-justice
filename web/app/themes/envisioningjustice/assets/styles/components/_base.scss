@@ -7,7 +7,6 @@ body {
   color: $black;
   font-size: 15px;
   font-family: $serif;
-  will-change: opacity;
   box-sizing: border-box;
   background-color: $black;
 }
@@ -151,7 +150,18 @@ p {
 
     .section {
       padding-bottom: 9vw;
+
+      .page-link {
+        margin-top: 3em;
+      }
     }
+  }
+}
+
+// Primary Content Area
+.primary-content {
+  iframe {
+    width: 100%;
   }
 }
 

@@ -3,7 +3,11 @@
 .user-content {
   h1,h2,h3,h4,h5,h6 {
     @include type-h3;
-  }  
+  }
+
+  p {
+    margin: 1em 0;
+  }
 
   ul {
     li {
@@ -26,4 +30,32 @@
       text-decoration: underline;
     }
   }
-} // END .user-content
+
+  .wysiwyg-button {
+    a {
+      @extend .button;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  iframe {
+    display: block;
+    max-width: 100%!important;
+  }
+
+  .entry-content-asset,
+  figure {
+    margin: 1em 0;
+
+    + .entry-content-asset,
+    + figure {
+      margin: 2em 0 1em;
+    }
+  }
+}

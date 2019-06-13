@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "4a8da6c2cc0bc7777fca18e7c454de2d",
@@ -265,7 +265,9 @@
             "version": "2.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/mustardBees/cmb-field-select2/archive/master.zip"
+                "url": "https://github.com/mustardBees/cmb-field-select2/archive/master.zip",
+                "reference": null,
+                "shasum": null
             },
             "type": "wordpress-plugin"
         },
@@ -409,7 +411,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -484,7 +486,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/accordion-shortcodes.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/accordion-shortcodes.2.4.2.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -502,7 +506,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/akismet.4.1.1.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -520,7 +526,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1548045394"
+                "url": "https://downloads.wordpress.org/plugin/cmb2.zip?timestamp=1548045394",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -538,7 +546,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/disable-gutenberg.1.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/disable-gutenberg.1.7.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -556,7 +566,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.7.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/enhanced-media-library.2.7.2.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -574,7 +586,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.2.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -592,7 +606,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/limit-login-attempts.1.7.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/limit-login-attempts.1.7.1.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -610,7 +626,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.4.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/redirection.4.2.3.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -628,7 +646,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/simple-history.2.29.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/simple-history.2.29.2.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -646,7 +666,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -664,7 +686,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/user-roles-and-capabilities.1.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/user-roles-and-capabilities.1.2.3.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "composer/installers": "~1.0"

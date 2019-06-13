@@ -20,7 +20,7 @@
     <div class="masonry article-list">
     <?php while (have_posts()) : the_post(); ?>
 
-      <?php 
+      <?php
       if ($post->post_type=='post'):
 
         $news_post = $post;
