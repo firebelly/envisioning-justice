@@ -249,6 +249,8 @@ gulp.task('watch', function() {
       blacklist: ['/wp-admin/**']
     }
   });
+  // Kick it off with a build
+  gulp.start('build');
   gulp.watch([path.source + 'styles/**/*'], ['styles']);
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
@@ -261,7 +263,8 @@ gulp.task('watch', function() {
 // `gulp build` - Run all the build tasks but don't clean up beforehand.
 // Generally you should be running `gulp` instead of `gulp build`.
 gulp.task('build', function(callback) {
-  runSequence('styles',
+  runSequence('clean',
+              'styles',
               'scripts',
               ['fonts', 'images'],
               callback);
