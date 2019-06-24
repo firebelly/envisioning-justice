@@ -1,6 +1,7 @@
 set :stage, :production
 set :application, 'envisioningjustice'
-set :login, 'ilhumanities'
+set :domain, 'envisioningjustice.org'
+set :branch, :master
 
 # Simple Role Syntax
 # ==================
