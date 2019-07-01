@@ -11,7 +11,11 @@ $options = [
   'rewrite'    => ['with_front' => false],
   'menu_icon'  => 'dashicons-microphone',
 ];
-$stories = new PostType(['name'=>'story','plural'=>'Stories'], $options);
+$stories = new PostType([
+  'name'   => 'story',
+  'plural' => 'Stories',
+  'slug'   => 'stories'
+], $options);
 $stories->register();
 
 /**
@@ -339,7 +343,7 @@ function get_stories($options=[]) {
     $output = '';
     if (!$stories_posts) {
       $output .= '<p class="empty-message">No stories to share yet. Please submit yours now!</p>';
-    } else {  
+    } else {
       foreach ($stories_posts as $story_post):
         ob_start();
         include(locate_template('templates/article-story.php'));
