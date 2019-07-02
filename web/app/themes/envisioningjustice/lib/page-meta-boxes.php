@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['page_metabox'] = array(
     'id'            => 'page_metabox',
     'title'         => __( 'Header Text', 'cmb2' ),
-    'object_types'  => array( 'page', 'program', 'commission', 'event', 'story', 'post', 'resource' ),
+    'object_types'  => array( 'page', 'program', 'commission', 'event', 'story', 'post', 'resource', 'project' ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -83,7 +83,7 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
-    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php', 'page-exhibition.php'] ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php', 'page-exhibition.php', 'page-grantee-project.php'] ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,

@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['post_metabox'] = array(
     'id'            => 'post_metabox',
     'title'         => __( 'Extra Fields', 'cmb2' ),
-    'object_types'  => array( 'post', 'commission'), // Post type
+    'object_types'  => array( 'post', 'commission', 'project' ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
@@ -30,14 +30,14 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['external_post_meta'] = array(
     'id'            => 'external_post_meta',
     'title'         => __( 'External Post Information', 'cmb2' ),
-    'object_types'  => array( 'post', 'commission'), // Post type
+    'object_types'  => array( 'post' ), // Post type
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true, // Show field names on the left
     'fields'        => array(
       array(
-          'name'    => 'Post Url',
-          'desc'    => 'The external url the post will link to. If this is filled out the link to the post will go here, not to a post.',
+          'name'    => 'Post URL',
+          'desc'    => 'The external URL the post will link to. If this is filled out the link to the post will go here, not to a post.',
           'id'      => $prefix . 'external_post_url',
           'type'    => 'text_url',
 
