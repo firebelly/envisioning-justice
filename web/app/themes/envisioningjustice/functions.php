@@ -41,6 +41,7 @@ $firebelly_includes = [
   'lib/commission-post-type.php',  // Commission Post Type
   'lib/story-post-type.php',       // Story Post Type
   'lib/resource-post-type.php',    // Resource Post Type
+  'lib/project-post-type.php',     // Project Post Type
   'lib/site-options.php',          // Site Options
 ];
 
