@@ -42,10 +42,9 @@ var EJ = (function($) {
     // Fit them vids!
     $('main').fitVids();
 
-    // Disclaimer mobile link that reveals hidden disclaimer block
-    $('<li class="hide-for-medium-up"><a href="#">Disclaimer</a></li>').prependTo('#menu-footer-links').on('click', function(e) {
+    // Null links
+    $('body').on('click', 'a[href="#"]', function(e) {
       e.preventDefault();
-      $('.disclaimer').velocity('slideDown');
     });
 
     // Add .img-link class to sidebar image links to target with CSS
