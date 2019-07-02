@@ -21,7 +21,7 @@ $link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
         <?php } ?>
       </div>
       <p class="page-link">
-        <a href="/exhibition" class="button">Back to Exhibition</a>
+        <a href="/exhibition/" class="button">Back to Exhibition</a>
       </p>
     </div>
 
