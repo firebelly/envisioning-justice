@@ -2,6 +2,7 @@ set :stage, :staging
 set :application, 'envisioningjustice_staging'
 set :domain, 'staging.envisioningjustice.org'
 set :branch, :updates
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 
 # Simple Role Syntax
 # ==================
