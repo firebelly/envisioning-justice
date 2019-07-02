@@ -1,17 +1,20 @@
 //  Grants & Commissions
 
+.page.grantee-project,
 .page.grants-commissions {
   @include colorScheme($yellow);
 }
 
+.projects-list,
 .commissions-list {
   margin-top: 50px;
   margin-left: -20px;
   width: calc(100% + 40px);
+  .project,
   .commission {
     padding-left: 20px;
     padding-right: 20px;
-    .commission-image-wrap {
+    .image-wrap {
       @include angledEdge(both, $beforeOrientation: rtl, $afterOrientation: rtl, $color: $gray);
       margin: 0;
       &::before,
@@ -19,7 +22,7 @@
         height: 3vw;
       }
     }
-    .commission-image {
+    .image {
       height: 0;
       width: 100%;
       padding-bottom: 100%;
@@ -41,7 +44,8 @@
   }
 }
 
-// Single Commissions
+// Single Commissions / Projects
+body.single.single-project,
 body.single.single-commission {
   @include colorScheme($yellow);
 
