@@ -54,10 +54,6 @@ $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2
           <a href="/grants-commissions/" class="button">About Grants & Commissions</a>
         </p>
 
-        <p class="page-link">
-          <a href="/resources/" class="button">Resources</a>
-        </p>
-
       </div>
 
       <div class="section md-one-half color-bg-gray">

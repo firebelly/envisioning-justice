@@ -44,19 +44,34 @@ footer.site-footer {
     }
   }
 
+  // Footer links nav
+  #menu-footer-links {
+    margin-bottom: 20px;
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      @include type-h3;
+      color: $white-dark;
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+
   .social-media-links {
     @include clearfix;
     li {
       margin-bottom: 20px;
-      &:not(.hashtag) {
-        display: flex;
-        align-items: center;
+      display: flex;
+      align-items: center;
 
-        @include min-screen(1220px) {
-          width: 50%;
-          float: left;
-          padding-right: 20px;
-        }
+      @include min-screen(1220px) {
+        width: 50%;
+        float: left;
+        padding-right: 20px;
       }
       .button {
         margin-right: 10px;
