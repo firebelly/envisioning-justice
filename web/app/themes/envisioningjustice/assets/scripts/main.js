@@ -4,8 +4,7 @@
 // Good Design for Good Reason for Good Namespace
 var EJ = (function($) {
 
-  var screen_width = 0,
-      breakpoint_small = false,
+  var breakpoint_small = false,
       breakpoint_medium = false,
       breakpoint_large = false,
       breakpoint_array = [480,1000,1200],
@@ -69,7 +68,7 @@ var EJ = (function($) {
     _initHoverPairs();
 
     // Esc handlers
-    $(document).keyup(function(e) {
+    $document.keyup(function(e) {
       if (e.keyCode === 27) {
         // Check if search is open
         if ($('.site-header .search-form').is('.-active')) {
@@ -148,7 +147,7 @@ var EJ = (function($) {
   }
 
   function _initBigClicky() {
-    $(document).on('click', '.big-clicky', function(e) {
+    $document.on('click', '.big-clicky', function(e) {
       if (!$(e.target).is('a')) {
         e.preventDefault();
         var link = $(this).find('a');
@@ -869,16 +868,6 @@ var EJ = (function($) {
       var pairName = $(this).attr('data-hover');
       $('.hover-item[data-hover="'+pairName+'"]').removeClass('-hover');
     });
-  }
-
-  // Track ajax pages in Analytics
-  function _trackPage() {
-    if (typeof ga !== 'undefined') { ga('send', 'pageview', document.location.href); }
-  }
-
-  // Track events in Analytics
-  function _trackEvent(category, action) {
-    if (typeof ga !== 'undefined') { ga('send', 'event', category, action); }
   }
 
   // Called in quick succession as window is resized
