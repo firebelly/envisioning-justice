@@ -49,6 +49,9 @@ footer.site-footer {
     margin-bottom: 20px;
     li {
       margin-bottom: 10px;
+      &.-spaced {
+        margin-top: 40px;
+      }
     }
     a {
       @include type-h3;
