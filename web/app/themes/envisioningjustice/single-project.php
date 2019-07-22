@@ -21,7 +21,7 @@ $link_text = get_post_meta($post->ID, '_cmb2_project_link_text', true);
         <?php } ?>
       </div>
       <p class="page-link">
-        <a href="/grantee-project/" class="button">Back to Grantee Project</a>
+        <a href="/grantee-project/" class="button">Back to Grantee Projects</a>
       </p>
     </div>
 

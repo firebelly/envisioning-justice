@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Grantee Project
+ * Template Name: Grantee Projects
  */
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $per_page = get_option('posts_per_page');
@@ -9,7 +9,7 @@ $total_pages = ($total_posts > 0) ? ceil($total_posts / $per_page) : 1;
 $primary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_primary_content', true));
 $secondary_content = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_secondary_content', true));
 $projects = Firebelly\PostTypes\Project\get_projects(['num_posts' => $per_page]);
-$no_image_in_header = true;
+// $no_image_in_header = true;
 ?>
 
 <?php include(locate_template('templates/page-header.php')); ?>

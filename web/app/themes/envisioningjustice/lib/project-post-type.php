@@ -8,7 +8,7 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
 $options = [
   'supports'   => ['title', 'thumbnail'],
-  'rewrite'    => ['slug' => 'grantee-project'],
+  'rewrite'    => ['slug' => 'grantee-projects'],
   'menu_icon'  => 'dashicons-art',
 ];
 $labels = [
