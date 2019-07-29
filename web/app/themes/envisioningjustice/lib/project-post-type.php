@@ -63,6 +63,8 @@ function get_projects($options=[]) {
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type'   => 'project',
+    'orderby'     => 'title',
+    'order'       => 'ASC',
   ];
 
   if (!empty($options['countposts'])) {
