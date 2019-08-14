@@ -145,7 +145,7 @@ function get_post_slideshow($post_id, $include_post_thumbnail = true, $color_tre
   $files = get_post_meta($post_id, '_cmb2_slideshow-images', true);
   if ($files) {
     foreach ($files as $file) {
-      if (strpos($file, '.jpg') !== false) {
+      if (preg_match('#\.(jpeg|jpg|png|gif)$#i', $file)) {
         array_push($images, $file);
       } else {
         continue;
