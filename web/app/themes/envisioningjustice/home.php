@@ -18,7 +18,6 @@ $categories = get_categories(['taxonomy' => 'category']);
     <div class="news-lists-container color-bg-gray-light">
 
       <?php foreach ($categories as $category): ?>
-        <div class="post-category section">
         <?php
           $category = get_term($category, 'category');
           $total_cat_posts = new WP_Query(['cat' => $category->term_id]);
@@ -26,6 +25,7 @@ $categories = get_categories(['taxonomy' => 'category']);
           $total_cat_pages = ($total_cat_count > 0) ? ceil($total_cat_count / $per_page) : 1;
           $posts = get_posts(['numberposts' => $per_page, 'category' => $category->term_id]);
         ?>
+        <div id="<?= $category->slug ?>" class="post-category section">
 
           <h3><?= $category->name ?></h3>
           <?php if (!empty($posts)): ?>
