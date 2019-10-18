@@ -187,15 +187,15 @@ gulp.task('fonts', function() {
 
 // ### Images
 // `gulp images` - Run lossless compression on all the images.
-// gulp.task('images', function() {
-//   return gulp.src(globs.images)
-//     .pipe($.imagemin({
-//       progressive: true,
-//       interlaced: true,
-//       svgoPlugins: [{removeUnknownsAndDefaults: false}]
-//     }))
-//     .pipe(gulp.dest(path.dist + 'images'));
-// });
+gulp.task('images', function() {
+  return gulp.src(globs.images)
+    .pipe($.imagemin({
+      progressive: true,
+      interlaced: true,
+      svgoPlugins: [{removeUnknownsAndDefaults: false}]
+    }))
+    .pipe(gulp.dest(path.dist + 'images'));
+});
 
 // ### SVG time!
 gulp.task('svgs', function() {
@@ -254,7 +254,7 @@ gulp.task('watch', function() {
   gulp.watch([path.source + 'styles/**/*'], ['styles']);
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
-  // gulp.watch([path.source + 'images/**/*'], ['images']);
+  gulp.watch([path.source + 'images/**/*'], ['images']);
   gulp.watch([path.source + 'svgs/*.svg'], ['svgs']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });
@@ -266,7 +266,7 @@ gulp.task('build', function(callback) {
   runSequence('clean',
               'styles',
               'scripts',
-              'fonts',
+              ['fonts', 'images'],
               callback);
 });
 
