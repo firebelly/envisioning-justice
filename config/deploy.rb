@@ -1,13 +1,14 @@
 set :application, 'envisioningjustice_staging'
 set :login, 'ilhumanities'
 set :repo_url, 'git@github.com:firebelly/envisioning-justice.git'
+set :theme, 'envisioningjustice'
+set :domain, 'staging.envisioningjustice.org'
 
-# Branch options
-# Prompts for the branch name (defaults to current branch)
-#ask :branch, -> { `git rev-parse --abbrev-ref HEAD`.chomp }
+# For wpcli db command search-replace
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
+set :wpcli_local_url, "http://envisioning-justice.localhost"
 
-# Hardcodes branch to always be master
-# This could be overridden in a stage config file
+# This can be overridden in a stage config file to pull from a different branch
 set :branch, :master
 
 set :deploy_to, -> { "/home/#{fetch(:login)}/webapps/#{fetch(:application)}" }
@@ -68,7 +69,7 @@ end
 # GULP! compile production assets and copy to server, then UNGULP! to dev mode
 # borrowing from https://gist.github.com/christhesoul/3c38053971a7b786eff2 & https://gist.github.com/nateroling/22b51c0cfbe210b00698
 
-set :theme_path, Pathname.new('web/app/themes/envisioningjustice')
+set :theme_path, Pathname.new('web/app/themes/').join(fetch(:theme))
 set :local_app_path, Pathname.new(File.dirname(__FILE__)).join('../')
 set :local_theme_path, fetch(:local_app_path).join(fetch(:theme_path))
 

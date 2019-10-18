@@ -41,12 +41,12 @@
     {
       "type": "package",
       "package": {
-        "name": "mustardBees/cmb-field-select2",
+        "name": "mustardbees/cmb-field-select2",
         "version": "2.0.4",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
-          "url": "https://github.com/mustardBees/cmb-field-select2/archive/master.zip"
+          "url": "https://github.com/mustardbees/cmb-field-select2/archive/master.zip"
         }
       }
     }
@@ -59,7 +59,7 @@
     "wpackagist-plugin/intuitive-custom-post-order": "*",
     "wpackagist-plugin/cmb2": ">=2.0.5",
     "wpackagist-plugin/user-roles-and-capabilities": "^1.2.3",
-    "mustardBees/cmb-field-select2": ">=2.0.4",
+    "mustardbees/cmb-field-select2": ">=2.0.4",
     "wpackagist-plugin/akismet": ">=3.1.1",
     "wpackagist-plugin/redirection": ">=2.3.16",
     "roots/soil": ">=3.0.0",
@@ -67,13 +67,13 @@
     "wpackagist-plugin/simple-history": ">=2.5.3",
     "wpackagist-plugin/accordion-shortcodes": ">=2.2.0",
     "wpackagist-plugin/update-from-bottom": ">=1.0.3",
-    "johnpbloch/wordpress": ">=4.8.1",
+    "johnpbloch/wordpress": ">=5.0.0",
     "jjgrainger/posttypes": "^2.0",
     "wpackagist-plugin/disable-gutenberg": "^1.5"
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "mustardBees/cmb-field-select2", "wpackagist-plugin/akismet"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "mustardbees/cmb-field-select2", "wpackagist-plugin/akismet"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },

@@ -34,7 +34,7 @@ $body_content = apply_filters('the_content', $post->post_content);
   <div class="container">
 
     <div class="grid home-section -first">
-      
+
       <div class="grid-item md-one-half">
         <div class="map-container">
           <div id="map" data-color="yellow"></div>
@@ -52,7 +52,7 @@ $body_content = apply_filters('the_content', $post->post_content);
         ?>
         <?php if ($total_events > $events_to_show) { ?>
         <div class="events-buttons section-actions grid sm-spaced">
-          <div class="load-more grid-item sm-one-half" data-post-type="event" data-page-at="1" data-per-page="<?= $events_to_show ?>" data-total-pages="<?= ceil($total_events/$events_to_show) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
+          <div class="load-more grid-item sm-one-half" data-post-type="event" data-past-events="0" data-page-at="1" data-per-page="<?= $events_to_show ?>" data-total-pages="<?= ceil($total_events/$events_to_show) ?>"><a class="no-ajaxy button" href="#">Load More</a></div>
           <div class="view-all grid-item sm-one-half"><a href="/programming/" class="button">All Events</a></div>
         </div>
         <?php } ?>
@@ -69,7 +69,7 @@ $body_content = apply_filters('the_content', $post->post_content);
       </div>
 
       <div class="grid">
-        
+
         <section class="hub-section section color-bg-yellow grid-item md-one-half">
           <h2 class="section-title type-h3">Hubs</h2>
           <div class="user-content">
@@ -84,7 +84,7 @@ $body_content = apply_filters('the_content', $post->post_content);
         <section class="announcements-section section color-bg-gray-light grid-item md-one-half">
           <h2 class="section-title type-h3">News</h2>
           <div class="news-list load-more-container article-list">
-            <?php 
+            <?php
             // Recent Blog & News posts
             $news_posts = get_posts(['numberposts' => 4, 'category__not_in' => [9]]);
             if ($news_posts):

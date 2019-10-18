@@ -180,7 +180,7 @@ class FbSiteOptions {
       'name' => __( 'Facebook Handle', 'firebelly' ),
       'desc' => __( 'The handle, excluding the "@" symbol, ex: "EnvisioningJustice"', 'firebelly' ),
       'id'   => 'facebook_handle',
-      'type' => 'text_small',
+      'type' => 'text',
       'before_row' => '<h3>Social Media Links</h3>',
     ) );
 
@@ -188,14 +188,7 @@ class FbSiteOptions {
       'name' => __( 'Twitter Handle', 'firebelly' ),
       'desc' => __( 'The handle, excluding the "@" symbol, ex: "EnvisioningJustice"', 'firebelly' ),
       'id'   => 'twitter_handle',
-      'type' => 'text_small',
-    ) );
-
-    $cmb->add_field( array(
-      'name' => __( 'Hashtag', 'firebelly' ),
-      'desc' => __( 'Hashtag displayed on site', 'firebelly' ),
-      'id'   => 'hashtag',
-      'type' => 'text_small',
+      'type' => 'text',
     ) );
 
     $cmb->add_field( array(

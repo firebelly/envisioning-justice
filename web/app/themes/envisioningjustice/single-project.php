@@ -1,11 +1,11 @@
 <?php
 /**
- * Single Commission
+ * Single Project
  */
 
 $text = apply_filters('the_content',get_post_meta($post->ID, '_cmb2_text', true));
-$website = get_post_meta($post->ID, '_cmb2_commission_url', true);
-$link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
+$website = get_post_meta($post->ID, '_cmb2_project_url', true);
+$link_text = get_post_meta($post->ID, '_cmb2_project_link_text', true);
 ?>
 
 <?php get_template_part('templates/page', 'header'); ?>
@@ -17,11 +17,11 @@ $link_text = get_post_meta($post->ID, '_cmb2_commission_link_text', true);
         <?= $text ?>
 
         <?php if (!empty($website)) { ?>
-          <p class="commission-website type-h3"><a href="<?= $website ?>" target="_blank"><?= (!empty($link_text) ? $link_text : 'Artist\'s Portfolio') ?></a></p>
+          <p class="project-website type-h3"><a href="<?= $website ?>" target="_blank"><?= (!empty($link_text) ? $link_text : 'More about '.$post->post_title) ?></a></p>
         <?php } ?>
       </div>
       <p class="page-link">
-        <a href="/exhibition/" class="button">Back to Exhibition</a>
+        <a href="/grantee-project/" class="button">Back to Grantee Projects</a>
       </p>
     </div>
 

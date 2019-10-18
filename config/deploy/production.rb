@@ -1,6 +1,8 @@
 set :stage, :production
 set :application, 'envisioningjustice'
-set :login, 'ilhumanities'
+set :domain, 'envisioningjustice.org'
+set :branch, :master
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 
 # Simple Role Syntax
 # ==================

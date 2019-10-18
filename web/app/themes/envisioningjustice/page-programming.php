@@ -52,7 +52,7 @@ $events = \Firebelly\PostTypes\Event\get_events($args);
 
         <?php if ($total_events > $per_page) { ?>
           <div class="events-buttons">
-            <div class="load-more" data-post-type="event" data-past-events="<?= $past_events ?>vent" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
+            <div class="load-more" data-post-type="event" data-past-events="<?= $past_events ?>" data-page-at="<?= $paged ?>" data-per-page="<?= $per_page ?>" data-total-pages="<?= $total_pages ?>"><a class="no-ajaxy button -full" href="#">Load More</a></div>
           </div>
         <?php } ?>
 

@@ -187,15 +187,15 @@ gulp.task('fonts', function() {
 
 // ### Images
 // `gulp images` - Run lossless compression on all the images.
-gulp.task('images', function() {
-  return gulp.src(globs.images)
-    .pipe($.imagemin({
-      progressive: true,
-      interlaced: true,
-      svgoPlugins: [{removeUnknownsAndDefaults: false}]
-    }))
-    .pipe(gulp.dest(path.dist + 'images'));
-});
+// gulp.task('images', function() {
+//   return gulp.src(globs.images)
+//     .pipe($.imagemin({
+//       progressive: true,
+//       interlaced: true,
+//       svgoPlugins: [{removeUnknownsAndDefaults: false}]
+//     }))
+//     .pipe(gulp.dest(path.dist + 'images'));
+// });
 
 // ### SVG time!
 gulp.task('svgs', function() {
@@ -249,10 +249,12 @@ gulp.task('watch', function() {
       blacklist: ['/wp-admin/**']
     }
   });
+  // Kick it off with a build
+  gulp.start('build');
   gulp.watch([path.source + 'styles/**/*'], ['styles']);
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
-  gulp.watch([path.source + 'images/**/*'], ['images']);
+  // gulp.watch([path.source + 'images/**/*'], ['images']);
   gulp.watch([path.source + 'svgs/*.svg'], ['svgs']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });
@@ -261,9 +263,10 @@ gulp.task('watch', function() {
 // `gulp build` - Run all the build tasks but don't clean up beforehand.
 // Generally you should be running `gulp` instead of `gulp build`.
 gulp.task('build', function(callback) {
-  runSequence('styles',
+  runSequence('clean',
+              'styles',
               'scripts',
-              ['fonts', 'images'],
+              'fonts',
               callback);
 });
 
@@ -282,6 +285,6 @@ gulp.task('wiredep', function() {
 
 // ### Gulp
 // `gulp` - Run a complete build. To compile for production run `gulp --production`.
-gulp.task('default', ['clean'], function() {
+gulp.task('default', [], function() {
   gulp.start('build');
 });

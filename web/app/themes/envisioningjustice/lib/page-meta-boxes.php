@@ -12,7 +12,7 @@ function metaboxes( array $meta_boxes ) {
   $meta_boxes['page_metabox'] = array(
     'id'            => 'page_metabox',
     'title'         => __( 'Header Text', 'cmb2' ),
-    'object_types'  => array( 'page', 'program', 'commission', 'event', 'story', 'post', 'resource' ),
+    'object_types'  => array( 'page', 'program', 'commission', 'event', 'story', 'post', 'resource', 'project' ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -83,7 +83,7 @@ function metaboxes( array $meta_boxes ) {
     'id'            => 'page_content_areas',
     'title'         => __( 'Content', 'cmb2' ),
     'object_types'  => array( 'page' ),
-    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php', 'page-exhibition.php'] ),
+    'show_on'       => array( 'key' => 'page-template', 'value' => ['page-grants-commissions.php','page-share-your-story.php', 'page-about.php', 'page-exhibition.php', 'page-grantee-projects.php'] ),
     'context'       => 'normal',
     'priority'      => 'high',
     'show_names'    => true,
@@ -126,20 +126,16 @@ function metaboxes( array $meta_boxes ) {
 add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
- * Hide editor on specific pages.
- *
+ * Hide editor on various pages based on template
  */
-add_action( 'admin_head', __NAMESPACE__ . '\hide_editor' );
-function hide_editor() {
-  global $pagenow;
-  if( !( 'post.php' == $pagenow ) ) return;
-  global $post;
-  // Get the Post ID.
-  $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
-  if( !isset( $post_id ) ) return;
-  // Hide the editor on the page titled 'Homepage'
-  $pagetitle = get_the_title($post_id);
-  if($pagetitle == 'Exhibition'){
-    remove_post_type_support('page', 'editor');
+function remove_editor() {
+  if (isset($_GET['post'])) {
+    $id = $_GET['post'];
+    $template = get_post_meta($id, '_wp_page_template', true);
+
+    if(in_array($template, ['page-exhibition.php', 'page-grantee-projects.php'])) {
+      remove_post_type_support('page', 'editor');
+    }
   }
 }
+add_action('init', __NAMESPACE__ . '\remove_editor');
